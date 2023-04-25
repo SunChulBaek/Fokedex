@@ -1,0 +1,55 @@
+version: 2.1
+orbs:
+  android: circleci/android@2.2.0 # https://circleci.com/developer/orbs/orb/circleci/android
+  flutter: circleci/flutter@2.0.2 # https://circleci.com/developer/orbs/orb/circleci/flutter
+  slack: circleci/slack@4.12.1 # https://circleci.com/developer/orbs/orb/circleci/slack
+commands:
+  slack_notify:
+    steps:
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: basic_success_1
+  build_and_archive:
+    parameters:
+      version-code:
+        default: ${CIRCLE_BUILD_NUM}
+        type: string
+      version-name:
+        default: 1.0.0
+        type: string
+      target:
+        type: string
+    steps:
+      - run:
+          name: Build Binaries
+          command: flutter build apk --build-name=<< parameters.version-name >> --build-number=<< parameters.version-code >> --release
+      - run:
+          name: Change File Name
+          command: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/<< parameters.target >>
+      - store_artifacts:
+          path: build/app/outputs/flutter-apk
+          destination: apk
+jobs:
+  build:
+    docker:
+      - image: cimg/android:2022.04 # 최신 tag는 gradle 버전이 맞지 않아서 빌드가 안됨, base 이미지는 gradle 설치가 안되어있음
+    steps:
+      - checkout
+      - flutter/install_sdk_and_pub: # install_sdk (sdk 설치) + install_pub (pub get)
+          version: 3.7.11
+      - android/decode-keystore:
+          keystore-location: android/keystore
+      - android/create-keystore-properties:
+          release-keystore: keystore
+          working-directory: android
+      - flutter/install_android_gradle_dependencies
+      - build_and_archive:
+          target: FlutterTemplate-release-${CIRCLE_BUILD_NUM}.apk
+      - slack_notify
+workflows:
+  build:
+    jobs:
+      - build
