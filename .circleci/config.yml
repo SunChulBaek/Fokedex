@@ -47,7 +47,7 @@ jobs:
           working-directory: android
       - flutter/install_android_gradle_dependencies
       - build_and_archive:
-          target: FlutterTemplate-release-${CIRCLE_BUILD_NUM}.apk
+          target: Fokedex-${CIRCLE_BUILD_NUM}.apk
       - slack_notify
 workflows:
   build:
