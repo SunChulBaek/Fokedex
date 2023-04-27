@@ -21,9 +21,15 @@ class _RestClient implements RestClient {
   String? baseUrl;
 
   @override
-  Future<Response2<List<Pokemon>>> getPokemonList() async {
+  Future<Response2<List<Pokemon>>> getPokemonList({
+    limit = 20,
+    offset = 0,
+  }) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'limit': limit,
+      r'offset': offset,
+    };
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -45,6 +51,29 @@ class _RestClient implements RestClient {
           .map<Pokemon>((i) => Pokemon.fromJson(i as Map<String, dynamic>))
           .toList(),
     );
+    return value;
+  }
+
+  @override
+  Future<PokemonDetail> getPokemon({required id}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<PokemonDetail>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'pokemon/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = PokemonDetail.fromJson(_result.data!);
     return value;
   }
 

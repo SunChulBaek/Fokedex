@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/data/model/pokemon.dart';
 import 'package:flutter_template/ui/detail/photo.dart';
 
-class PokemonListItem extends StatelessWidget {
-  const PokemonListItem({super.key, required this.pokemon, required this.onClick});
+import '../model/ui_pokemon.dart';
 
-  final Pokemon pokemon;
+class PokemonGridItem extends StatelessWidget {
+  const PokemonGridItem({super.key, required this.pokemon, required this.onClick});
+
+  final UiPokemon pokemon;
   final void Function(BuildContext context, Object param) onClick;
 
   @override
@@ -15,38 +16,38 @@ class PokemonListItem extends StatelessWidget {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
       child: InkWell(
-        child: Row(
+        child: Stack(
+          alignment: AlignmentDirectional.center,
           children: [
-            CachedNetworkImage(
-              width: 80,
-              height: 80,
-              imageUrl: pokemon.url,
-              fit: BoxFit.fitHeight,
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
+            Column(
+              children: [
+                const SizedBox(height: 10),
+                Expanded(
+                  child: CachedNetworkImage(
+                    imageUrl: pokemon.imageUrl,
+                    fit: BoxFit.fitHeight,
+                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.red),
+                  )
+                ),
+                Text(pokemon.name, maxLines: 2, overflow: TextOverflow.ellipsis),
+                const SizedBox(height: 10),
+              ],
             ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: SizedBox(
-                height: 80,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 8),
-                    Text(pokemon.name, maxLines: 2, overflow: TextOverflow.ellipsis),
-                    const SizedBox(height: 8),
-                  ]
-                )
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8, top: 8),
+                child: Text(pokemon.id.toString())
               )
-            )
-          ],
+            ),
+          ]
         ),
         onTap: () => onClick.call(
             context,
             PokemonParam(
               title: pokemon.name,
-              url: pokemon.url,
+              url: pokemon.imageUrl,
             )
           )
         )

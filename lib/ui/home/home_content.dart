@@ -30,29 +30,35 @@ class _HomeState extends State<HomeContent> {
           return StateView(
             state: state,
             child: (pokemonList?.isEmpty ?? true)
-              ? const Center(child: Text('No products'))
-              : RefreshIndicator(
-              child: Scrollbar(
-                thumbVisibility: true,
-                controller: _scrollController,
-                child: ListView.builder(
+              ? const Center(child: Text('No pokemon!'))
+              : Scrollbar(
+                  thumbVisibility: true,
                   controller: _scrollController,
-                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                  itemBuilder: (BuildContext context, int index) {
-                    return index >= pokemonList.length
-                      ? const BottomLoader()
-                      : PokemonListItem(
-                      pokemon: pokemonList[index],
-                      onClick: widget.onClickItem
-                    );
-                  },
-                  itemCount: pokemonList!.length,
+                  child: NotificationListener<ScrollNotification>(
+                    onNotification: (ScrollNotification scrollInfo) {
+                      if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+                        _getPokemonListCubit.init(offset: pokemonList.length);
+                      }
+                      return true;
+                    },
+                    child: GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2
+                      ),
+                      controller: _scrollController,
+                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                      itemBuilder: (BuildContext context, int index) {
+                        return index >= pokemonList.length
+                          ? const BottomLoader()
+                          : PokemonGridItem(
+                          pokemon: pokemonList[index],
+                          onClick: widget.onClickItem
+                        );
+                      },
+                      itemCount: pokemonList!.length,
+                    )
+                  )
                 )
-              ),
-              onRefresh: () async {
-                _getPokemonListCubit.init();
-              }
-            )
           );
         }
       )

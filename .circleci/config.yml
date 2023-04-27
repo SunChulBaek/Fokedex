@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   android: circleci/android@2.2.0 # https://circleci.com/developer/orbs/orb/circleci/android
   flutter: circleci/flutter@2.0.2 # https://circleci.com/developer/orbs/orb/circleci/flutter
-  slack: circleci/slack@4.12.1 # https://circleci.com/developer/orbs/orb/circleci/slack
+  slack: circleci/slack@4.12.2 # https://circleci.com/developer/orbs/orb/circleci/slack
 commands:
   slack_notify:
     steps:

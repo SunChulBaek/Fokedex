@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PokemonListData {
-  List<Pokemon> get pokemonList => throw _privateConstructorUsedError;
+  List<UiPokemon> get pokemonList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PokemonListDataCopyWith<PokemonListData> get copyWith =>
@@ -29,7 +29,7 @@ abstract class $PokemonListDataCopyWith<$Res> {
           PokemonListData value, $Res Function(PokemonListData) then) =
       _$PokemonListDataCopyWithImpl<$Res, PokemonListData>;
   @useResult
-  $Res call({List<Pokemon> pokemonList});
+  $Res call({List<UiPokemon> pokemonList});
 }
 
 /// @nodoc
@@ -51,7 +51,7 @@ class _$PokemonListDataCopyWithImpl<$Res, $Val extends PokemonListData>
       pokemonList: null == pokemonList
           ? _value.pokemonList
           : pokemonList // ignore: cast_nullable_to_non_nullable
-              as List<Pokemon>,
+              as List<UiPokemon>,
     ) as $Val);
   }
 }
@@ -64,7 +64,7 @@ abstract class _$$_PokemonListDataCopyWith<$Res>
       __$$_PokemonListDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Pokemon> pokemonList});
+  $Res call({List<UiPokemon> pokemonList});
 }
 
 /// @nodoc
@@ -84,7 +84,7 @@ class __$$_PokemonListDataCopyWithImpl<$Res>
       pokemonList: null == pokemonList
           ? _value._pokemonList
           : pokemonList // ignore: cast_nullable_to_non_nullable
-              as List<Pokemon>,
+              as List<UiPokemon>,
     ));
   }
 }
@@ -92,12 +92,12 @@ class __$$_PokemonListDataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PokemonListData implements _PokemonListData {
-  _$_PokemonListData({required final List<Pokemon> pokemonList})
+  _$_PokemonListData({required final List<UiPokemon> pokemonList})
       : _pokemonList = pokemonList;
 
-  final List<Pokemon> _pokemonList;
+  final List<UiPokemon> _pokemonList;
   @override
-  List<Pokemon> get pokemonList {
+  List<UiPokemon> get pokemonList {
     if (_pokemonList is EqualUnmodifiableListView) return _pokemonList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_pokemonList);
@@ -129,11 +129,11 @@ class _$_PokemonListData implements _PokemonListData {
 }
 
 abstract class _PokemonListData implements PokemonListData {
-  factory _PokemonListData({required final List<Pokemon> pokemonList}) =
+  factory _PokemonListData({required final List<UiPokemon> pokemonList}) =
       _$_PokemonListData;
 
   @override
-  List<Pokemon> get pokemonList;
+  List<UiPokemon> get pokemonList;
   @override
   @JsonKey(ignore: true)
   _$$_PokemonListDataCopyWith<_$_PokemonListData> get copyWith =>

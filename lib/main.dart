@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'Fokedex',
       theme: ThemeData(
         fontFamily: 'Pretendard',
-        primarySwatch: Colors.indigo,
+        primaryColor: const Color(0xFF29b6f6),
         useMaterial3: true,
         splashFactory: InkRipple.splashFactory,
         pageTransitionsTheme: const PageTransitionsTheme(

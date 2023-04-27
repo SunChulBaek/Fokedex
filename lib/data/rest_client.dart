@@ -5,6 +5,8 @@ import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:retrofit/http.dart';
 
+import 'model/pokemon_detail.dart';
+
 part 'rest_client.g.dart';
 
 @singleton
@@ -16,7 +18,15 @@ abstract class RestClient {
   factory RestClient.from(Dio dio) => RestClient(dio);
 
   @GET('pokemon')
-  Future<Response2<List<Pokemon>>> getPokemonList();
+  Future<Response2<List<Pokemon>>> getPokemonList({
+    @Query("limit") int limit = 20,
+    @Query("offset") int offset = 0,
+  });
+
+  @GET('pokemon/{id}')
+  Future<PokemonDetail> getPokemon({
+    @Path('id') required int id
+  });
 }
 
 DateTime? dateTimeFromString(String? text) {

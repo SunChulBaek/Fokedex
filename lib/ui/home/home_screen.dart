@@ -39,6 +39,8 @@ class _HomeState extends State<HomeScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          backgroundColor: Theme.of(context).primaryColor,
+          foregroundColor: Colors.white,
         ),
         body: SafeArea(
           child: HomeContent(onClickItem: widget.onClickMon)

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_template/bloc/model/ui_state.dart';
-import 'package:flutter_template/data/model/pokemon.dart';
 import 'package:flutter_template/data/repository.dart';
+import 'package:flutter_template/ui/model/ui_pokemon.dart';
 import 'package:flutter_template/util/timber.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -12,7 +12,7 @@ part 'get_pokemon_list_cubit.freezed.dart';
 @injectable
 class PokemonListData with _$PokemonListData {
   factory PokemonListData({
-    required List<Pokemon> pokemonList
+    required List<UiPokemon> pokemonList
   }) = _PokemonListData;
 
   @factoryMethod
@@ -25,13 +25,18 @@ class GetPokemonListCubit extends Cubit<UiState> {
 
   final Repository _repository;
 
-  void init() async {
+  List<UiPokemon> list = List.empty(growable: true);
+
+  void init({ int limit = 20, int offset = 0 }) async {
     try {
-      final pokemonList = await _repository.getPokemonList();
+      final pokemonList = await _repository.getPokemonList(limit: limit, offset: offset);
+      list.addAll(pokemonList.results.map((e) =>
+          UiPokemon.from(e)
+      ).where((e) =>
+          !list.map((x) => x.id).contains(e.id)
+      ));
       return emit(Success(
-        data: PokemonListData(
-          pokemonList: pokemonList.results
-        )
+        data: PokemonListData(pokemonList: list.toList())
       ));
     } catch (e) {
       Timber.e(e);
