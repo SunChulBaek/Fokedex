@@ -1,11 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/ui/detail/photo.dart';
+import 'package:flutter_template/ui/detail/pokemon.dart';
 
 import '../model/ui_pokemon.dart';
 
 class PokemonGridItem extends StatelessWidget {
-  const PokemonGridItem({super.key, required this.pokemon, required this.onClick});
+  const PokemonGridItem({
+    super.key,
+    required this.pokemon,
+    required this.onClick
+  });
 
   final UiPokemon pokemon;
   final void Function(BuildContext context, Object param) onClick;
@@ -46,8 +50,11 @@ class PokemonGridItem extends StatelessWidget {
         onTap: () => onClick.call(
             context,
             PokemonParam(
+              id: pokemon.id,
               title: pokemon.name,
               url: pokemon.imageUrl,
+              colorStart: 0xFFe91e63,
+              colorEnd: 0xFF03a9f4
             )
           )
         )

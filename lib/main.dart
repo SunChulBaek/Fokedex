@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_template/injectable.dart';
-import 'package:flutter_template/ui/detail/photo.dart';
+import 'package:flutter_template/ui/detail/pokemon.dart';
 import 'package:flutter_template/ui/detail/webview.dart';
 import 'package:flutter_template/ui/home/home_screen.dart';
 import 'package:go_router/go_router.dart';
