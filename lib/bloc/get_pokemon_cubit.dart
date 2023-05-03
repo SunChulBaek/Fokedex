@@ -28,8 +28,12 @@ class GetPokemonCubit extends Cubit<UiState> {
   void init(int id) async {
     try {
       final pokemon = await _repository.getPokemon(id: id);
+      return emit(Success(data: PokemonData(
+        number: pokemon.id
+      )));
     } catch (e) {
       Timber.e(e);
+      emit(Error());
     }
   }
 }
