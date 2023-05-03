@@ -1,4 +1,5 @@
 # Fokedex [![CircleCI](https://dl.circleci.com/status-badge/img/gh/SunChulBaek/Fokedex/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/SunChulBaek/Fokedex/tree/main)
+[skydoves/Pokedex](https://github.com/skydoves/Pokedex)의 Flutter 커버 버전 입니다.
 * Architecture
   * [BLoC](https://www.didierboelens.com/2018/08/reactive-programming-streams-bloc/) 패턴
 * Library
