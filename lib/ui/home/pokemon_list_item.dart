@@ -27,11 +27,14 @@ class PokemonGridItem extends StatelessWidget {
               children: [
                 const SizedBox(height: 10),
                 Expanded(
-                  child: CachedNetworkImage(
-                    imageUrl: pokemon.imageUrl,
-                    fit: BoxFit.fitHeight,
-                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.red),
+                  child: Hero(
+                    tag: pokemon.id,
+                    child: CachedNetworkImage(
+                      imageUrl: pokemon.imageUrl,
+                      fit: BoxFit.fitHeight,
+                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.red),
+                    )
                   )
                 ),
                 Text(pokemon.name, maxLines: 2, overflow: TextOverflow.ellipsis),
@@ -48,16 +51,16 @@ class PokemonGridItem extends StatelessWidget {
           ]
         ),
         onTap: () => onClick.call(
-            context,
-            PokemonParam(
-              id: pokemon.id,
-              title: pokemon.name,
-              url: pokemon.imageUrl,
-              colorStart: 0xFFe91e63,
-              colorEnd: 0xFF03a9f4
-            )
+          context,
+          PokemonParam(
+            id: pokemon.id,
+            title: pokemon.name,
+            url: pokemon.imageUrl,
+            colorStart: 0xFFe91e63,
+            colorEnd: 0xFF03a9f4
           )
         )
-      );
+      )
+    );
   }
 }

@@ -76,30 +76,33 @@ class _PokemonState extends State<PokemonScreen> {
                         end: Alignment.bottomCenter
                       )
                     ),
-                    child: CachedNetworkImage(
-                      imageUrl: widget.param.url,
-                      fit: BoxFit.fitWidth,
-                      placeholder: (context, url) => AspectRatio(
-                        aspectRatio: 1,
-                        child: Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          color: Colors.grey,
-                          child: const Center(
-                              child: CircularProgressIndicator()
-                          ),
-                        )
-                      ),
-                      errorWidget: (context, url, error) => const AspectRatio(
-                        aspectRatio: 1,
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: double.infinity,
-                          child: Center(
-                            child: Icon(Icons.error, color: Colors.red),
-                          ),
-                        )
-                      ),
+                    child: Hero(
+                      tag: widget.param.id,
+                      child: CachedNetworkImage(
+                        imageUrl: widget.param.url,
+                        fit: BoxFit.fitWidth,
+                        placeholder: (context, url) => AspectRatio(
+                          aspectRatio: 1,
+                          child: Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                            color: Colors.grey,
+                            child: const Center(
+                                child: CircularProgressIndicator()
+                            ),
+                          )
+                        ),
+                        errorWidget: (context, url, error) => const AspectRatio(
+                          aspectRatio: 1,
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: double.infinity,
+                            child: Center(
+                              child: Icon(Icons.error, color: Colors.red),
+                            ),
+                          )
+                        ),
+                      )
                     )
                   )
                 ),
