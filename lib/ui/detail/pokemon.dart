@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/bloc/get_pokemon_cubit.dart';
 import 'package:flutter_template/bloc/model/ui_state.dart';
 import 'package:flutter_template/injectable.dart';
+import 'package:flutter_template/ui/model/ui_pokemon_detail.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
@@ -49,7 +50,12 @@ class _PokemonState extends State<PokemonScreen> {
       create: (_) => _getPokemonCubit,
       child: BlocBuilder<GetPokemonCubit, UiState>(
         builder: (context, state) {
+          UiPokemonDetail? pokemon;
+          if (state is Success) {
+            pokemon = (state as Success<UiPokemonDetail>).data;
+          }
           return Scaffold(
+            backgroundColor: const Color(0xFF212121),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -106,10 +112,71 @@ class _PokemonState extends State<PokemonScreen> {
                     )
                   )
                 ),
+                // 이름
                 Align(
                   alignment: Alignment.center,
-                  child: Text(widget.param.title, style: const TextStyle(fontSize: 16))
+                  child: Text(widget.param.title, style: const TextStyle(fontSize: 16, color: Colors.white))
                 ),
+                // 타입
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(child: Container()),
+                    ...pokemon?.types.map((type) =>
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16.0),
+                        child: Container(
+                          color: type.color,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                            child: Text(
+                              type.name,
+                              style: const TextStyle(color: Colors.white)
+                            )
+                          )
+                        )
+                      )
+                    ).toList() ?? List.empty(),
+                    Expanded(child: Container()),
+                  ],
+                ),
+                // 몸무게, 키
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(child: Container()),
+                    Column(children: [
+                      Text(
+                        '${NumberFormat('#,##0.0').format((pokemon?.weight.toDouble() ?? 0) / 10)} KG',
+                        style: const TextStyle(color: Colors.white)
+                      ),
+                      const Text('Weight', style: TextStyle(color: Colors.white))
+                    ]),
+                    Expanded(child: Container()),
+                    Column(children: [
+                      Text(
+                        '${NumberFormat('#,##0.0').format((pokemon?.height.toDouble() ?? 0) / 10)} M',
+                        style: const TextStyle(color: Colors.white)
+                      ),
+                      const Text('Height', style: TextStyle(color: Colors.white))
+                    ]),
+                    Expanded(child: Container()),
+                  ],
+                ),
+                const Align(
+                  alignment: Alignment.center,
+                  child: Text('Base Stats', style: TextStyle(fontSize: 16, color: Colors.white))
+                ),
+                // 스탯
+                ...pokemon?.stats.map((stat) =>
+                  Row(
+                    children: [
+                      Text(stat.name, style: const TextStyle(color: Colors.white)),
+                      const SizedBox(width: 10),
+                      Text(stat.value.toString(), style: const TextStyle(color: Colors.white)),
+                    ],
+                  )
+                ).toList() ?? List.empty()
               ]
             )
           );

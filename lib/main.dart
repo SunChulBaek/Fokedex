@@ -5,6 +5,7 @@ import 'package:flutter_template/injectable.dart';
 import 'package:flutter_template/ui/detail/pokemon.dart';
 import 'package:flutter_template/ui/detail/webview.dart';
 import 'package:flutter_template/ui/home/home_screen.dart';
+import 'package:flutter_template/ui/model/ui_pokemon_detail.dart';
 import 'package:go_router/go_router.dart';
 
 class MyHttpOverrides extends HttpOverrides {

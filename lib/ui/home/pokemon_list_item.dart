@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/ui/detail/pokemon.dart';
+import 'package:flutter_template/ui/model/ui_pokemon_detail.dart';
 
 import '../model/ui_pokemon.dart';
 
