@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_template/data/model/pokemon.dart';
-import 'package:flutter_template/data/model/response2.dart';
+import 'package:flutter_template/data/model/network_named_api_resource_list.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:retrofit/http.dart';
 
-import 'model/pokemon_detail.dart';
+import 'model/network_pokemon.dart';
 
 part 'rest_client.g.dart';
 
@@ -18,13 +17,13 @@ abstract class RestClient {
   factory RestClient.from(Dio dio) => RestClient(dio);
 
   @GET('pokemon')
-  Future<Response2<List<Pokemon>>> getPokemonList({
+  Future<NetworkNamedAPIResourceList> getPokemonList({
     @Query("limit") int limit = 20,
     @Query("offset") int offset = 0,
   });
 
   @GET('pokemon/{id}')
-  Future<PokemonDetail> getPokemon({
+  Future<NetworkPokemon> getPokemon({
     @Path('id') required int id
   });
 }

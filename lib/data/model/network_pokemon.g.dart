@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pokemon_detail.dart';
+part of 'network_pokemon.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PokemonDetail _$PokemonDetailFromJson(Map<String, dynamic> json) =>
-    PokemonDetail(
+NetworkPokemon _$NetworkPokemonFromJson(Map<String, dynamic> json) =>
+    NetworkPokemon(
       id: json['id'] as int,
       name: json['name'] as String,
       baseExp: json['base_experience'] as int,
@@ -15,9 +15,15 @@ PokemonDetail _$PokemonDetailFromJson(Map<String, dynamic> json) =>
       isDefault: json['is_default'] as bool,
       order: json['order'] as int,
       weight: json['weight'] as int,
+      types: (json['types'] as List<dynamic>)
+          .map((e) => NetworkPokemonType.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      stats: (json['stats'] as List<dynamic>)
+          .map((e) => NetworkPokemonStat.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-Map<String, dynamic> _$PokemonDetailToJson(PokemonDetail instance) =>
+Map<String, dynamic> _$NetworkPokemonToJson(NetworkPokemon instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
@@ -26,4 +32,6 @@ Map<String, dynamic> _$PokemonDetailToJson(PokemonDetail instance) =>
       'is_default': instance.isDefault,
       'order': instance.order,
       'weight': instance.weight,
+      'types': instance.types,
+      'stats': instance.stats,
     };

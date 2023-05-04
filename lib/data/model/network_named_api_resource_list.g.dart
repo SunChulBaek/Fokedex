@@ -1,29 +1,32 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'response2.dart';
+part of 'network_named_api_resource_list.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Response2<T> _$Response2FromJson<T>(
+NetworkNamedAPIResourceList<T> _$NetworkNamedAPIResourceListFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
 ) =>
-    Response2<T>(
+    NetworkNamedAPIResourceList<T>(
       json['count'] as int,
       json['previous'] as String?,
       json['next'] as String?,
-      fromJsonT(json['results']),
+      (json['results'] as List<dynamic>)
+          .map((e) =>
+              NetworkNamedAPIResource.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-Map<String, dynamic> _$Response2ToJson<T>(
-  Response2<T> instance,
+Map<String, dynamic> _$NetworkNamedAPIResourceListToJson<T>(
+  NetworkNamedAPIResourceList<T> instance,
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
       'count': instance.count,
       'previous': instance.prev,
       'next': instance.next,
-      'results': toJsonT(instance.results),
+      'results': instance.results,
     };

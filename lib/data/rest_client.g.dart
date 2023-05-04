@@ -21,7 +21,7 @@ class _RestClient implements RestClient {
   String? baseUrl;
 
   @override
-  Future<Response2<List<Pokemon>>> getPokemonList({
+  Future<NetworkNamedAPIResourceList<dynamic>> getPokemonList({
     limit = 20,
     offset = 0,
   }) async {
@@ -33,7 +33,7 @@ class _RestClient implements RestClient {
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<Response2<List<Pokemon>>>(Options(
+        _setStreamType<NetworkNamedAPIResourceList<dynamic>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -45,23 +45,21 @@ class _RestClient implements RestClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = Response2<List<Pokemon>>.fromJson(
+    final value = NetworkNamedAPIResourceList<dynamic>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<Pokemon>((i) => Pokemon.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json as dynamic,
     );
     return value;
   }
 
   @override
-  Future<PokemonDetail> getPokemon({required id}) async {
+  Future<NetworkPokemon> getPokemon({required id}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<PokemonDetail>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<NetworkPokemon>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -73,7 +71,7 @@ class _RestClient implements RestClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PokemonDetail.fromJson(_result.data!);
+    final value = NetworkPokemon.fromJson(_result.data!);
     return value;
   }
 
