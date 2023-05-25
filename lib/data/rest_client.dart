@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_template/data/model/network_named_api_resource_list.dart';
+import 'package:flutter_template/data/model/network_type.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:retrofit/http.dart';
@@ -24,6 +25,11 @@ abstract class RestClient {
 
   @GET('pokemon/{id}')
   Future<NetworkPokemon> getPokemon({
+    @Path('id') required int id
+  });
+
+  @GET('type/{id}')
+  Future<NetworkType> getType({
     @Path('id') required int id
   });
 }
