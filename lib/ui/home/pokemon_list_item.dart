@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/ui/common/pokemon_progress_indicator.dart';
 import 'package:flutter_template/ui/detail/pokemon.dart';
-import 'package:flutter_template/ui/model/ui_pokemon_detail.dart';
 
 import '../model/ui_pokemon.dart';
 
@@ -33,7 +33,7 @@ class PokemonGridItem extends StatelessWidget {
                     child: CachedNetworkImage(
                       imageUrl: pokemon.imageUrl,
                       fit: BoxFit.fitHeight,
-                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                      placeholder: (context, url) => const Center(child: PokemonProgressIndicator(size: 30)),
                       errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.red),
                     )
                   )

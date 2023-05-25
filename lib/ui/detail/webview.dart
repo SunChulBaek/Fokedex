@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/ui/common/pokemon_progress_indicator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -59,7 +60,7 @@ class _WebViewState extends State<WebViewScreen> {
       body: Stack(
         children: <Widget>[
           WebViewWidget(controller: controller),
-          isLoading ? const Center(child: CircularProgressIndicator()) : Stack()
+          isLoading ? const Center(child: PokemonProgressIndicator(size: 30)) : Stack()
         ]
       )
     );

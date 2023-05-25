@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/bloc/get_pokemon_cubit.dart';
 import 'package:flutter_template/bloc/model/ui_state.dart';
 import 'package:flutter_template/injectable.dart';
+import 'package:flutter_template/ui/common/pokemon_progress_indicator.dart';
 import 'package:flutter_template/ui/model/ui_pokemon_detail.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -94,7 +95,7 @@ class _PokemonState extends State<PokemonScreen> {
                             height: double.infinity,
                             color: Colors.grey,
                             child: const Center(
-                                child: CircularProgressIndicator()
+                                child: PokemonProgressIndicator(size: 30)
                             ),
                           )
                         ),

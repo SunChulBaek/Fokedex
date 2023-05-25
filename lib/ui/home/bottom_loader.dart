@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/ui/common/pokemon_progress_indicator.dart';
 
 class BottomLoader extends StatelessWidget {
   const BottomLoader({super.key});
@@ -8,7 +9,7 @@ class BottomLoader extends StatelessWidget {
     return const Center(child: SizedBox(
       height: 24,
       width: 24,
-      child: CircularProgressIndicator(strokeWidth: 1.5)
+      child: PokemonProgressIndicator(size: 30)
     ));
   }
 }
