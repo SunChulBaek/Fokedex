@@ -21,6 +21,29 @@ class _RestClient implements RestClient {
   String? baseUrl;
 
   @override
+  Future<NetworkEvolutionChain> getEvolutionChain({required id}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<NetworkEvolutionChain>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'evolution-chain/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = NetworkEvolutionChain.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<NetworkNamedAPIResourceList<dynamic>> getPokemonList({
     limit = 20,
     offset = 0,
@@ -72,6 +95,29 @@ class _RestClient implements RestClient {
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = NetworkPokemon.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<NetworkPokemonSpecies> getSpecies({required id}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<NetworkPokemonSpecies>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'species/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = NetworkPokemonSpecies.fromJson(_result.data!);
     return value;
   }
 

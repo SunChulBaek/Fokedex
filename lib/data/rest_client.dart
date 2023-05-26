@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_template/data/model/network_evolution_chain.dart';
 import 'package:flutter_template/data/model/network_named_api_resource_list.dart';
+import 'package:flutter_template/data/model/network_pokemon_species.dart';
 import 'package:flutter_template/data/model/network_type.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +19,11 @@ abstract class RestClient {
   @factoryMethod
   factory RestClient.from(Dio dio) => RestClient(dio);
 
+  @GET('evolution-chain/{id}')
+  Future<NetworkEvolutionChain> getEvolutionChain({
+    @Path('id') required int id
+  });
+
   @GET('pokemon')
   Future<NetworkNamedAPIResourceList> getPokemonList({
     @Query("limit") int limit = 20,
@@ -25,6 +32,11 @@ abstract class RestClient {
 
   @GET('pokemon/{id}')
   Future<NetworkPokemon> getPokemon({
+    @Path('id') required int id
+  });
+
+  @GET('species/{id}')
+  Future<NetworkPokemonSpecies> getSpecies({
     @Path('id') required int id
   });
 
