@@ -39,7 +39,7 @@ jobs:
     steps:
       - checkout
       - flutter/install_sdk_and_pub: # install_sdk (sdk 설치) + install_pub (pub get)
-          version: 3.7.11
+          version: 3.10.2
       - android/decode-keystore:
           keystore-location: android/keystore
       - android/create-keystore-properties:
