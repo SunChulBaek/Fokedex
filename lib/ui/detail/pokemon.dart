@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_template/util/converter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
@@ -119,21 +120,28 @@ class _PokemonState extends State<PokemonScreen> {
                   alignment: Alignment.center,
                   child: Text(pokemon?.name ?? widget.param.title, style: const TextStyle(fontSize: 16, color: Colors.white))
                 ),
+                Text(
+                  pokemon?.flavorText ?? "",
+                  style: const TextStyle(fontSize: 16, color: Colors.white)
+                ),
                 // 타입
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(child: Container()),
                     ...pokemon?.types.map((type) =>
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(16.0),
-                        child: Container(
-                          color: type.color,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-                            child: Text(
-                              type.name,
-                              style: const TextStyle(color: Colors.white)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16.0),
+                          child: Container(
+                            color: getColorFromId(type.id),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                              child: Text(
+                                type.name,
+                                style: const TextStyle(color: Colors.white)
+                              )
                             )
                           )
                         )
@@ -165,20 +173,20 @@ class _PokemonState extends State<PokemonScreen> {
                     Expanded(child: Container()),
                   ],
                 ),
-                const Align(
-                  alignment: Alignment.center,
-                  child: Text('Base Stats', style: TextStyle(fontSize: 16, color: Colors.white))
-                ),
-                // 스탯
-                ...pokemon?.stats.map((stat) =>
-                  Row(
-                    children: [
-                      Text(stat.name, style: const TextStyle(color: Colors.white)),
-                      const SizedBox(width: 10),
-                      Text(stat.value.toString(), style: const TextStyle(color: Colors.white)),
-                    ],
-                  )
-                ).toList() ?? List.empty()
+                // const Align(
+                //   alignment: Alignment.center,
+                //   child: Text('Base Stats', style: TextStyle(fontSize: 16, color: Colors.white))
+                // ),
+                // // 스탯
+                // ...pokemon?.stats.map((stat) =>
+                //   Row(
+                //     children: [
+                //       Text(stat.name, style: const TextStyle(color: Colors.white)),
+                //       const SizedBox(width: 10),
+                //       Text(stat.value.toString(), style: const TextStyle(color: Colors.white)),
+                //     ],
+                //   )
+                // ).toList() ?? List.empty()
               ]
             )
           );

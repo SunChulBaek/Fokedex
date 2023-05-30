@@ -10,6 +10,7 @@ class UiPokemonDetail with _$UiPokemonDetail {
   factory UiPokemonDetail({
     required int id,
     required String name,
+    required String flavorText,
     required List<UiType> types,
     required int weight,
     required int height,

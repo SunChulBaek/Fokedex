@@ -13,6 +13,9 @@ NetworkPokemonSpecies _$NetworkPokemonSpeciesFromJson(
       names: (json['names'] as List<dynamic>)
           .map((e) => NetworkName.fromJson(e as Map<String, dynamic>))
           .toList(),
+      flavorTextEntries: (json['flavor_text_entries'] as List<dynamic>)
+          .map((e) => NetworkFlavorText.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$NetworkPokemonSpeciesToJson(
@@ -20,4 +23,5 @@ Map<String, dynamic> _$NetworkPokemonSpeciesToJson(
     <String, dynamic>{
       'id': instance.id,
       'names': instance.names,
+      'flavor_text_entries': instance.flavorTextEntries,
     };
