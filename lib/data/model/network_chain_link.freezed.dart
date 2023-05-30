@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$NetworkChainLink {
   @JsonKey(name: 'is_baby')
   bool get isBaby => throw _privateConstructorUsedError;
+  @JsonKey(name: 'species')
+  NetworkNamedAPIResource get species => throw _privateConstructorUsedError;
   @JsonKey(name: 'evolution_details')
   List<NetworkEvolutionDetail> get evolutionDetails =>
       throw _privateConstructorUsedError;
@@ -38,10 +40,14 @@ abstract class $NetworkChainLinkCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'is_baby')
           bool isBaby,
+      @JsonKey(name: 'species')
+          NetworkNamedAPIResource species,
       @JsonKey(name: 'evolution_details')
           List<NetworkEvolutionDetail> evolutionDetails,
       @JsonKey(name: 'evolves_to')
           List<NetworkChainLink> evolvesTo});
+
+  $NetworkNamedAPIResourceCopyWith<$Res> get species;
 }
 
 /// @nodoc
@@ -58,6 +64,7 @@ class _$NetworkChainLinkCopyWithImpl<$Res, $Val extends NetworkChainLink>
   @override
   $Res call({
     Object? isBaby = null,
+    Object? species = null,
     Object? evolutionDetails = null,
     Object? evolvesTo = null,
   }) {
@@ -66,6 +73,10 @@ class _$NetworkChainLinkCopyWithImpl<$Res, $Val extends NetworkChainLink>
           ? _value.isBaby
           : isBaby // ignore: cast_nullable_to_non_nullable
               as bool,
+      species: null == species
+          ? _value.species
+          : species // ignore: cast_nullable_to_non_nullable
+              as NetworkNamedAPIResource,
       evolutionDetails: null == evolutionDetails
           ? _value.evolutionDetails
           : evolutionDetails // ignore: cast_nullable_to_non_nullable
@@ -75,6 +86,14 @@ class _$NetworkChainLinkCopyWithImpl<$Res, $Val extends NetworkChainLink>
           : evolvesTo // ignore: cast_nullable_to_non_nullable
               as List<NetworkChainLink>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $NetworkNamedAPIResourceCopyWith<$Res> get species {
+    return $NetworkNamedAPIResourceCopyWith<$Res>(_value.species, (value) {
+      return _then(_value.copyWith(species: value) as $Val);
+    });
   }
 }
 
@@ -89,10 +108,15 @@ abstract class _$$_NetworkChainLinkCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'is_baby')
           bool isBaby,
+      @JsonKey(name: 'species')
+          NetworkNamedAPIResource species,
       @JsonKey(name: 'evolution_details')
           List<NetworkEvolutionDetail> evolutionDetails,
       @JsonKey(name: 'evolves_to')
           List<NetworkChainLink> evolvesTo});
+
+  @override
+  $NetworkNamedAPIResourceCopyWith<$Res> get species;
 }
 
 /// @nodoc
@@ -107,6 +131,7 @@ class __$$_NetworkChainLinkCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isBaby = null,
+    Object? species = null,
     Object? evolutionDetails = null,
     Object? evolvesTo = null,
   }) {
@@ -115,6 +140,10 @@ class __$$_NetworkChainLinkCopyWithImpl<$Res>
           ? _value.isBaby
           : isBaby // ignore: cast_nullable_to_non_nullable
               as bool,
+      species: null == species
+          ? _value.species
+          : species // ignore: cast_nullable_to_non_nullable
+              as NetworkNamedAPIResource,
       evolutionDetails: null == evolutionDetails
           ? _value._evolutionDetails
           : evolutionDetails // ignore: cast_nullable_to_non_nullable
@@ -133,6 +162,8 @@ class _$_NetworkChainLink implements _NetworkChainLink {
   _$_NetworkChainLink(
       {@JsonKey(name: 'is_baby')
           required this.isBaby,
+      @JsonKey(name: 'species')
+          required this.species,
       @JsonKey(name: 'evolution_details')
           required final List<NetworkEvolutionDetail> evolutionDetails,
       @JsonKey(name: 'evolves_to')
@@ -143,6 +174,9 @@ class _$_NetworkChainLink implements _NetworkChainLink {
   @override
   @JsonKey(name: 'is_baby')
   final bool isBaby;
+  @override
+  @JsonKey(name: 'species')
+  final NetworkNamedAPIResource species;
   final List<NetworkEvolutionDetail> _evolutionDetails;
   @override
   @JsonKey(name: 'evolution_details')
@@ -164,7 +198,7 @@ class _$_NetworkChainLink implements _NetworkChainLink {
 
   @override
   String toString() {
-    return 'NetworkChainLink(isBaby: $isBaby, evolutionDetails: $evolutionDetails, evolvesTo: $evolvesTo)';
+    return 'NetworkChainLink(isBaby: $isBaby, species: $species, evolutionDetails: $evolutionDetails, evolvesTo: $evolvesTo)';
   }
 
   @override
@@ -173,6 +207,7 @@ class _$_NetworkChainLink implements _NetworkChainLink {
         (other.runtimeType == runtimeType &&
             other is _$_NetworkChainLink &&
             (identical(other.isBaby, isBaby) || other.isBaby == isBaby) &&
+            (identical(other.species, species) || other.species == species) &&
             const DeepCollectionEquality()
                 .equals(other._evolutionDetails, _evolutionDetails) &&
             const DeepCollectionEquality()
@@ -183,6 +218,7 @@ class _$_NetworkChainLink implements _NetworkChainLink {
   int get hashCode => Object.hash(
       runtimeType,
       isBaby,
+      species,
       const DeepCollectionEquality().hash(_evolutionDetails),
       const DeepCollectionEquality().hash(_evolvesTo));
 
@@ -197,6 +233,8 @@ abstract class _NetworkChainLink implements NetworkChainLink {
   factory _NetworkChainLink(
           {@JsonKey(name: 'is_baby')
               required final bool isBaby,
+          @JsonKey(name: 'species')
+              required final NetworkNamedAPIResource species,
           @JsonKey(name: 'evolution_details')
               required final List<NetworkEvolutionDetail> evolutionDetails,
           @JsonKey(name: 'evolves_to')
@@ -206,6 +244,9 @@ abstract class _NetworkChainLink implements NetworkChainLink {
   @override
   @JsonKey(name: 'is_baby')
   bool get isBaby;
+  @override
+  @JsonKey(name: 'species')
+  NetworkNamedAPIResource get species;
   @override
   @JsonKey(name: 'evolution_details')
   List<NetworkEvolutionDetail> get evolutionDetails;

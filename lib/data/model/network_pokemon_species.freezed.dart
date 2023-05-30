@@ -23,6 +23,8 @@ mixin _$NetworkPokemonSpecies {
   @JsonKey(name: 'flavor_text_entries')
   List<NetworkFlavorText> get flavorTextEntries =>
       throw _privateConstructorUsedError;
+  @JsonKey(name: 'evolution_chain')
+  NetworkAPIResource get evolutionChain => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NetworkPokemonSpeciesCopyWith<NetworkPokemonSpecies> get copyWith =>
@@ -41,7 +43,11 @@ abstract class $NetworkPokemonSpeciesCopyWith<$Res> {
       @JsonKey(name: 'names')
           List<NetworkName> names,
       @JsonKey(name: 'flavor_text_entries')
-          List<NetworkFlavorText> flavorTextEntries});
+          List<NetworkFlavorText> flavorTextEntries,
+      @JsonKey(name: 'evolution_chain')
+          NetworkAPIResource evolutionChain});
+
+  $NetworkAPIResourceCopyWith<$Res> get evolutionChain;
 }
 
 /// @nodoc
@@ -61,6 +67,7 @@ class _$NetworkPokemonSpeciesCopyWithImpl<$Res,
     Object? id = null,
     Object? names = null,
     Object? flavorTextEntries = null,
+    Object? evolutionChain = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -75,7 +82,19 @@ class _$NetworkPokemonSpeciesCopyWithImpl<$Res,
           ? _value.flavorTextEntries
           : flavorTextEntries // ignore: cast_nullable_to_non_nullable
               as List<NetworkFlavorText>,
+      evolutionChain: null == evolutionChain
+          ? _value.evolutionChain
+          : evolutionChain // ignore: cast_nullable_to_non_nullable
+              as NetworkAPIResource,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $NetworkAPIResourceCopyWith<$Res> get evolutionChain {
+    return $NetworkAPIResourceCopyWith<$Res>(_value.evolutionChain, (value) {
+      return _then(_value.copyWith(evolutionChain: value) as $Val);
+    });
   }
 }
 
@@ -93,7 +112,12 @@ abstract class _$$_NetworkPokemonSpeciesCopyWith<$Res>
       @JsonKey(name: 'names')
           List<NetworkName> names,
       @JsonKey(name: 'flavor_text_entries')
-          List<NetworkFlavorText> flavorTextEntries});
+          List<NetworkFlavorText> flavorTextEntries,
+      @JsonKey(name: 'evolution_chain')
+          NetworkAPIResource evolutionChain});
+
+  @override
+  $NetworkAPIResourceCopyWith<$Res> get evolutionChain;
 }
 
 /// @nodoc
@@ -110,6 +134,7 @@ class __$$_NetworkPokemonSpeciesCopyWithImpl<$Res>
     Object? id = null,
     Object? names = null,
     Object? flavorTextEntries = null,
+    Object? evolutionChain = null,
   }) {
     return _then(_$_NetworkPokemonSpecies(
       id: null == id
@@ -124,6 +149,10 @@ class __$$_NetworkPokemonSpeciesCopyWithImpl<$Res>
           ? _value._flavorTextEntries
           : flavorTextEntries // ignore: cast_nullable_to_non_nullable
               as List<NetworkFlavorText>,
+      evolutionChain: null == evolutionChain
+          ? _value.evolutionChain
+          : evolutionChain // ignore: cast_nullable_to_non_nullable
+              as NetworkAPIResource,
     ));
   }
 }
@@ -137,7 +166,9 @@ class _$_NetworkPokemonSpecies implements _NetworkPokemonSpecies {
       @JsonKey(name: 'names')
           required final List<NetworkName> names,
       @JsonKey(name: 'flavor_text_entries')
-          required final List<NetworkFlavorText> flavorTextEntries})
+          required final List<NetworkFlavorText> flavorTextEntries,
+      @JsonKey(name: 'evolution_chain')
+          required this.evolutionChain})
       : _names = names,
         _flavorTextEntries = flavorTextEntries;
 
@@ -164,8 +195,12 @@ class _$_NetworkPokemonSpecies implements _NetworkPokemonSpecies {
   }
 
   @override
+  @JsonKey(name: 'evolution_chain')
+  final NetworkAPIResource evolutionChain;
+
+  @override
   String toString() {
-    return 'NetworkPokemonSpecies(id: $id, names: $names, flavorTextEntries: $flavorTextEntries)';
+    return 'NetworkPokemonSpecies(id: $id, names: $names, flavorTextEntries: $flavorTextEntries, evolutionChain: $evolutionChain)';
   }
 
   @override
@@ -176,7 +211,9 @@ class _$_NetworkPokemonSpecies implements _NetworkPokemonSpecies {
             (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other._names, _names) &&
             const DeepCollectionEquality()
-                .equals(other._flavorTextEntries, _flavorTextEntries));
+                .equals(other._flavorTextEntries, _flavorTextEntries) &&
+            (identical(other.evolutionChain, evolutionChain) ||
+                other.evolutionChain == evolutionChain));
   }
 
   @override
@@ -184,7 +221,8 @@ class _$_NetworkPokemonSpecies implements _NetworkPokemonSpecies {
       runtimeType,
       id,
       const DeepCollectionEquality().hash(_names),
-      const DeepCollectionEquality().hash(_flavorTextEntries));
+      const DeepCollectionEquality().hash(_flavorTextEntries),
+      evolutionChain);
 
   @JsonKey(ignore: true)
   @override
@@ -201,7 +239,9 @@ abstract class _NetworkPokemonSpecies implements NetworkPokemonSpecies {
           @JsonKey(name: 'names')
               required final List<NetworkName> names,
           @JsonKey(name: 'flavor_text_entries')
-              required final List<NetworkFlavorText> flavorTextEntries}) =
+              required final List<NetworkFlavorText> flavorTextEntries,
+          @JsonKey(name: 'evolution_chain')
+              required final NetworkAPIResource evolutionChain}) =
       _$_NetworkPokemonSpecies;
 
   @override
@@ -213,6 +253,9 @@ abstract class _NetworkPokemonSpecies implements NetworkPokemonSpecies {
   @override
   @JsonKey(name: 'flavor_text_entries')
   List<NetworkFlavorText> get flavorTextEntries;
+  @override
+  @JsonKey(name: 'evolution_chain')
+  NetworkAPIResource get evolutionChain;
   @override
   @JsonKey(ignore: true)
   _$$_NetworkPokemonSpeciesCopyWith<_$_NetworkPokemonSpecies> get copyWith =>

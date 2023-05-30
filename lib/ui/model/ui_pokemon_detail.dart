@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'ui_chain_entry.dart';
 import 'ui_stat.dart';
 import 'ui_type.dart';
 
@@ -15,5 +16,6 @@ class UiPokemonDetail with _$UiPokemonDetail {
     required int weight,
     required int height,
     required List<UiStat> stats,
+    required List<UiChainEntry> chains,
   }) = _UiPokemonDetail;
 }

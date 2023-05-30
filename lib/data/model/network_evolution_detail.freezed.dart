@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$NetworkEvolutionDetail {
   @JsonKey(name: 'item')
-  NetworkNamedAPIResource get item => throw _privateConstructorUsedError;
+  NetworkNamedAPIResource? get item => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NetworkEvolutionDetailCopyWith<NetworkEvolutionDetail> get copyWith =>
@@ -30,9 +30,9 @@ abstract class $NetworkEvolutionDetailCopyWith<$Res> {
           $Res Function(NetworkEvolutionDetail) then) =
       _$NetworkEvolutionDetailCopyWithImpl<$Res, NetworkEvolutionDetail>;
   @useResult
-  $Res call({@JsonKey(name: 'item') NetworkNamedAPIResource item});
+  $Res call({@JsonKey(name: 'item') NetworkNamedAPIResource? item});
 
-  $NetworkNamedAPIResourceCopyWith<$Res> get item;
+  $NetworkNamedAPIResourceCopyWith<$Res>? get item;
 }
 
 /// @nodoc
@@ -49,20 +49,24 @@ class _$NetworkEvolutionDetailCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? item = null,
+    Object? item = freezed,
   }) {
     return _then(_value.copyWith(
-      item: null == item
+      item: freezed == item
           ? _value.item
           : item // ignore: cast_nullable_to_non_nullable
-              as NetworkNamedAPIResource,
+              as NetworkNamedAPIResource?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $NetworkNamedAPIResourceCopyWith<$Res> get item {
-    return $NetworkNamedAPIResourceCopyWith<$Res>(_value.item, (value) {
+  $NetworkNamedAPIResourceCopyWith<$Res>? get item {
+    if (_value.item == null) {
+      return null;
+    }
+
+    return $NetworkNamedAPIResourceCopyWith<$Res>(_value.item!, (value) {
       return _then(_value.copyWith(item: value) as $Val);
     });
   }
@@ -76,10 +80,10 @@ abstract class _$$_NetworkEvolutionDetailCopyWith<$Res>
       __$$_NetworkEvolutionDetailCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'item') NetworkNamedAPIResource item});
+  $Res call({@JsonKey(name: 'item') NetworkNamedAPIResource? item});
 
   @override
-  $NetworkNamedAPIResourceCopyWith<$Res> get item;
+  $NetworkNamedAPIResourceCopyWith<$Res>? get item;
 }
 
 /// @nodoc
@@ -94,13 +98,13 @@ class __$$_NetworkEvolutionDetailCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? item = null,
+    Object? item = freezed,
   }) {
     return _then(_$_NetworkEvolutionDetail(
-      item: null == item
+      item: freezed == item
           ? _value.item
           : item // ignore: cast_nullable_to_non_nullable
-              as NetworkNamedAPIResource,
+              as NetworkNamedAPIResource?,
     ));
   }
 }
@@ -112,7 +116,7 @@ class _$_NetworkEvolutionDetail implements _NetworkEvolutionDetail {
 
   @override
   @JsonKey(name: 'item')
-  final NetworkNamedAPIResource item;
+  final NetworkNamedAPIResource? item;
 
   @override
   String toString() {
@@ -141,12 +145,12 @@ class _$_NetworkEvolutionDetail implements _NetworkEvolutionDetail {
 abstract class _NetworkEvolutionDetail implements NetworkEvolutionDetail {
   factory _NetworkEvolutionDetail(
           {@JsonKey(name: 'item')
-              required final NetworkNamedAPIResource item}) =
+              required final NetworkNamedAPIResource? item}) =
       _$_NetworkEvolutionDetail;
 
   @override
   @JsonKey(name: 'item')
-  NetworkNamedAPIResource get item;
+  NetworkNamedAPIResource? get item;
   @override
   @JsonKey(ignore: true)
   _$$_NetworkEvolutionDetailCopyWith<_$_NetworkEvolutionDetail> get copyWith =>

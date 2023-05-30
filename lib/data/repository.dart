@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 
+import 'model/network_evolution_chain.dart';
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
 import 'model/network_pokemon_species.dart';
@@ -28,4 +29,8 @@ class Repository {
   Future<NetworkType> getType({
     required int id
   }) => _restClient.getType(id: id);
+
+  Future<NetworkEvolutionChain> getEvolutionChain({
+    required int id
+  }) => _restClient.getEvolutionChain(id: id);
 }

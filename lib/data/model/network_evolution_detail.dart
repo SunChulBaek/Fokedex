@@ -10,7 +10,7 @@ part 'network_evolution_detail.g.dart';
 @JsonSerializable()
 class NetworkEvolutionDetail with _$NetworkEvolutionDetail {
   factory NetworkEvolutionDetail({
-    @JsonKey(name: 'item') required NetworkNamedAPIResource item,
+    @JsonKey(name: 'item') required NetworkNamedAPIResource? item,
   }) = _NetworkEvolutionDetail;
 
   factory NetworkEvolutionDetail.fromJson(Map<String, dynamic> json) {

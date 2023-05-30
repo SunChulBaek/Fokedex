@@ -173,6 +173,17 @@ class _PokemonState extends State<PokemonScreen> {
                     Expanded(child: Container()),
                   ],
                 ),
+                const Align(
+                  alignment: Alignment.center,
+                  child: Text('Evolution Chains', style: TextStyle(fontSize: 16, color: Colors.white))
+                ),
+                ...pokemon?.chains.map((e) =>
+                  Row(
+                    children: [
+                      Text("${e.prevId} -> ${e.pId}", style: const TextStyle(color: Colors.white))
+                    ],
+                  )
+                ).toList() ?? List.empty(),
                 // const Align(
                 //   alignment: Alignment.center,
                 //   child: Text('Base Stats', style: TextStyle(fontSize: 16, color: Colors.white))

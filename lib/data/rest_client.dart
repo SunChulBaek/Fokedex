@@ -19,11 +19,6 @@ abstract class RestClient {
   @factoryMethod
   factory RestClient.from(Dio dio) => RestClient(dio);
 
-  @GET('evolution-chain/{id}')
-  Future<NetworkEvolutionChain> getEvolutionChain({
-    @Path('id') required int id
-  });
-
   @GET('pokemon')
   Future<NetworkNamedAPIResourceList> getPokemonList({
     @Query("limit") int limit = 20,
@@ -42,6 +37,11 @@ abstract class RestClient {
 
   @GET('type/{id}')
   Future<NetworkType> getType({
+    @Path('id') required int id
+  });
+
+  @GET('evolution-chain/{id}')
+  Future<NetworkEvolutionChain> getEvolutionChain({
     @Path('id') required int id
   });
 }

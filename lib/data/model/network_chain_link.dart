@@ -1,3 +1,4 @@
+import 'package:flutter_template/data/model/network_named_api_resource.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../util/timber.dart';
@@ -11,6 +12,7 @@ part 'network_chain_link.g.dart';
 class NetworkChainLink with _$NetworkChainLink {
   factory NetworkChainLink({
     @JsonKey(name: 'is_baby') required bool isBaby,
+    @JsonKey(name: 'species') required NetworkNamedAPIResource species,
     @JsonKey(name: 'evolution_details') required List<NetworkEvolutionDetail> evolutionDetails,
     @JsonKey(name: 'evolves_to') required List<NetworkChainLink> evolvesTo,
   }) = _NetworkChainLink;

@@ -1,6 +1,10 @@
+import 'dart:collection';
+
 import 'package:bloc/bloc.dart';
+import 'package:flutter_template/ui/model/ui_chain_entry.dart';
 import 'package:injectable/injectable.dart';
 
+import '../data/model/network_chain_link.dart';
 import '../data/repository.dart';
 import '../ui/model/ui_pokemon_detail.dart';
 import '../ui/model/ui_stat.dart';
@@ -34,7 +38,8 @@ class GetPokemonCubit extends Cubit<UiState> {
             name: e.stat.name,
             value: e.baseStat
           )
-        ).toList()
+        ).toList(),
+        chains: List.of([])
       );
       emit(Success(data: _detail!));
 
@@ -42,11 +47,58 @@ class GetPokemonCubit extends Cubit<UiState> {
       _repository.getSpecies(
         id: getIdFromUrl(pokemon.species.url)
       ).then((species) {
+        int evolutionChainId = getIdFromUrl(species.evolutionChain.url);
+        Timber.d("[sunchulbaek] evolution chain id = $evolutionChainId");
         _detail = _detail?.copyWith(
           name: species.names.firstWhere((e) => e.language.name == 'ko').name,
           flavorText: species.flavorTextEntries.firstWhere((e) => e.language.name == 'ko').flavorText.replaceAll("\n", " ")
         );
         emit(Success(data: _detail!));
+
+        // TODO : Evolution Chain 보여주기
+        if (evolutionChainId > 0) {
+          _repository.getEvolutionChain(id: evolutionChainId).then((value) {
+            final map = HashMap<int, UiChainEntry>();
+            final queue = Queue<NetworkChainLink>()..add(value.chain);
+            while (queue.isNotEmpty) {
+              final node = queue.removeFirst();
+              final nodeId = getIdFromUrl(node.species.url);
+              if (!map.containsKey(nodeId)) {
+                map[nodeId] = UiChainEntry(
+                  pId: nodeId,
+                  prevId: 0,
+                  trigger: node.evolutionDetails.firstOrNull?.item?.name ?? "0",
+                  isLeaf: false
+                );
+              }
+              if (node.evolvesTo.isEmpty) {
+                final nodex = map[getIdFromUrl(node.species.url)];
+                if (nodex != null) {
+                  map[nodeId] = nodex.copyWith(
+                    isLeaf: true
+                  );
+                }
+              }
+              node.evolvesTo.forEach((evolveTo) {
+                queue.add(evolveTo);
+                map[getIdFromUrl(evolveTo.species.url)] = UiChainEntry(
+                  pId: getIdFromUrl(evolveTo.species.url),
+                  prevId: nodeId,
+                  trigger: evolveTo.evolutionDetails.firstOrNull?.item?.name ?? "0",
+                  isLeaf: false
+                );
+              });
+            }
+            final chains = List<UiChainEntry>.of([]);
+            map.forEach((key, value) {
+              chains.add(value);
+            });
+            _detail = _detail?.copyWith(
+                chains: chains
+            );
+            emit(Success(data: _detail!));
+          });
+        }
       });
 
       // Type

@@ -9,8 +9,10 @@ part of 'network_evolution_detail.dart';
 NetworkEvolutionDetail _$NetworkEvolutionDetailFromJson(
         Map<String, dynamic> json) =>
     NetworkEvolutionDetail(
-      item: NetworkNamedAPIResource.fromJson(
-          json['item'] as Map<String, dynamic>),
+      item: json['item'] == null
+          ? null
+          : NetworkNamedAPIResource.fromJson(
+              json['item'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$NetworkEvolutionDetailToJson(

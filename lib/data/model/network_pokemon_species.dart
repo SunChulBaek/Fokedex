@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../util/timber.dart';
+import 'network_api_resource.dart';
 import 'network_flavor_text.dart';
 import 'network_name.dart';
 
@@ -14,6 +15,7 @@ class NetworkPokemonSpecies with _$NetworkPokemonSpecies {
     @JsonKey(name: 'id') required int id,
     @JsonKey(name: 'names') required List<NetworkName> names,
     @JsonKey(name: 'flavor_text_entries') required List<NetworkFlavorText> flavorTextEntries,
+    @JsonKey(name: 'evolution_chain') required NetworkAPIResource evolutionChain,
   }) = _NetworkPokemonSpecies;
 
   factory NetworkPokemonSpecies.fromJson(Map<String, dynamic> json) {
