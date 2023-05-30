@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/bloc/model/ui_state.dart';
-import 'package:flutter_template/ui/common/error.dart';
 
+import '../../bloc/model/ui_state.dart';
+import 'error.dart';
 import 'loading.dart';
 
 class StateView extends StatelessWidget {

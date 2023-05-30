@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_template/data/model/network_evolution_chain.dart';
-import 'package:flutter_template/data/model/network_named_api_resource_list.dart';
-import 'package:flutter_template/data/model/network_pokemon_species.dart';
-import 'package:flutter_template/data/model/network_type.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:retrofit/http.dart';
 
+import 'model/network_evolution_chain.dart';
+import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
+import 'model/network_pokemon_species.dart';
+import 'model/network_type.dart';
 
 part 'rest_client.g.dart';
 
@@ -35,7 +35,7 @@ abstract class RestClient {
     @Path('id') required int id
   });
 
-  @GET('species/{id}')
+  @GET('pokemon-species/{id}')
   Future<NetworkPokemonSpecies> getSpecies({
     @Path('id') required int id
   });

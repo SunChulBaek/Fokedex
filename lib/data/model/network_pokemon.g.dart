@@ -21,6 +21,8 @@ NetworkPokemon _$NetworkPokemonFromJson(Map<String, dynamic> json) =>
       stats: (json['stats'] as List<dynamic>)
           .map((e) => NetworkPokemonStat.fromJson(e as Map<String, dynamic>))
           .toList(),
+      species: NetworkNamedAPIResource.fromJson(
+          json['species'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$NetworkPokemonToJson(NetworkPokemon instance) =>
@@ -34,4 +36,5 @@ Map<String, dynamic> _$NetworkPokemonToJson(NetworkPokemon instance) =>
       'weight': instance.weight,
       'types': instance.types,
       'stats': instance.stats,
+      'species': instance.species,
     };

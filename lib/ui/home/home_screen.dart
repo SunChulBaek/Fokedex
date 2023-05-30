@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/ui/home/home_content.dart';
+
+import 'home_content.dart';
 
 // 참고 : https://dopble2k.tistory.com/9
 class HomeScreen extends StatefulWidget {

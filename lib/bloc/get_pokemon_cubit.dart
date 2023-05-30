@@ -1,12 +1,12 @@
-
 import 'package:bloc/bloc.dart';
-import 'package:flutter_template/data/repository.dart';
-import 'package:flutter_template/ui/model/ui_pokemon_detail.dart';
-import 'package:flutter_template/ui/model/ui_stat.dart';
-import 'package:flutter_template/ui/model/ui_type.dart';
-import 'package:flutter_template/util/timber.dart';
-import 'package:flutter_template/bloc/model/ui_state.dart';
 import 'package:injectable/injectable.dart';
+
+import '../data/repository.dart';
+import '../ui/model/ui_pokemon_detail.dart';
+import '../ui/model/ui_stat.dart';
+import '../ui/model/ui_type.dart';
+import '../util/timber.dart';
+import 'model/ui_state.dart';
 
 @injectable
 class GetPokemonCubit extends Cubit<UiState> {

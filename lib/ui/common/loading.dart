@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/ui/common/pokemon_progress_indicator.dart';
+
+import 'pokemon_progress_indicator.dart';
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({super.key});

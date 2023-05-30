@@ -1,6 +1,7 @@
-import 'package:flutter_template/ui/model/ui_stat.dart';
-import 'package:flutter_template/ui/model/ui_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import 'ui_stat.dart';
+import 'ui_type.dart';
 
 part 'ui_pokemon_detail.freezed.dart';
 

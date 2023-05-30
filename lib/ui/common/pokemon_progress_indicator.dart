@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/ui/common/monster_ball.dart';
+
+import 'monster_ball.dart';
 
 class PokemonProgressIndicator extends StatefulWidget {
   const PokemonProgressIndicator({super.key, required this.size});

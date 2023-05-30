@@ -1,7 +1,6 @@
-import 'package:flutter_template/data/model/network_pokemon_type.dart';
-import 'package:flutter_template/util/timber.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../util/timber.dart';
 import 'network_evolution_detail.dart';
 
 part 'network_chain_link.freezed.dart';

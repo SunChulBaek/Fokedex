@@ -34,6 +34,8 @@ mixin _$NetworkPokemon {
   List<NetworkPokemonType> get types => throw _privateConstructorUsedError;
   @JsonKey(name: 'stats')
   List<NetworkPokemonStat> get stats => throw _privateConstructorUsedError;
+  @JsonKey(name: 'species')
+  NetworkNamedAPIResource get species => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NetworkPokemonCopyWith<NetworkPokemon> get copyWith =>
@@ -55,7 +57,10 @@ abstract class $NetworkPokemonCopyWith<$Res> {
       @JsonKey(name: 'order') int order,
       @JsonKey(name: 'weight') int weight,
       @JsonKey(name: 'types') List<NetworkPokemonType> types,
-      @JsonKey(name: 'stats') List<NetworkPokemonStat> stats});
+      @JsonKey(name: 'stats') List<NetworkPokemonStat> stats,
+      @JsonKey(name: 'species') NetworkNamedAPIResource species});
+
+  $NetworkNamedAPIResourceCopyWith<$Res> get species;
 }
 
 /// @nodoc
@@ -80,6 +85,7 @@ class _$NetworkPokemonCopyWithImpl<$Res, $Val extends NetworkPokemon>
     Object? weight = null,
     Object? types = null,
     Object? stats = null,
+    Object? species = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -118,7 +124,19 @@ class _$NetworkPokemonCopyWithImpl<$Res, $Val extends NetworkPokemon>
           ? _value.stats
           : stats // ignore: cast_nullable_to_non_nullable
               as List<NetworkPokemonStat>,
+      species: null == species
+          ? _value.species
+          : species // ignore: cast_nullable_to_non_nullable
+              as NetworkNamedAPIResource,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $NetworkNamedAPIResourceCopyWith<$Res> get species {
+    return $NetworkNamedAPIResourceCopyWith<$Res>(_value.species, (value) {
+      return _then(_value.copyWith(species: value) as $Val);
+    });
   }
 }
 
@@ -139,7 +157,11 @@ abstract class _$$_NetworkPokemonCopyWith<$Res>
       @JsonKey(name: 'order') int order,
       @JsonKey(name: 'weight') int weight,
       @JsonKey(name: 'types') List<NetworkPokemonType> types,
-      @JsonKey(name: 'stats') List<NetworkPokemonStat> stats});
+      @JsonKey(name: 'stats') List<NetworkPokemonStat> stats,
+      @JsonKey(name: 'species') NetworkNamedAPIResource species});
+
+  @override
+  $NetworkNamedAPIResourceCopyWith<$Res> get species;
 }
 
 /// @nodoc
@@ -162,6 +184,7 @@ class __$$_NetworkPokemonCopyWithImpl<$Res>
     Object? weight = null,
     Object? types = null,
     Object? stats = null,
+    Object? species = null,
   }) {
     return _then(_$_NetworkPokemon(
       id: null == id
@@ -200,6 +223,10 @@ class __$$_NetworkPokemonCopyWithImpl<$Res>
           ? _value._stats
           : stats // ignore: cast_nullable_to_non_nullable
               as List<NetworkPokemonStat>,
+      species: null == species
+          ? _value.species
+          : species // ignore: cast_nullable_to_non_nullable
+              as NetworkNamedAPIResource,
     ));
   }
 }
@@ -216,7 +243,8 @@ class _$_NetworkPokemon implements _NetworkPokemon {
       @JsonKey(name: 'order') required this.order,
       @JsonKey(name: 'weight') required this.weight,
       @JsonKey(name: 'types') required final List<NetworkPokemonType> types,
-      @JsonKey(name: 'stats') required final List<NetworkPokemonStat> stats})
+      @JsonKey(name: 'stats') required final List<NetworkPokemonStat> stats,
+      @JsonKey(name: 'species') required this.species})
       : _types = types,
         _stats = stats;
 
@@ -260,8 +288,12 @@ class _$_NetworkPokemon implements _NetworkPokemon {
   }
 
   @override
+  @JsonKey(name: 'species')
+  final NetworkNamedAPIResource species;
+
+  @override
   String toString() {
-    return 'NetworkPokemon(id: $id, name: $name, baseExp: $baseExp, height: $height, isDefault: $isDefault, order: $order, weight: $weight, types: $types, stats: $stats)';
+    return 'NetworkPokemon(id: $id, name: $name, baseExp: $baseExp, height: $height, isDefault: $isDefault, order: $order, weight: $weight, types: $types, stats: $stats, species: $species)';
   }
 
   @override
@@ -278,7 +310,8 @@ class _$_NetworkPokemon implements _NetworkPokemon {
             (identical(other.order, order) || other.order == order) &&
             (identical(other.weight, weight) || other.weight == weight) &&
             const DeepCollectionEquality().equals(other._types, _types) &&
-            const DeepCollectionEquality().equals(other._stats, _stats));
+            const DeepCollectionEquality().equals(other._stats, _stats) &&
+            (identical(other.species, species) || other.species == species));
   }
 
   @override
@@ -292,7 +325,8 @@ class _$_NetworkPokemon implements _NetworkPokemon {
       order,
       weight,
       const DeepCollectionEquality().hash(_types),
-      const DeepCollectionEquality().hash(_stats));
+      const DeepCollectionEquality().hash(_stats),
+      species);
 
   @JsonKey(ignore: true)
   @override
@@ -320,7 +354,9 @@ abstract class _NetworkPokemon implements NetworkPokemon {
       @JsonKey(name: 'types')
           required final List<NetworkPokemonType> types,
       @JsonKey(name: 'stats')
-          required final List<NetworkPokemonStat> stats}) = _$_NetworkPokemon;
+          required final List<NetworkPokemonStat> stats,
+      @JsonKey(name: 'species')
+          required final NetworkNamedAPIResource species}) = _$_NetworkPokemon;
 
   @override
   @JsonKey(name: 'id')
@@ -349,6 +385,9 @@ abstract class _NetworkPokemon implements NetworkPokemon {
   @override
   @JsonKey(name: 'stats')
   List<NetworkPokemonStat> get stats;
+  @override
+  @JsonKey(name: 'species')
+  NetworkNamedAPIResource get species;
   @override
   @JsonKey(ignore: true)
   _$$_NetworkPokemonCopyWith<_$_NetworkPokemon> get copyWith =>

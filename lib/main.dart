@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/injectable.dart';
-import 'package:flutter_template/ui/detail/pokemon.dart';
-import 'package:flutter_template/ui/detail/webview.dart';
-import 'package:flutter_template/ui/home/home_screen.dart';
-import 'package:flutter_template/ui/model/ui_pokemon_detail.dart';
 import 'package:go_router/go_router.dart';
+
+import 'injectable.dart';
+import 'ui/detail/pokemon.dart';
+import 'ui/detail/webview.dart';
+import 'ui/home/home_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override

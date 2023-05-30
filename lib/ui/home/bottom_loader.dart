@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/ui/common/pokemon_progress_indicator.dart';
+
+import '../common/pokemon_progress_indicator.dart';
 
 class BottomLoader extends StatelessWidget {
   const BottomLoader({super.key});

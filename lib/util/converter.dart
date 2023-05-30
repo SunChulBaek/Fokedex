@@ -1,0 +1,1 @@
+int getIdFromUrl(String url) => int.parse(url.split('/').elementAt(6));

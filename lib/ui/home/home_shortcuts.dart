@@ -1,7 +1,8 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/ui/detail/pokemon.dart';
+
+import '../detail/pokemon.dart';
 
 class HomeShortcuts extends StatelessWidget {
   HomeShortcuts({super.key, required this.shortcuts, required this.onClickItem});

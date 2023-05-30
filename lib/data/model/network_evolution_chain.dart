@@ -1,6 +1,7 @@
-import 'package:flutter_template/data/model/network_chain_link.dart';
-import 'package:flutter_template/util/timber.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../util/timber.dart';
+import 'network_chain_link.dart';
 
 part 'network_evolution_chain.freezed.dart';
 part 'network_evolution_chain.g.dart';

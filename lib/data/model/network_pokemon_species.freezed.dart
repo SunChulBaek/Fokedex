@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$NetworkPokemonSpecies {
   @JsonKey(name: 'id')
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'names')
+  List<NetworkName> get names => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NetworkPokemonSpeciesCopyWith<NetworkPokemonSpecies> get copyWith =>
@@ -30,7 +32,9 @@ abstract class $NetworkPokemonSpeciesCopyWith<$Res> {
           $Res Function(NetworkPokemonSpecies) then) =
       _$NetworkPokemonSpeciesCopyWithImpl<$Res, NetworkPokemonSpecies>;
   @useResult
-  $Res call({@JsonKey(name: 'id') int id});
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'names') List<NetworkName> names});
 }
 
 /// @nodoc
@@ -48,12 +52,17 @@ class _$NetworkPokemonSpeciesCopyWithImpl<$Res,
   @override
   $Res call({
     Object? id = null,
+    Object? names = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      names: null == names
+          ? _value.names
+          : names // ignore: cast_nullable_to_non_nullable
+              as List<NetworkName>,
     ) as $Val);
   }
 }
@@ -66,7 +75,9 @@ abstract class _$$_NetworkPokemonSpeciesCopyWith<$Res>
       __$$_NetworkPokemonSpeciesCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'id') int id});
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'names') List<NetworkName> names});
 }
 
 /// @nodoc
@@ -81,12 +92,17 @@ class __$$_NetworkPokemonSpeciesCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? names = null,
   }) {
     return _then(_$_NetworkPokemonSpecies(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      names: null == names
+          ? _value._names
+          : names // ignore: cast_nullable_to_non_nullable
+              as List<NetworkName>,
     ));
   }
 }
@@ -94,15 +110,26 @@ class __$$_NetworkPokemonSpeciesCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_NetworkPokemonSpecies implements _NetworkPokemonSpecies {
-  _$_NetworkPokemonSpecies({@JsonKey(name: 'id') required this.id});
+  _$_NetworkPokemonSpecies(
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'names') required final List<NetworkName> names})
+      : _names = names;
 
   @override
   @JsonKey(name: 'id')
   final int id;
+  final List<NetworkName> _names;
+  @override
+  @JsonKey(name: 'names')
+  List<NetworkName> get names {
+    if (_names is EqualUnmodifiableListView) return _names;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_names);
+  }
 
   @override
   String toString() {
-    return 'NetworkPokemonSpecies(id: $id)';
+    return 'NetworkPokemonSpecies(id: $id, names: $names)';
   }
 
   @override
@@ -110,11 +137,13 @@ class _$_NetworkPokemonSpecies implements _NetworkPokemonSpecies {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_NetworkPokemonSpecies &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other._names, _names));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id);
+  int get hashCode =>
+      Object.hash(runtimeType, id, const DeepCollectionEquality().hash(_names));
 
   @JsonKey(ignore: true)
   @override
@@ -125,12 +154,17 @@ class _$_NetworkPokemonSpecies implements _NetworkPokemonSpecies {
 }
 
 abstract class _NetworkPokemonSpecies implements NetworkPokemonSpecies {
-  factory _NetworkPokemonSpecies({@JsonKey(name: 'id') required final int id}) =
+  factory _NetworkPokemonSpecies(
+          {@JsonKey(name: 'id') required final int id,
+          @JsonKey(name: 'names') required final List<NetworkName> names}) =
       _$_NetworkPokemonSpecies;
 
   @override
   @JsonKey(name: 'id')
   int get id;
+  @override
+  @JsonKey(name: 'names')
+  List<NetworkName> get names;
   @override
   @JsonKey(ignore: true)
   _$$_NetworkPokemonSpeciesCopyWith<_$_NetworkPokemonSpecies> get copyWith =>

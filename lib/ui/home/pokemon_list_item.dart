@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/ui/common/pokemon_progress_indicator.dart';
-import 'package:flutter_template/ui/detail/pokemon.dart';
 
+import '../common/pokemon_progress_indicator.dart';
+import '../detail/pokemon.dart';
 import '../model/ui_pokemon.dart';
 
 class PokemonGridItem extends StatelessWidget {

@@ -1,8 +1,10 @@
-import 'package:flutter_template/data/model/network_named_api_resource_list.dart';
-import 'package:flutter_template/data/rest_client.dart';
 import 'package:injectable/injectable.dart';
 
+import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
+import 'model/network_pokemon_species.dart';
+import 'model/network_type.dart';
+import 'rest_client.dart';
 
 @injectable
 class Repository {
@@ -18,4 +20,12 @@ class Repository {
   Future<NetworkPokemon> getPokemon({
     required int id
   }) => _restClient.getPokemon(id: id);
+
+  Future<NetworkPokemonSpecies> getSpecies({
+    required int id
+  }) => _restClient.getSpecies(id: id);
+
+  Future<NetworkType> getType({
+    required int id
+  }) => _restClient.getType(id: id);
 }

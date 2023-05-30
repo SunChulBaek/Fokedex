@@ -1,4 +1,5 @@
-import 'package:flutter_template/data/model/network_named_api_resource.dart';
+
+import '../../data/model/network_named_api_resource.dart';
 
 class UiPokemon {
   UiPokemon({

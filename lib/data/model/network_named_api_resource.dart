@@ -1,5 +1,6 @@
-import 'package:flutter_template/util/timber.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../util/timber.dart';
 
 part 'network_named_api_resource.freezed.dart';
 part 'network_named_api_resource.g.dart';

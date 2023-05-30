@@ -1,5 +1,7 @@
-import 'package:flutter_template/util/timber.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../util/timber.dart';
+import 'network_name.dart';
 
 part 'network_pokemon_species.freezed.dart';
 part 'network_pokemon_species.g.dart';
@@ -9,6 +11,7 @@ part 'network_pokemon_species.g.dart';
 class NetworkPokemonSpecies with _$NetworkPokemonSpecies {
   factory NetworkPokemonSpecies({
     @JsonKey(name: 'id') required int id,
+    @JsonKey(name: 'names') required List<NetworkName> names,
   }) = _NetworkPokemonSpecies;
 
   factory NetworkPokemonSpecies.fromJson(Map<String, dynamic> json) {

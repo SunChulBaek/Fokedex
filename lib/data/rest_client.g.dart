@@ -112,7 +112,7 @@ class _RestClient implements RestClient {
     )
             .compose(
               _dio.options,
-              'species/${id}',
+              'pokemon-species/${id}',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -1,8 +1,9 @@
-import 'package:flutter_template/data/model/network_pokemon_type.dart';
-import 'package:flutter_template/util/timber.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../util/timber.dart';
+import 'network_named_api_resource.dart';
 import 'network_pokemon_stat.dart';
+import 'network_pokemon_type.dart';
 
 part 'network_pokemon.freezed.dart';
 part 'network_pokemon.g.dart';
@@ -20,6 +21,7 @@ class NetworkPokemon with _$NetworkPokemon {
     @JsonKey(name: 'weight') required int weight,
     @JsonKey(name: 'types') required List<NetworkPokemonType> types,
     @JsonKey(name: 'stats') required List<NetworkPokemonStat> stats,
+    @JsonKey(name: 'species') required NetworkNamedAPIResource species,
   }) = _NetworkPokemon;
 
   factory NetworkPokemon.fromJson(Map<String, dynamic> json) {

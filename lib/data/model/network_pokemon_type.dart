@@ -1,6 +1,7 @@
-import 'package:flutter_template/data/model/network_named_api_resource.dart';
-import 'package:flutter_template/util/timber.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../util/timber.dart';
+import 'network_named_api_resource.dart';
 
 part 'network_pokemon_type.freezed.dart';
 part 'network_pokemon_type.g.dart';

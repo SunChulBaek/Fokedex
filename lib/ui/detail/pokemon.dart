@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/bloc/get_pokemon_cubit.dart';
-import 'package:flutter_template/bloc/model/ui_state.dart';
-import 'package:flutter_template/injectable.dart';
-import 'package:flutter_template/ui/common/pokemon_progress_indicator.dart';
-import 'package:flutter_template/ui/model/ui_pokemon_detail.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+
+import '../../bloc/get_pokemon_cubit.dart';
+import '../../bloc/model/ui_state.dart';
+import '../../injectable.dart';
+import '../common/pokemon_progress_indicator.dart';
+import '../model/ui_pokemon_detail.dart';
 
 class PokemonParam {
   PokemonParam({
@@ -116,7 +117,7 @@ class _PokemonState extends State<PokemonScreen> {
                 // 이름
                 Align(
                   alignment: Alignment.center,
-                  child: Text(widget.param.title, style: const TextStyle(fontSize: 16, color: Colors.white))
+                  child: Text(pokemon?.name ?? widget.param.title, style: const TextStyle(fontSize: 16, color: Colors.white))
                 ),
                 // 타입
                 Row(

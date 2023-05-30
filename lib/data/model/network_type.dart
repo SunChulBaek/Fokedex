@@ -1,6 +1,7 @@
-import 'package:flutter_template/data/model/network_name.dart';
-import 'package:flutter_template/util/timber.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../util/timber.dart';
+import 'network_name.dart';
 
 part 'network_type.freezed.dart';
 part 'network_type.g.dart';
