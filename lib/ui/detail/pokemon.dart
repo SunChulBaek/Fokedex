@@ -212,7 +212,7 @@ class _PokemonState extends State<PokemonScreen> {
   String getFullName(String? defaultName, String? name, String? form) {
     if (name != null && form != null && form.isNotEmpty) {
       return "$name ($form)";
-    } else if (name != null && form == null) {
+    } else if (name != null && (form == null || form.isEmpty)) {
       return name;
     } else {
       return defaultName ?? "";

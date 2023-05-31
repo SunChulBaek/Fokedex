@@ -1,6 +1,37 @@
 import 'package:flutter/material.dart';
 
+import '../data/model/network_flavor_text.dart';
+import '../data/model/network_name.dart';
+
 int getIdFromUrl(String url) => int.parse(url.split('/').elementAt(6));
+
+String getNameForLocale(List<NetworkName>? names) {
+  if (names != null && names.isNotEmpty) {
+    return names.firstWhere(
+      (name) => name.language.name == 'ko'
+      , orElse: () => names.firstWhere(
+        (name) => name.language.name == 'en'
+        , orElse: () => names.first
+      )
+    ).name;
+  } else {
+    return "";
+  }
+}
+
+String getFlavorTextForLocale(List<NetworkFlavorText>? flavorTexts) {
+  if (flavorTexts != null && flavorTexts.isNotEmpty) {
+    return flavorTexts.firstWhere(
+      (flavorText) => flavorText.language.name == 'ko'
+      , orElse: () => flavorTexts.firstWhere(
+        (flavorText) => flavorText.language.name == 'en'
+        , orElse: () => flavorTexts.first
+      )
+    ).flavorText.replaceAll("\n", " ");
+  } else {
+    return "";
+  }
+}
 
 Color getColorFromId(int id) {
   switch (id) {

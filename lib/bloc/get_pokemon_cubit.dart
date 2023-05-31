@@ -51,8 +51,8 @@ class GetPokemonCubit extends Cubit<UiState> {
         int evolutionChainId = getIdFromUrl(species.evolutionChain.url);
         Timber.d("[sunchulbaek] evolution chain id = $evolutionChainId");
         _detail = _detail?.copyWith(
-          name: species.names.firstWhere((e) => e.language.name == 'ko').name,
-          flavorText: species.flavorTextEntries.firstWhere((e) => e.language.name == 'ko').flavorText.replaceAll("\n", " ")
+          name: getNameForLocale(species.names),
+          flavorText: getFlavorTextForLocale(species.flavorTextEntries),
         );
         emit(Success(data: _detail!));
 
@@ -104,10 +104,7 @@ class GetPokemonCubit extends Cubit<UiState> {
 
       // Form
       _repository.getForm(id: getIdFromUrl(pokemon.forms.first.url)).then((value) {
-        _detail = _detail?.copyWith(form: value.formNames
-            .firstWhere((e) =>
-        e.language.name == 'ko' || e.language.name == 'en')
-            .name);
+        _detail = _detail?.copyWith(form: getNameForLocale(value.formNames));
         emit(Success(data: _detail!));
       });
 
@@ -118,9 +115,7 @@ class GetPokemonCubit extends Cubit<UiState> {
           id: getIdFromUrl(type.type.url)
         ).then((value) {
           int idx = value.id;
-          String typeInLocale = value.names
-            .firstWhere((e) => e.language.name == 'ko')
-            .name;
+          String typeInLocale = getNameForLocale(value.names);
           types.add(UiType(id: idx, name: typeInLocale));
           _detail = _detail?.copyWith(types: types);
           emit(Success(data: _detail!));
