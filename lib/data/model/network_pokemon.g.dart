@@ -15,6 +15,10 @@ NetworkPokemon _$NetworkPokemonFromJson(Map<String, dynamic> json) =>
       isDefault: json['is_default'] as bool,
       order: json['order'] as int,
       weight: json['weight'] as int,
+      forms: (json['forms'] as List<dynamic>)
+          .map((e) =>
+              NetworkNamedAPIResource.fromJson(e as Map<String, dynamic>))
+          .toList(),
       types: (json['types'] as List<dynamic>)
           .map((e) => NetworkPokemonType.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -34,6 +38,7 @@ Map<String, dynamic> _$NetworkPokemonToJson(NetworkPokemon instance) =>
       'is_default': instance.isDefault,
       'order': instance.order,
       'weight': instance.weight,
+      'forms': instance.forms,
       'types': instance.types,
       'stats': instance.stats,
       'species': instance.species,

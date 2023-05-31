@@ -30,6 +30,8 @@ mixin _$NetworkPokemon {
   int get order => throw _privateConstructorUsedError;
   @JsonKey(name: 'weight')
   int get weight => throw _privateConstructorUsedError;
+  @JsonKey(name: 'forms')
+  List<NetworkNamedAPIResource> get forms => throw _privateConstructorUsedError;
   @JsonKey(name: 'types')
   List<NetworkPokemonType> get types => throw _privateConstructorUsedError;
   @JsonKey(name: 'stats')
@@ -56,6 +58,7 @@ abstract class $NetworkPokemonCopyWith<$Res> {
       @JsonKey(name: 'is_default') bool isDefault,
       @JsonKey(name: 'order') int order,
       @JsonKey(name: 'weight') int weight,
+      @JsonKey(name: 'forms') List<NetworkNamedAPIResource> forms,
       @JsonKey(name: 'types') List<NetworkPokemonType> types,
       @JsonKey(name: 'stats') List<NetworkPokemonStat> stats,
       @JsonKey(name: 'species') NetworkNamedAPIResource species});
@@ -83,6 +86,7 @@ class _$NetworkPokemonCopyWithImpl<$Res, $Val extends NetworkPokemon>
     Object? isDefault = null,
     Object? order = null,
     Object? weight = null,
+    Object? forms = null,
     Object? types = null,
     Object? stats = null,
     Object? species = null,
@@ -116,6 +120,10 @@ class _$NetworkPokemonCopyWithImpl<$Res, $Val extends NetworkPokemon>
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
               as int,
+      forms: null == forms
+          ? _value.forms
+          : forms // ignore: cast_nullable_to_non_nullable
+              as List<NetworkNamedAPIResource>,
       types: null == types
           ? _value.types
           : types // ignore: cast_nullable_to_non_nullable
@@ -156,6 +164,7 @@ abstract class _$$_NetworkPokemonCopyWith<$Res>
       @JsonKey(name: 'is_default') bool isDefault,
       @JsonKey(name: 'order') int order,
       @JsonKey(name: 'weight') int weight,
+      @JsonKey(name: 'forms') List<NetworkNamedAPIResource> forms,
       @JsonKey(name: 'types') List<NetworkPokemonType> types,
       @JsonKey(name: 'stats') List<NetworkPokemonStat> stats,
       @JsonKey(name: 'species') NetworkNamedAPIResource species});
@@ -182,6 +191,7 @@ class __$$_NetworkPokemonCopyWithImpl<$Res>
     Object? isDefault = null,
     Object? order = null,
     Object? weight = null,
+    Object? forms = null,
     Object? types = null,
     Object? stats = null,
     Object? species = null,
@@ -215,6 +225,10 @@ class __$$_NetworkPokemonCopyWithImpl<$Res>
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
               as int,
+      forms: null == forms
+          ? _value._forms
+          : forms // ignore: cast_nullable_to_non_nullable
+              as List<NetworkNamedAPIResource>,
       types: null == types
           ? _value._types
           : types // ignore: cast_nullable_to_non_nullable
@@ -235,17 +249,30 @@ class __$$_NetworkPokemonCopyWithImpl<$Res>
 
 class _$_NetworkPokemon implements _NetworkPokemon {
   _$_NetworkPokemon(
-      {@JsonKey(name: 'id') required this.id,
-      @JsonKey(name: 'name') required this.name,
-      @JsonKey(name: 'base_experience') required this.baseExp,
-      @JsonKey(name: 'height') required this.height,
-      @JsonKey(name: 'is_default') required this.isDefault,
-      @JsonKey(name: 'order') required this.order,
-      @JsonKey(name: 'weight') required this.weight,
-      @JsonKey(name: 'types') required final List<NetworkPokemonType> types,
-      @JsonKey(name: 'stats') required final List<NetworkPokemonStat> stats,
-      @JsonKey(name: 'species') required this.species})
-      : _types = types,
+      {@JsonKey(name: 'id')
+          required this.id,
+      @JsonKey(name: 'name')
+          required this.name,
+      @JsonKey(name: 'base_experience')
+          required this.baseExp,
+      @JsonKey(name: 'height')
+          required this.height,
+      @JsonKey(name: 'is_default')
+          required this.isDefault,
+      @JsonKey(name: 'order')
+          required this.order,
+      @JsonKey(name: 'weight')
+          required this.weight,
+      @JsonKey(name: 'forms')
+          required final List<NetworkNamedAPIResource> forms,
+      @JsonKey(name: 'types')
+          required final List<NetworkPokemonType> types,
+      @JsonKey(name: 'stats')
+          required final List<NetworkPokemonStat> stats,
+      @JsonKey(name: 'species')
+          required this.species})
+      : _forms = forms,
+        _types = types,
         _stats = stats;
 
   @override
@@ -269,6 +296,15 @@ class _$_NetworkPokemon implements _NetworkPokemon {
   @override
   @JsonKey(name: 'weight')
   final int weight;
+  final List<NetworkNamedAPIResource> _forms;
+  @override
+  @JsonKey(name: 'forms')
+  List<NetworkNamedAPIResource> get forms {
+    if (_forms is EqualUnmodifiableListView) return _forms;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_forms);
+  }
+
   final List<NetworkPokemonType> _types;
   @override
   @JsonKey(name: 'types')
@@ -293,7 +329,7 @@ class _$_NetworkPokemon implements _NetworkPokemon {
 
   @override
   String toString() {
-    return 'NetworkPokemon(id: $id, name: $name, baseExp: $baseExp, height: $height, isDefault: $isDefault, order: $order, weight: $weight, types: $types, stats: $stats, species: $species)';
+    return 'NetworkPokemon(id: $id, name: $name, baseExp: $baseExp, height: $height, isDefault: $isDefault, order: $order, weight: $weight, forms: $forms, types: $types, stats: $stats, species: $species)';
   }
 
   @override
@@ -309,6 +345,7 @@ class _$_NetworkPokemon implements _NetworkPokemon {
                 other.isDefault == isDefault) &&
             (identical(other.order, order) || other.order == order) &&
             (identical(other.weight, weight) || other.weight == weight) &&
+            const DeepCollectionEquality().equals(other._forms, _forms) &&
             const DeepCollectionEquality().equals(other._types, _types) &&
             const DeepCollectionEquality().equals(other._stats, _stats) &&
             (identical(other.species, species) || other.species == species));
@@ -324,6 +361,7 @@ class _$_NetworkPokemon implements _NetworkPokemon {
       isDefault,
       order,
       weight,
+      const DeepCollectionEquality().hash(_forms),
       const DeepCollectionEquality().hash(_types),
       const DeepCollectionEquality().hash(_stats),
       species);
@@ -351,6 +389,8 @@ abstract class _NetworkPokemon implements NetworkPokemon {
           required final int order,
       @JsonKey(name: 'weight')
           required final int weight,
+      @JsonKey(name: 'forms')
+          required final List<NetworkNamedAPIResource> forms,
       @JsonKey(name: 'types')
           required final List<NetworkPokemonType> types,
       @JsonKey(name: 'stats')
@@ -379,6 +419,9 @@ abstract class _NetworkPokemon implements NetworkPokemon {
   @override
   @JsonKey(name: 'weight')
   int get weight;
+  @override
+  @JsonKey(name: 'forms')
+  List<NetworkNamedAPIResource> get forms;
   @override
   @JsonKey(name: 'types')
   List<NetworkPokemonType> get types;

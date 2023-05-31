@@ -99,6 +99,29 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<NetworkPokemonForm> getForm({required id}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<NetworkPokemonForm>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'pokemon-form/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = NetworkPokemonForm.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<NetworkType> getType({required id}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

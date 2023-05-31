@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$UiPokemonDetail {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get form => throw _privateConstructorUsedError;
   String get flavorText => throw _privateConstructorUsedError;
   List<UiType> get types => throw _privateConstructorUsedError;
   int get weight => throw _privateConstructorUsedError;
@@ -39,6 +40,7 @@ abstract class $UiPokemonDetailCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
+      String form,
       String flavorText,
       List<UiType> types,
       int weight,
@@ -62,6 +64,7 @@ class _$UiPokemonDetailCopyWithImpl<$Res, $Val extends UiPokemonDetail>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? form = null,
     Object? flavorText = null,
     Object? types = null,
     Object? weight = null,
@@ -77,6 +80,10 @@ class _$UiPokemonDetailCopyWithImpl<$Res, $Val extends UiPokemonDetail>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      form: null == form
+          ? _value.form
+          : form // ignore: cast_nullable_to_non_nullable
               as String,
       flavorText: null == flavorText
           ? _value.flavorText
@@ -117,6 +124,7 @@ abstract class _$$_UiPokemonDetailCopyWith<$Res>
   $Res call(
       {int id,
       String name,
+      String form,
       String flavorText,
       List<UiType> types,
       int weight,
@@ -138,6 +146,7 @@ class __$$_UiPokemonDetailCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? form = null,
     Object? flavorText = null,
     Object? types = null,
     Object? weight = null,
@@ -153,6 +162,10 @@ class __$$_UiPokemonDetailCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      form: null == form
+          ? _value.form
+          : form // ignore: cast_nullable_to_non_nullable
               as String,
       flavorText: null == flavorText
           ? _value.flavorText
@@ -188,6 +201,7 @@ class _$_UiPokemonDetail implements _UiPokemonDetail {
   _$_UiPokemonDetail(
       {required this.id,
       required this.name,
+      required this.form,
       required this.flavorText,
       required final List<UiType> types,
       required this.weight,
@@ -202,6 +216,8 @@ class _$_UiPokemonDetail implements _UiPokemonDetail {
   final int id;
   @override
   final String name;
+  @override
+  final String form;
   @override
   final String flavorText;
   final List<UiType> _types;
@@ -234,7 +250,7 @@ class _$_UiPokemonDetail implements _UiPokemonDetail {
 
   @override
   String toString() {
-    return 'UiPokemonDetail(id: $id, name: $name, flavorText: $flavorText, types: $types, weight: $weight, height: $height, stats: $stats, chains: $chains)';
+    return 'UiPokemonDetail(id: $id, name: $name, form: $form, flavorText: $flavorText, types: $types, weight: $weight, height: $height, stats: $stats, chains: $chains)';
   }
 
   @override
@@ -244,6 +260,7 @@ class _$_UiPokemonDetail implements _UiPokemonDetail {
             other is _$_UiPokemonDetail &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.form, form) || other.form == form) &&
             (identical(other.flavorText, flavorText) ||
                 other.flavorText == flavorText) &&
             const DeepCollectionEquality().equals(other._types, _types) &&
@@ -258,6 +275,7 @@ class _$_UiPokemonDetail implements _UiPokemonDetail {
       runtimeType,
       id,
       name,
+      form,
       flavorText,
       const DeepCollectionEquality().hash(_types),
       weight,
@@ -276,6 +294,7 @@ abstract class _UiPokemonDetail implements UiPokemonDetail {
   factory _UiPokemonDetail(
       {required final int id,
       required final String name,
+      required final String form,
       required final String flavorText,
       required final List<UiType> types,
       required final int weight,
@@ -287,6 +306,8 @@ abstract class _UiPokemonDetail implements UiPokemonDetail {
   int get id;
   @override
   String get name;
+  @override
+  String get form;
   @override
   String get flavorText;
   @override

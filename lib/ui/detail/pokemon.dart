@@ -118,7 +118,10 @@ class _PokemonState extends State<PokemonScreen> {
                 // 이름
                 Align(
                   alignment: Alignment.center,
-                  child: Text(pokemon?.name ?? widget.param.title, style: const TextStyle(fontSize: 16, color: Colors.white))
+                  child: Text(
+                    getFullName(widget.param.title, pokemon?.name, pokemon?.form),
+                    style: const TextStyle(fontSize: 16, color: Colors.white)
+                  )
                 ),
                 Text(
                   pokemon?.flavorText ?? "",
@@ -204,5 +207,15 @@ class _PokemonState extends State<PokemonScreen> {
         }
       )
     );
+  }
+
+  String getFullName(String? defaultName, String? name, String? form) {
+    if (name != null && form != null && form.isNotEmpty) {
+      return "$name ($form)";
+    } else if (name != null && form == null) {
+      return name;
+    } else {
+      return defaultName ?? "";
+    }
   }
 }

@@ -19,6 +19,7 @@ class NetworkPokemon with _$NetworkPokemon {
     @JsonKey(name: 'is_default') required bool isDefault,
     @JsonKey(name: 'order') required int order,
     @JsonKey(name: 'weight') required int weight,
+    @JsonKey(name: 'forms') required List<NetworkNamedAPIResource> forms,
     @JsonKey(name: 'types') required List<NetworkPokemonType> types,
     @JsonKey(name: 'stats') required List<NetworkPokemonStat> stats,
     @JsonKey(name: 'species') required NetworkNamedAPIResource species,

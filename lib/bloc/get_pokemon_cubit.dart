@@ -27,6 +27,7 @@ class GetPokemonCubit extends Cubit<UiState> {
       _detail = UiPokemonDetail(
         id: pokemon.id,
         name: pokemon.name,
+        form: "",
         flavorText: "",
         types: pokemon.types.map((e) =>
           UiType(id: getIdFromUrl(e.type.url), name: e.type.name)
@@ -99,6 +100,15 @@ class GetPokemonCubit extends Cubit<UiState> {
             emit(Success(data: _detail!));
           });
         }
+      });
+
+      // Form
+      _repository.getForm(id: getIdFromUrl(pokemon.forms.first.url)).then((value) {
+        _detail = _detail?.copyWith(form: value.formNames
+            .firstWhere((e) =>
+        e.language.name == 'ko' || e.language.name == 'en')
+            .name);
+        emit(Success(data: _detail!));
       });
 
       // Type

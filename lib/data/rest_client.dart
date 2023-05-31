@@ -6,6 +6,7 @@ import 'package:retrofit/http.dart';
 import 'model/network_evolution_chain.dart';
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
+import 'model/network_pokemon_form.dart';
 import 'model/network_pokemon_species.dart';
 import 'model/network_type.dart';
 
@@ -32,6 +33,11 @@ abstract class RestClient {
 
   @GET('pokemon-species/{id}')
   Future<NetworkPokemonSpecies> getSpecies({
+    @Path('id') required int id
+  });
+
+  @GET('pokemon-form/{id}')
+  Future<NetworkPokemonForm> getForm({
     @Path('id') required int id
   });
 

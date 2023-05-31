@@ -1,3 +1,4 @@
+import 'package:flutter_template/data/model/network_pokemon_form.dart';
 import 'package:injectable/injectable.dart';
 
 import 'model/network_evolution_chain.dart';
@@ -25,6 +26,10 @@ class Repository {
   Future<NetworkPokemonSpecies> getSpecies({
     required int id
   }) => _restClient.getSpecies(id: id);
+
+  Future<NetworkPokemonForm> getForm({
+    required int id
+  }) => _restClient.getForm(id: id);
 
   Future<NetworkType> getType({
     required int id
