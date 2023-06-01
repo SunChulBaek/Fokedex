@@ -24,7 +24,7 @@ mixin _$UiPokemonDetail {
   int get weight => throw _privateConstructorUsedError;
   int get height => throw _privateConstructorUsedError;
   List<UiStat> get stats => throw _privateConstructorUsedError;
-  List<UiChainEntry> get chains => throw _privateConstructorUsedError;
+  List<List<UiChainEntry>> get chains => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UiPokemonDetailCopyWith<UiPokemonDetail> get copyWith =>
@@ -46,7 +46,7 @@ abstract class $UiPokemonDetailCopyWith<$Res> {
       int weight,
       int height,
       List<UiStat> stats,
-      List<UiChainEntry> chains});
+      List<List<UiChainEntry>> chains});
 }
 
 /// @nodoc
@@ -108,7 +108,7 @@ class _$UiPokemonDetailCopyWithImpl<$Res, $Val extends UiPokemonDetail>
       chains: null == chains
           ? _value.chains
           : chains // ignore: cast_nullable_to_non_nullable
-              as List<UiChainEntry>,
+              as List<List<UiChainEntry>>,
     ) as $Val);
   }
 }
@@ -130,7 +130,7 @@ abstract class _$$_UiPokemonDetailCopyWith<$Res>
       int weight,
       int height,
       List<UiStat> stats,
-      List<UiChainEntry> chains});
+      List<List<UiChainEntry>> chains});
 }
 
 /// @nodoc
@@ -190,7 +190,7 @@ class __$$_UiPokemonDetailCopyWithImpl<$Res>
       chains: null == chains
           ? _value._chains
           : chains // ignore: cast_nullable_to_non_nullable
-              as List<UiChainEntry>,
+              as List<List<UiChainEntry>>,
     ));
   }
 }
@@ -207,7 +207,7 @@ class _$_UiPokemonDetail implements _UiPokemonDetail {
       required this.weight,
       required this.height,
       required final List<UiStat> stats,
-      required final List<UiChainEntry> chains})
+      required final List<List<UiChainEntry>> chains})
       : _types = types,
         _stats = stats,
         _chains = chains;
@@ -240,9 +240,9 @@ class _$_UiPokemonDetail implements _UiPokemonDetail {
     return EqualUnmodifiableListView(_stats);
   }
 
-  final List<UiChainEntry> _chains;
+  final List<List<UiChainEntry>> _chains;
   @override
-  List<UiChainEntry> get chains {
+  List<List<UiChainEntry>> get chains {
     if (_chains is EqualUnmodifiableListView) return _chains;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_chains);
@@ -300,7 +300,7 @@ abstract class _UiPokemonDetail implements UiPokemonDetail {
       required final int weight,
       required final int height,
       required final List<UiStat> stats,
-      required final List<UiChainEntry> chains}) = _$_UiPokemonDetail;
+      required final List<List<UiChainEntry>> chains}) = _$_UiPokemonDetail;
 
   @override
   int get id;
@@ -319,7 +319,7 @@ abstract class _UiPokemonDetail implements UiPokemonDetail {
   @override
   List<UiStat> get stats;
   @override
-  List<UiChainEntry> get chains;
+  List<List<UiChainEntry>> get chains;
   @override
   @JsonKey(ignore: true)
   _$$_UiPokemonDetailCopyWith<_$_UiPokemonDetail> get copyWith =>

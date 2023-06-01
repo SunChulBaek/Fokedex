@@ -10,10 +10,10 @@ abstract class ApiModule {
 
   PrettyDioLogger get logger => PrettyDioLogger(
       requestHeader: false,
-      requestBody: true,
+      requestBody: false,
       responseHeader: false,
-      responseBody: true,
-      error: true,
+      responseBody: false,
+      error: false,
       compact: true,
       maxWidth: 90
   );

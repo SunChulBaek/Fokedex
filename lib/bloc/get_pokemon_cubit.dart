@@ -90,12 +90,23 @@ class GetPokemonCubit extends Cubit<UiState> {
                 );
               });
             }
-            final chains = List<UiChainEntry>.of([]);
+            final chains = List<UiChainEntry?>.of([]);
             map.forEach((key, value) {
               chains.add(value);
             });
+            List<List<UiChainEntry>> x = chains.where((it) => it?.isLeaf == true).map((leaf) {
+              final list = List<UiChainEntry>.of([]);
+              UiChainEntry? entry = leaf;
+              while (entry != null) {
+                list.add(entry);
+                entry = chains.firstWhere((it) {
+                  return it?.pId == entry?.prevId;
+                }, orElse: () => null);
+              }
+              return list.reversed.toList();
+            }).toList();
             _detail = _detail?.copyWith(
-                chains: chains
+                chains: x
             );
             emit(Success(data: _detail!));
           });

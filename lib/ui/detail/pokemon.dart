@@ -10,6 +10,7 @@ import '../../bloc/model/ui_state.dart';
 import '../../injectable.dart';
 import '../common/pokemon_progress_indicator.dart';
 import '../model/ui_pokemon_detail.dart';
+import 'pokemon_evolution_chain.dart';
 
 class PokemonParam {
   PokemonParam({
@@ -176,31 +177,13 @@ class _PokemonState extends State<PokemonScreen> {
                     Expanded(child: Container()),
                   ],
                 ),
-                const Align(
-                  alignment: Alignment.center,
-                  child: Text('Evolution Chains', style: TextStyle(fontSize: 16, color: Colors.white))
-                ),
-                ...pokemon?.chains.map((e) =>
-                  Row(
-                    children: [
-                      Text("${e.prevId} -> ${e.pId}", style: const TextStyle(color: Colors.white))
-                    ],
-                  )
-                ).toList() ?? List.empty(),
-                // const Align(
-                //   alignment: Alignment.center,
-                //   child: Text('Base Stats', style: TextStyle(fontSize: 16, color: Colors.white))
-                // ),
-                // // 스탯
-                // ...pokemon?.stats.map((stat) =>
-                //   Row(
-                //     children: [
-                //       Text(stat.name, style: const TextStyle(color: Colors.white)),
-                //       const SizedBox(width: 10),
-                //       Text(stat.value.toString(), style: const TextStyle(color: Colors.white)),
-                //     ],
-                //   )
-                // ).toList() ?? List.empty()
+                if (maxEvolutionChainLength(pokemon) > 1)
+                  const Align(
+                    alignment: Alignment.center,
+                    child: Text('Evolution Chains', style: TextStyle(fontSize: 16, color: Colors.white))
+                  ),
+                if (maxEvolutionChainLength(pokemon) > 1)
+                  PokemonEvolutionChain(pokemon: pokemon!),
               ]
             )
           );

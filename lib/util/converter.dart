@@ -2,6 +2,21 @@ import 'package:flutter/material.dart';
 
 import '../data/model/network_flavor_text.dart';
 import '../data/model/network_name.dart';
+import '../ui/model/ui_pokemon_detail.dart';
+
+int maxEvolutionChainLength(UiPokemonDetail? pokemon) {
+  if (pokemon?.chains != null && (pokemon?.chains.length ?? 0) > 0) {
+    int max = 0;
+    for (var it in pokemon!.chains) {
+      if (it.length > max) {
+        max = it.length;
+      }
+    }
+    return max;
+  } else {
+    return 0;
+  }
+}
 
 int getIdFromUrl(String url) => int.parse(url.split('/').elementAt(6));
 
