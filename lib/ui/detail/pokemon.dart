@@ -72,6 +72,7 @@ class _PokemonState extends State<PokemonScreen> {
                     },
                   ),
                   backgroundColor: Color(widget.param.colorStart),
+                  elevation: 0
                 ),
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
