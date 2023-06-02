@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/ui/detail/pokemon_thumb.dart';
+import 'package:flutter_template/ui/model/ui_chain_entry.dart';
 
 import '../../util/converter.dart';
+import '../../util/timber.dart';
 import '../model/ui_pokemon_detail.dart';
 
 class PokemonEvolutionChain extends StatelessWidget {
@@ -130,7 +132,8 @@ bool isActivePokemon(int id, UiPokemonDetail pokemon) =>
 
 List<int> activePokemonIds(UiPokemonDetail pokemon) {
   final chain = pokemon.chains.firstWhere((chain) =>
-    chain.map((it) => it.pId).contains(pokemon.id)
+    chain.map((it) => it.pId).contains(pokemon.id),
+    orElse: () => List<UiChainEntry>.empty()
   ).map((it) => it.pId).toList();
 
   return chain.fold(List<int>.empty(growable: true), (acc, id) {
