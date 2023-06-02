@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/ui/detail/pokemon_thumb.dart';
 
 import '../../util/converter.dart';
 import '../model/ui_pokemon_detail.dart';
@@ -62,7 +62,7 @@ class DrawEvolutionLines extends CustomPainter {
         Offset(0, (prevNodeIndexx + 0.5) * this.size),
         Offset(size.width, (index + 0.5) * this.size),
         Paint()
-          ..color = Colors.white
+          ..color = isActivePokemon(id, pokemon) ? Colors.lime : Colors.white
           ..strokeWidth = 2
       );
     });
@@ -90,19 +90,34 @@ class DrawPokemons extends StatelessWidget {
     return Column(
       children: [
         ...ids.map((id) =>
-          Container(
-            width: size.toDouble(),
-            height: size.toDouble(),
-            decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-            child: CachedNetworkImage(
-              imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png",
-              fit: BoxFit.fitWidth,
+            PokemonThumb(
+              id: id,
+              size: size.toDouble(),
+              normalColor: Colors.white,
+              accentColor: Colors.lime,
+              isActive: () => isActivePokemon(id, pokemon),
+              onClick: () { }
             )
-          )
         )
       ],
     );
   }
+}
+
+bool isActivePokemon(int id, UiPokemonDetail pokemon) =>
+  activePokemonIds(pokemon).contains(id);
+
+List<int> activePokemonIds(UiPokemonDetail pokemon) {
+  final chain = pokemon.chains.firstWhere((chain) =>
+    chain.map((it) => it.pId).contains(pokemon.id)
+  ).map((it) => it.pId).toList();
+
+  return chain.fold(List<int>.empty(growable: true), (acc, id) {
+    if (chain.indexOf(id) <= chain.indexOf(pokemon.id)) {
+      acc.add(id);
+    }
+    return acc;
+  });
 }
 
 List<int> columnPokemonIdTriggers(
@@ -110,7 +125,7 @@ List<int> columnPokemonIdTriggers(
   int columnIndex,
   void Function(int, int) action,
 ) {
-  var list = pokemon.chains.where((chain) =>
+  final list = pokemon.chains.where((chain) =>
     chain.length > columnIndex
   ).map((chain) =>
     chain[columnIndex]
@@ -134,11 +149,13 @@ int prevNodeIndex(
   List<int> prevColumnItems,
   int columnIndex,
 ) {
-  int prevNodeIndex = pokemon.chains.firstWhere((chain) =>
+  final prevNodeIndex = pokemon.chains.firstWhere((chain) =>
     chain.map((e) => e.pId).contains(pId)
   ).map((e) => e.pId).toList().indexOf(pId) - 1;
-  int prevNodeId = pokemon.chains.firstWhere((chain) =>
+
+  final prevNodeId = pokemon.chains.firstWhere((chain) =>
     chain.map((e) => e.pId).contains(pId)
   ).map((e) => e.pId).toList().elementAt(prevNodeIndex);
+
   return prevColumnItems.indexWhere((id) => id == prevNodeId);
 }
