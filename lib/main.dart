@@ -56,7 +56,12 @@ class MyApp extends StatelessWidget {
           GoRoute(
             path: '/product',
             name: PokemonScreen.routeName,
-            builder: (context, state) => PokemonScreen(param: state.extra as PokemonParam),
+            builder: (context, state) => PokemonScreen(
+              param: state.extra as PokemonParam,
+              onClick: (context, param) {
+                context.pushNamed(PokemonScreen.routeName, extra: param as PokemonParam);
+              },
+            ),
           ),
           GoRoute(
             path: '/webview',

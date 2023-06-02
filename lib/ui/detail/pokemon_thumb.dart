@@ -1,10 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/ui/common/pokemon_progress_indicator.dart';
+import 'package:flutter_template/ui/model/ui_pokemon_detail.dart';
+import 'package:intl/intl.dart';
+
+import 'pokemon.dart';
 
 class PokemonThumb extends StatefulWidget {
   const PokemonThumb({
     required this.id,
+    required this.pokemon,
     required this.size,
     required this.normalColor,
     required this.accentColor,
@@ -14,11 +19,12 @@ class PokemonThumb extends StatefulWidget {
   });
 
   final int id;
+  final UiPokemonDetail pokemon;
   final double size;
   final Color normalColor;
   final Color accentColor;
   final bool Function() isActive;
-  final void Function() onClick;
+  final void Function(BuildContext context, Object param) onClick;
 
   @override
   State<PokemonThumb> createState() => _PokemonThumbState();
@@ -45,15 +51,44 @@ class _PokemonThumbState extends State<PokemonThumb> {
         color: widget.isActive() ? widget.accentColor : widget.normalColor,
         child: Stack(
           children: [
-            Center(
-              child: Container(
-                width: widget.size - 20,
-                height: widget.size - 20,
-                child: CachedNetworkImage(
-                  imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${widget.id}.png",
-                  fit: BoxFit.fitWidth,
+            InkWell(
+              borderRadius: BorderRadius.circular(widget.size / 2),
+              child: SizedBox(
+                width: widget.size,
+                height: widget.size,
+                child: Column(
+                  children:[
+                    Expanded(child: Container()),
+                    SizedBox(
+                      width: widget.size - 20,
+                      height: widget.size - 20,
+                      child: CachedNetworkImage(
+                        imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${widget.id}.png",
+                        fit: BoxFit.cover,
+                      )
+                    ),
+                    Text(
+                      "#${NumberFormat("000").format(widget.id)}",
+                      style: const TextStyle(fontSize: 10)
+                    ),
+                    Expanded(child: Container()),
+                  ]
                 )
-              )
+              ),
+              onTap: () {
+                if (widget.id != widget.pokemon.id) {
+                  widget.onClick(
+                      context,
+                      PokemonParam(
+                          id: widget.id,
+                          title: 'name',
+                          url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${widget
+                              .id}.png",
+                          colorStart: 0xFFe91e63,
+                          colorEnd: 0xFF03a9f4
+                      ));
+                }
+              },
             ),
             if (_showProgress)
               PokemonProgressIndicator(size: widget.size)

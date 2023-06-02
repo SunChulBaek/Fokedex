@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../bloc/get_pokemon_cubit.dart';
 import '../../bloc/model/ui_state.dart';
 import '../../injectable.dart';
+import '../../util/timber.dart';
 import '../common/pokemon_progress_indicator.dart';
 import '../model/ui_pokemon_detail.dart';
 import 'pokemon_evolution_chain.dart';
@@ -29,11 +30,16 @@ class PokemonParam {
 }
 
 class PokemonScreen extends StatefulWidget {
-  const PokemonScreen({Key? key, required this.param}) : super(key: key);
+  const PokemonScreen({
+    required this.param,
+    required this.onClick,
+    Key? key
+  }) : super(key: key);
 
   static const routeName = "/pokemon";
 
   final PokemonParam param;
+  final void Function(BuildContext context, Object param) onClick;
 
   @override
   State<StatefulWidget> createState() => _PokemonState();
@@ -183,7 +189,13 @@ class _PokemonState extends State<PokemonScreen> {
                     child: Text('Evolution Chains', style: TextStyle(fontSize: 16, color: Colors.white))
                   ),
                 if (maxEvolutionChainLength(pokemon) > 1)
-                  PokemonEvolutionChain(pokemon: pokemon!),
+                  PokemonEvolutionChain(
+                    pokemon: pokemon!,
+                    size: 60,
+                    normalColor: const Color(0xFFbdbdbd),
+                    accentColor: const Color(0xFFc6ff00),
+                    onClick: widget.onClick
+                  ),
               ]
             )
           );

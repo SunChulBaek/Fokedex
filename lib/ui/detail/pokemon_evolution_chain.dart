@@ -5,38 +5,48 @@ import '../../util/converter.dart';
 import '../model/ui_pokemon_detail.dart';
 
 class PokemonEvolutionChain extends StatelessWidget {
-  const PokemonEvolutionChain({required this.pokemon, super.key});
+  const PokemonEvolutionChain({
+    required this.pokemon,
+    required this.size,
+    required this.normalColor,
+    required this.accentColor,
+    required this.onClick,
+    super.key
+  });
 
   final UiPokemonDetail pokemon;
+  final int size;
+  final Color normalColor;
+  final Color accentColor;
+  final void Function(BuildContext context, Object param) onClick;
 
   @override
   Widget build(BuildContext context) {
-    const size = 50;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // 이미지
-        DrawPokemons(columnIndex: 0, pokemon: pokemon, size: size),
+        DrawPokemons(columnIndex: 0, pokemon: pokemon, size: size, normalColor: normalColor, accentColor: accentColor, onClick: onClick),
         // 가지치기
         Expanded(
           flex:1,
           child: CustomPaint(
-            painter: DrawEvolutionLines(columnIndex: 1, pokemon: pokemon, size: size),
+            painter: DrawEvolutionLines(columnIndex: 1, pokemon: pokemon, size: size, normalColor: normalColor, accentColor: accentColor),
             child: Container(height: size.toDouble())
         )),
         // 이미지
-        DrawPokemons(columnIndex: 1, pokemon: pokemon, size: size),
+        DrawPokemons(columnIndex: 1, pokemon: pokemon, size: size, normalColor: normalColor, accentColor: accentColor, onClick: onClick),
         // 가지치기
         if (maxEvolutionChainLength(pokemon) == 3)
           Expanded(
             flex: 1,
             child: CustomPaint(
-              painter: DrawEvolutionLines(columnIndex: 2, pokemon: pokemon, size: size),
+              painter: DrawEvolutionLines(columnIndex: 2, pokemon: pokemon, size: size, normalColor: normalColor, accentColor: accentColor),
               child: Container(height: size.toDouble())
           )),
         // 이미지
         if (maxEvolutionChainLength(pokemon) == 3)
-          DrawPokemons(columnIndex: 2, pokemon: pokemon, size: size),
+          DrawPokemons(columnIndex: 2, pokemon: pokemon, size: size, normalColor: normalColor, accentColor: accentColor, onClick: onClick),
       ],
     );
   }
@@ -47,11 +57,15 @@ class DrawEvolutionLines extends CustomPainter {
     required this.columnIndex,
     required this.pokemon,
     required this.size,
+    required this.normalColor,
+    required this.accentColor,
   });
 
   final int columnIndex;
   final UiPokemonDetail pokemon;
   final int size;
+  final Color normalColor;
+  final Color accentColor;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -77,12 +91,18 @@ class DrawPokemons extends StatelessWidget {
     required this.columnIndex,
     required this.pokemon,
     required this.size,
+    required this.normalColor,
+    required this.accentColor,
+    required this.onClick,
     super.key
   });
 
   final int columnIndex;
   final UiPokemonDetail pokemon;
   final int size;
+  final Color normalColor;
+  final Color accentColor;
+  final void Function(BuildContext context, Object param) onClick;
 
   @override
   Widget build(BuildContext context) {
@@ -92,11 +112,12 @@ class DrawPokemons extends StatelessWidget {
         ...ids.map((id) =>
             PokemonThumb(
               id: id,
+              pokemon: pokemon,
               size: size.toDouble(),
-              normalColor: Colors.white,
-              accentColor: Colors.lime,
+              normalColor: normalColor,
+              accentColor: accentColor,
               isActive: () => isActivePokemon(id, pokemon),
-              onClick: () { }
+              onClick: onClick
             )
         )
       ],
