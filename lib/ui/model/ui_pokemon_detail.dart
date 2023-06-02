@@ -18,5 +18,6 @@ class UiPokemonDetail with _$UiPokemonDetail {
     required int height,
     required List<UiStat> stats,
     required List<List<UiChainEntry>> chains,
+    required List<int> varietyIds,
   }) = _UiPokemonDetail;
 }

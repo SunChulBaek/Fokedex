@@ -40,7 +40,8 @@ class GetPokemonCubit extends Cubit<UiState> {
             value: e.baseStat
           )
         ).toList(),
-        chains: List.of([])
+        chains: List.of([]),
+        varietyIds: List.of([]),
       );
       emit(Success(data: _detail!));
 
@@ -53,10 +54,11 @@ class GetPokemonCubit extends Cubit<UiState> {
         _detail = _detail?.copyWith(
           name: getNameForLocale(species.names),
           flavorText: getFlavorTextForLocale(species.flavorTextEntries),
+          varietyIds: species.varieties.map((e) => getIdFromUrl(e.pokemon.url)).toList(),
         );
         emit(Success(data: _detail!));
 
-        // TODO : Evolution Chain 보여주기
+        // Evolution Chain 보여주기
         if (evolutionChainId > 0) {
           _repository.getEvolutionChain(id: evolutionChainId).then((value) {
             final map = HashMap<int, UiChainEntry>();

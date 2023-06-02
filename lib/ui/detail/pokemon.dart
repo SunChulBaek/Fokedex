@@ -12,6 +12,7 @@ import '../../util/timber.dart';
 import '../common/pokemon_progress_indicator.dart';
 import '../model/ui_pokemon_detail.dart';
 import 'pokemon_evolution_chain.dart';
+import 'pokemon_varieties.dart';
 
 class PokemonParam {
   PokemonParam({
@@ -197,7 +198,17 @@ class _PokemonState extends State<PokemonScreen> {
                       accentColor: const Color(0xFFc6ff00),
                       onClick: widget.onClick
                     ),
-                ]
+                  if ((pokemon?.varietyIds.length ?? 0) > 1)
+                    const Align(
+                        alignment: Alignment.center,
+                        child: Text('Varieties', style: TextStyle(fontSize: 16, color: Colors.white))
+                    ),
+                  if ((pokemon?.varietyIds.length ?? 0) > 1)
+                    PokemonVarieties(
+                      pokemon: pokemon!,
+                      onClick: widget.onClick,
+                    )
+                 ]
               )
             )
           );
