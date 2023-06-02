@@ -38,9 +38,11 @@ class _PokemonThumbState extends State<PokemonThumb> {
   Widget build(BuildContext context) {
     // 300ms 이후에 프로그레스 제거 (이미지 로딩 완료 시점을 잡을 수 있으면 완료 이후 제거)
     Future.delayed(const Duration(milliseconds: 300), () {
-      setState(() {
-        _showProgress = false;
-      });
+      if (mounted) {
+        setState(() {
+          _showProgress = false;
+        });
+      }
     });
 
     return ClipRRect(
