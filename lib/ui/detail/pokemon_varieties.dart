@@ -21,21 +21,22 @@ class PokemonVarieties extends StatelessWidget {
         Row(
           children: [
             for (int j = 0; j < 3; j++)
-              Expanded(
-                child: (i * 3) + j <= pokemon.varietyIds.length - 1
-                  ? Center(
-                      child: PokemonThumb(
-                        id: pokemon.varietyIds[(i * 3) + j],
-                        pokemon: pokemon,
-                        size: 60,
-                        normalColor: Colors.white,
-                        accentColor: const Color(0xFF03a9f4),
-                        isActive: () => pokemon.id == pokemon.varietyIds[(i * 3) + j],
-                        onClick: onClick
-                    )
-                  )
-                  : Container()
-              )
+            ...[
+              if ((i * 3) + j <= pokemon.varietyIds.length - 1)
+                PokemonThumb(
+                  id: pokemon.varietyIds[(i * 3) + j],
+                  pokemon: pokemon,
+                  size: 60,
+                  normalColor: Colors.white,
+                  accentColor: const Color(0xFF03a9f4),
+                  isActive: () => pokemon.id == pokemon.varietyIds[(i * 3) + j],
+                  onClick: onClick
+                ),
+              if ((i * 3) + j > pokemon.varietyIds.length - 1)
+                const SizedBox(width: 60, height: 60),
+              if (j < 2)
+                Expanded(child: Container()),
+            ]
           ]
         )
     ],
