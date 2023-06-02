@@ -25,6 +25,7 @@ mixin _$UiPokemonDetail {
   int get height => throw _privateConstructorUsedError;
   List<UiStat> get stats => throw _privateConstructorUsedError;
   List<List<UiChainEntry>> get chains => throw _privateConstructorUsedError;
+  List<int> get varietyIds => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UiPokemonDetailCopyWith<UiPokemonDetail> get copyWith =>
@@ -46,7 +47,8 @@ abstract class $UiPokemonDetailCopyWith<$Res> {
       int weight,
       int height,
       List<UiStat> stats,
-      List<List<UiChainEntry>> chains});
+      List<List<UiChainEntry>> chains,
+      List<int> varietyIds});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$UiPokemonDetailCopyWithImpl<$Res, $Val extends UiPokemonDetail>
     Object? height = null,
     Object? stats = null,
     Object? chains = null,
+    Object? varietyIds = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -109,6 +112,10 @@ class _$UiPokemonDetailCopyWithImpl<$Res, $Val extends UiPokemonDetail>
           ? _value.chains
           : chains // ignore: cast_nullable_to_non_nullable
               as List<List<UiChainEntry>>,
+      varietyIds: null == varietyIds
+          ? _value.varietyIds
+          : varietyIds // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ) as $Val);
   }
 }
@@ -130,7 +137,8 @@ abstract class _$$_UiPokemonDetailCopyWith<$Res>
       int weight,
       int height,
       List<UiStat> stats,
-      List<List<UiChainEntry>> chains});
+      List<List<UiChainEntry>> chains,
+      List<int> varietyIds});
 }
 
 /// @nodoc
@@ -153,6 +161,7 @@ class __$$_UiPokemonDetailCopyWithImpl<$Res>
     Object? height = null,
     Object? stats = null,
     Object? chains = null,
+    Object? varietyIds = null,
   }) {
     return _then(_$_UiPokemonDetail(
       id: null == id
@@ -191,6 +200,10 @@ class __$$_UiPokemonDetailCopyWithImpl<$Res>
           ? _value._chains
           : chains // ignore: cast_nullable_to_non_nullable
               as List<List<UiChainEntry>>,
+      varietyIds: null == varietyIds
+          ? _value._varietyIds
+          : varietyIds // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
@@ -207,10 +220,12 @@ class _$_UiPokemonDetail implements _UiPokemonDetail {
       required this.weight,
       required this.height,
       required final List<UiStat> stats,
-      required final List<List<UiChainEntry>> chains})
+      required final List<List<UiChainEntry>> chains,
+      required final List<int> varietyIds})
       : _types = types,
         _stats = stats,
-        _chains = chains;
+        _chains = chains,
+        _varietyIds = varietyIds;
 
   @override
   final int id;
@@ -248,9 +263,17 @@ class _$_UiPokemonDetail implements _UiPokemonDetail {
     return EqualUnmodifiableListView(_chains);
   }
 
+  final List<int> _varietyIds;
+  @override
+  List<int> get varietyIds {
+    if (_varietyIds is EqualUnmodifiableListView) return _varietyIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_varietyIds);
+  }
+
   @override
   String toString() {
-    return 'UiPokemonDetail(id: $id, name: $name, form: $form, flavorText: $flavorText, types: $types, weight: $weight, height: $height, stats: $stats, chains: $chains)';
+    return 'UiPokemonDetail(id: $id, name: $name, form: $form, flavorText: $flavorText, types: $types, weight: $weight, height: $height, stats: $stats, chains: $chains, varietyIds: $varietyIds)';
   }
 
   @override
@@ -267,7 +290,9 @@ class _$_UiPokemonDetail implements _UiPokemonDetail {
             (identical(other.weight, weight) || other.weight == weight) &&
             (identical(other.height, height) || other.height == height) &&
             const DeepCollectionEquality().equals(other._stats, _stats) &&
-            const DeepCollectionEquality().equals(other._chains, _chains));
+            const DeepCollectionEquality().equals(other._chains, _chains) &&
+            const DeepCollectionEquality()
+                .equals(other._varietyIds, _varietyIds));
   }
 
   @override
@@ -281,7 +306,8 @@ class _$_UiPokemonDetail implements _UiPokemonDetail {
       weight,
       height,
       const DeepCollectionEquality().hash(_stats),
-      const DeepCollectionEquality().hash(_chains));
+      const DeepCollectionEquality().hash(_chains),
+      const DeepCollectionEquality().hash(_varietyIds));
 
   @JsonKey(ignore: true)
   @override
@@ -300,7 +326,8 @@ abstract class _UiPokemonDetail implements UiPokemonDetail {
       required final int weight,
       required final int height,
       required final List<UiStat> stats,
-      required final List<List<UiChainEntry>> chains}) = _$_UiPokemonDetail;
+      required final List<List<UiChainEntry>> chains,
+      required final List<int> varietyIds}) = _$_UiPokemonDetail;
 
   @override
   int get id;
@@ -320,6 +347,8 @@ abstract class _UiPokemonDetail implements UiPokemonDetail {
   List<UiStat> get stats;
   @override
   List<List<UiChainEntry>> get chains;
+  @override
+  List<int> get varietyIds;
   @override
   @JsonKey(ignore: true)
   _$$_UiPokemonDetailCopyWith<_$_UiPokemonDetail> get copyWith =>
