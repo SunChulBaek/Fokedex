@@ -17,10 +17,13 @@ class PokemonGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-      child: InkWell(
+    return InkWell(
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            colors: List.of([const Color(0xFFd1c4e9), const Color(0xFFede7f6)])
+          )
+        ),
         child: Stack(
           alignment: AlignmentDirectional.center,
           children: [
@@ -38,28 +41,39 @@ class PokemonGridItem extends StatelessWidget {
                     )
                   )
                 ),
-                Text(pokemon.name, maxLines: 2, overflow: TextOverflow.ellipsis),
                 const SizedBox(height: 10),
               ],
             ),
             Align(
-              alignment: Alignment.topLeft,
+              alignment: Alignment.bottomRight,
               child: Padding(
-                padding: const EdgeInsets.only(left: 8, top: 8),
-                child: Text(pokemon.id.toString())
+                padding: const EdgeInsets.only(right: 8, bottom: 8),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: Container(
+                    color: const Color(0xFFd1c4e9),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      child: Text(
+                        pokemon.id.toString(),
+                        style: const TextStyle(color: Colors.white, fontSize: 8),
+                      )
+                    )
+                  )
+                )
               )
             ),
           ]
-        ),
-        onTap: () => onClick.call(
-          context,
-          PokemonParam(
-            id: pokemon.id,
-            title: pokemon.name,
-            url: pokemon.imageUrl,
-            colorStart: 0xFFe91e63,
-            colorEnd: 0xFF03a9f4
-          )
+        )
+      ),
+      onTap: () => onClick.call(
+        context,
+        PokemonParam(
+          id: pokemon.id,
+          title: pokemon.name,
+          url: pokemon.imageUrl,
+          colorStart: 0xFFe91e63,
+          colorEnd: 0xFF03a9f4
         )
       )
     );

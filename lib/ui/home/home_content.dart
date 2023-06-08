@@ -52,10 +52,10 @@ class _HomeState extends State<HomeContent> {
                           },
                           child: GridView.builder(
                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2
+                              crossAxisCount: 5
                             ),
                             controller: _scrollController,
-                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                            padding: const EdgeInsets.only(left: 0.0, right: 0.0),
                             itemBuilder: (BuildContext context, int index) {
                               return index >= pokemonList.length
                                 ? const BottomLoader()

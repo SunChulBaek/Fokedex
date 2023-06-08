@@ -28,7 +28,7 @@ class GetPokemonListCubit extends Cubit<UiState> {
 
   List<UiPokemon> list = List.empty(growable: true);
 
-  void init({ int limit = 20, int offset = 0 }) async {
+  void init({ int limit = 60, int offset = 0 }) async {
     try {
       final pokemonList = await _repository.getPokemonList(limit: limit, offset: offset);
       list.addAll(pokemonList.results.map((e) =>
