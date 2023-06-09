@@ -66,34 +66,15 @@ class _PokemonState extends State<PokemonScreen> {
             pokemon = (state as Success<UiPokemonDetail>).data;
           }
           return Scaffold(
-            backgroundColor: const Color(0xFF212121),
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppBar(
-                    title: Text('#${NumberFormat('000').format(widget.param.id)}'),
-                    leading: IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () {
-                        context.pop();
-                      },
-                    ),
-                    backgroundColor: Color(widget.param.colorStart),
-                  ),
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(50),
-                      bottomRight: Radius.circular(50)
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [ Color(widget.param.colorStart), Color(widget.param.colorEnd) ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter
-                        )
-                      ),
+            backgroundColor: const Color(0xFFd1c4e9),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 200,
+                      height: 200,
                       child: Hero(
                         tag: widget.param.id,
                         child: CachedNetworkImage(
@@ -106,7 +87,7 @@ class _PokemonState extends State<PokemonScreen> {
                               height: double.infinity,
                               color: Colors.grey,
                               child: const Center(
-                                  child: PokemonProgressIndicator(size: 30)
+                                child: PokemonProgressIndicator(size: 30)
                               ),
                             )
                           ),
@@ -122,93 +103,57 @@ class _PokemonState extends State<PokemonScreen> {
                           ),
                         )
                       )
-                    )
-                  ),
-                  // 이름
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      getFullName(widget.param.title, pokemon?.name, pokemon?.form),
-                      style: const TextStyle(fontSize: 16, color: Colors.white)
-                    )
-                  ),
-                  Text(
-                    pokemon?.flavorText ?? "",
-                    style: const TextStyle(fontSize: 16, color: Colors.white)
-                  ),
-                  // 타입
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(child: Container()),
-                      ...pokemon?.types.map((type) =>
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16.0),
-                            child: Container(
-                              color: getColorFromId(type.id),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-                                child: Text(
-                                  type.name,
-                                  style: const TextStyle(color: Colors.white)
-                                )
-                              )
-                            )
-                          )
-                        )
-                      ).toList() ?? List.empty(),
-                      Expanded(child: Container()),
-                    ],
-                  ),
-                  // 몸무게, 키
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(child: Container()),
-                      Column(children: [
-                        Text(
-                          '${NumberFormat('#,##0.0').format((pokemon?.weight.toDouble() ?? 0) / 10)} KG',
-                          style: const TextStyle(color: Colors.white)
-                        ),
-                        const Text('Weight', style: TextStyle(color: Colors.white))
-                      ]),
-                      Expanded(child: Container()),
-                      Column(children: [
-                        Text(
-                          '${NumberFormat('#,##0.0').format((pokemon?.height.toDouble() ?? 0) / 10)} M',
-                          style: const TextStyle(color: Colors.white)
-                        ),
-                        const Text('Height', style: TextStyle(color: Colors.white))
-                      ]),
-                      Expanded(child: Container()),
-                    ],
-                  ),
-                  if (maxEvolutionChainLength(pokemon) > 1)
-                    const Align(
+                    ),
+                    // 이름
+                    Align(
                       alignment: Alignment.center,
-                      child: Text('Evolution Chains', style: TextStyle(fontSize: 16, color: Colors.white))
+                      child: Text(
+                        getFullName(widget.param.id, widget.param.title, pokemon?.name, pokemon?.form),
+                        style: const TextStyle(fontSize: 16, color: Colors.white)
+                      )
                     ),
-                  if (maxEvolutionChainLength(pokemon) > 1)
-                    PokemonEvolutionChain(
-                      pokemon: pokemon!,
-                      size: 60,
-                      normalColor: const Color(0xFFbdbdbd),
-                      accentColor: const Color(0xFFc6ff00),
-                      onClick: widget.onClick
+                    // 스테이터스
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Row(
+                        children: [
+                          Text("몸무게: ${NumberFormat("#,##0.0").format((pokemon?.weight ?? 0)/10)}kg", style: const TextStyle(color: Colors.white)),
+                          Expanded(child: Container()),
+                          Text("키: ${NumberFormat("#,##0.0").format((pokemon?.height ?? 0)/10)}m", style: const TextStyle(color: Colors.white)),
+                          Expanded(child: Container()),
+                          Text("타입: ${pokemon?.types.map((type) => type.name)}", style: const TextStyle(color: Colors.white))
+                        ],
+                      )
                     ),
-                  if ((pokemon?.varietyIds.length ?? 0) > 1)
-                    const Align(
+                    Text(
+                      pokemon?.flavorText ?? "",
+                      style: const TextStyle(fontSize: 16, color: Colors.white)
+                    ),
+                    if (maxEvolutionChainLength(pokemon) > 1)
+                      const Align(
                         alignment: Alignment.center,
-                        child: Text('Varieties', style: TextStyle(fontSize: 16, color: Colors.white))
-                    ),
-                  if ((pokemon?.varietyIds.length ?? 0) > 1)
-                    PokemonVarieties(
-                      pokemon: pokemon!,
-                      onClick: widget.onClick,
-                    )
-                 ]
+                        child: Text('Evolution Chains', style: TextStyle(fontSize: 16, color: Colors.white))
+                      ),
+                    if (maxEvolutionChainLength(pokemon) > 1)
+                      PokemonEvolutionChain(
+                        pokemon: pokemon!,
+                        size: 60,
+                        normalColor: const Color(0xFFbdbdbd),
+                        accentColor: const Color(0xFFc6ff00),
+                        onClick: widget.onClick
+                      ),
+                    if ((pokemon?.varietyIds.length ?? 0) > 1)
+                      const Align(
+                          alignment: Alignment.center,
+                          child: Text('Varieties', style: TextStyle(fontSize: 16, color: Colors.white))
+                      ),
+                    if ((pokemon?.varietyIds.length ?? 0) > 1)
+                      PokemonVarieties(
+                        pokemon: pokemon!,
+                        onClick: widget.onClick,
+                      )
+                   ]
+                )
               )
             )
           );
@@ -217,13 +162,13 @@ class _PokemonState extends State<PokemonScreen> {
     );
   }
 
-  String getFullName(String? defaultName, String? name, String? form) {
+  String getFullName(int id, String? defaultName, String? name, String? form) {
     if (name != null && form != null && form.isNotEmpty) {
-      return "$name ($form)";
+      return "${NumberFormat('0000').format(id)} $name ($form)";
     } else if (name != null && (form == null || form.isEmpty)) {
-      return name;
+      return "${NumberFormat('0000').format(id)} $name";
     } else {
-      return defaultName ?? "";
+      return "${NumberFormat('0000').format(id)} ${defaultName ?? ""}";
     }
   }
 }
