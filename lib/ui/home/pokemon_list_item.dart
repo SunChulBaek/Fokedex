@@ -21,7 +21,10 @@ class PokemonGridItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           gradient: RadialGradient(
-            colors: List.of([const Color(0xFFd1c4e9), const Color(0xFFede7f6)])
+            colors: List.of([
+              const Color(0xFFb3e5fc), // 100
+              const Color(0xFFe1f5fe) // 50
+            ])
           )
         ),
         child: Stack(
@@ -51,7 +54,7 @@ class PokemonGridItem extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(4),
                   child: Container(
-                    color: const Color(0xFFd1c4e9),
+                    color: const Color(0xFFb3e5fc),// 100
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: Text(
