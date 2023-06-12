@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/ui/detail/pokemon_bg.dart';
 import 'package:flutter_template/util/converter.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../bloc/get_pokemon_cubit.dart';
 import '../../bloc/model/ui_state.dart';
 import '../../injectable.dart';
-import '../../util/timber.dart';
 import '../common/pokemon_progress_indicator.dart';
 import '../model/ui_pokemon_detail.dart';
 import 'pokemon_evolution_chain.dart';
@@ -67,7 +65,7 @@ class _PokemonState extends State<PokemonScreen> {
             pokemon = (state as Success<UiPokemonDetail>).data;
           }
           return Scaffold(
-            backgroundColor: const Color(0xFFb3e5fc), // 100
+            backgroundColor: Colors.lightBlue.shade100, // 100
             body: SafeArea(
               child: Stack(
                 children:[

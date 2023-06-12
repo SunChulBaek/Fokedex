@@ -38,7 +38,7 @@ class _HomeState extends State<HomeScreen> {
         return Future.value(true);
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFFede7f6),
+        backgroundColor: Colors.lightBlue.shade50, // 50
         appBar: AppBar(
           title: Text(widget.title),
           backgroundColor: Theme.of(context).primaryColor,

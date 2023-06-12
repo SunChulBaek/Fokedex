@@ -22,8 +22,8 @@ class PokemonGridItem extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: RadialGradient(
             colors: List.of([
-              const Color(0xFFb3e5fc), // 100
-              const Color(0xFFe1f5fe) // 50
+              Colors.lightBlue.shade100, // 100
+              Colors.lightBlue.shade50 // 50
             ])
           )
         ),
