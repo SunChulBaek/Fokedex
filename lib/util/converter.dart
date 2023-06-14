@@ -6,7 +6,9 @@ import '../data/model/network_flavor_text.dart';
 import '../data/model/network_name.dart';
 import '../ui/model/ui_pokemon_detail.dart';
 
-num degToRad(num degree) => degree * pi / 180;
+num tanDeg(num degree) => tan(_degToRad(degree));
+
+num _degToRad(num degree) => degree * pi / 180;
 
 int maxEvolutionChainLength(UiPokemonDetail? pokemon) {
   if (pokemon?.chains != null && (pokemon?.chains.length ?? 0) > 0) {
