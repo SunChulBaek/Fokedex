@@ -6,6 +6,8 @@ import '../data/model/network_flavor_text.dart';
 import '../data/model/network_name.dart';
 import '../ui/model/ui_pokemon_detail.dart';
 
+num cosDeg(num degree) => cos(_degToRad(degree));
+
 num tanDeg(num degree) => tan(_degToRad(degree));
 
 num _degToRad(num degree) => degree * pi / 180;

@@ -82,7 +82,7 @@ class _CancelButton extends CustomPainter {
     );
 
     // X
-    final offset = (radius - borderWidth - border2Width) / 2 * cos(degToRad(45));
+    final offset = (radius - borderWidth - border2Width) / 2 * cosDeg(45);
     canvas.drawLine(
       Offset(
           size.width / 2 - offset,
