@@ -43,7 +43,9 @@ class GetPokemonCubit extends Cubit<UiState> {
         chains: List.of([]),
         varietyIds: List.of([]),
       );
-      emit(Success(data: _detail!));
+      if (!_isDisposed) {
+        emit(Success(data: _detail!));
+      }
 
       // Species (이름)
       _repository.getSpecies(
@@ -56,7 +58,9 @@ class GetPokemonCubit extends Cubit<UiState> {
           flavorText: getFlavorTextForLocale(species.flavorTextEntries),
           varietyIds: species.varieties.map((e) => getIdFromUrl(e.pokemon.url)).toList(),
         );
-        emit(Success(data: _detail!));
+        if (!_isDisposed) {
+          emit(Success(data: _detail!));
+        }
 
         // Evolution Chain 보여주기
         if (evolutionChainId > 0) {
@@ -110,7 +114,9 @@ class GetPokemonCubit extends Cubit<UiState> {
             _detail = _detail?.copyWith(
                 chains: x
             );
-            emit(Success(data: _detail!));
+            if (!_isDisposed) {
+              emit(Success(data: _detail!));
+            }
           });
         }
       });
@@ -118,7 +124,9 @@ class GetPokemonCubit extends Cubit<UiState> {
       // Form
       _repository.getForm(id: getIdFromUrl(pokemon.forms.first.url)).then((value) {
         _detail = _detail?.copyWith(form: getNameForLocale(value.formNames));
-        emit(Success(data: _detail!));
+        if (!_isDisposed) {
+          emit(Success(data: _detail!));
+        }
       });
 
       // Type
@@ -139,5 +147,10 @@ class GetPokemonCubit extends Cubit<UiState> {
       Timber.e(e);
       emit(Error());
     }
+  }
+
+  bool _isDisposed = false;
+  void dispose() {
+    _isDisposed = true;
   }
 }

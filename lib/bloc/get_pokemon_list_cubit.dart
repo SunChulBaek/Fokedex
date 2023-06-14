@@ -36,12 +36,19 @@ class GetPokemonListCubit extends Cubit<UiState> {
       ).where((e) =>
           !list.map((x) => x.id).contains(e.id)
       ));
-      return emit(Success(
-        data: PokemonListData(pokemonList: list.toList())
-      ));
+      if (!_isDisposed) {
+        emit(Success(
+            data: PokemonListData(pokemonList: list.toList())
+        ));
+      }
     } catch (e) {
       Timber.e(e);
       emit(Error());
     }
+  }
+
+  bool _isDisposed = false;
+  void dispose() {
+    _isDisposed = true;
   }
 }

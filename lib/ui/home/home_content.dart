@@ -76,4 +76,10 @@ class _HomeState extends State<HomeContent> {
       )
     );
   }
+
+  @override
+  void dispose() {
+    _getPokemonListCubit.dispose();
+    super.dispose();
+  }
 }

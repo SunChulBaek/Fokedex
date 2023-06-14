@@ -180,6 +180,12 @@ class _PokemonState extends State<PokemonScreen> {
     );
   }
 
+  @override
+  void dispose() {
+    _getPokemonCubit.dispose();
+    super.dispose();
+  }
+
   String getFullName(int id, String? defaultName, String? name, String? form) {
     if (name != null && form != null && form.isNotEmpty) {
       return "${NumberFormat('0000').format(id)} $name ($form)";
