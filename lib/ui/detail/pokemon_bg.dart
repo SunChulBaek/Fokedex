@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter_template/util/converter.dart';
 
 class PokemonBg extends StatefulWidget {
   const PokemonBg({super.key});
@@ -110,7 +111,7 @@ class _PokemonBgPainter extends CustomPainter {
       canvas.drawLine(
         Offset((i * _tileSize).toDouble() + translate.value, 0),
         Offset(
-          size.height / tan(60 * pi / 180) + i * _tileSize  + translate.value,
+          size.height / tan(degToRad(60)) + i * _tileSize  + translate.value,
           size.height
         ),
         _linePaint(opacity: i % 4 == 0 ? _lineAlphaAccent : _lineAlpha)
@@ -122,7 +123,7 @@ class _PokemonBgPainter extends CustomPainter {
       canvas.drawLine(
         Offset((i * _tileSize).toDouble() + translate.value, 0),
         Offset(
-          -size.height / tan(60 * pi / 180) + i * _tileSize + translate.value,
+          -size.height / tan(degToRad(60)) + i * _tileSize + translate.value,
           size.height
         ),
         _linePaint(opacity: i % 4 == 0 ? _lineAlphaAccent : _lineAlpha)
@@ -130,7 +131,7 @@ class _PokemonBgPainter extends CustomPainter {
     }
 
     // 직선
-    final height = _tileSize * tan(60 * pi / 180);
+    final height = _tileSize * tan(degToRad(60));
     for (int i = 0; i <= size.height / height * 2; i++) {
       canvas.drawLine(
         Offset(-size.width, i * height / 2),

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_template/ui/common/cancel_button.dart';
 import 'package:flutter_template/ui/detail/pokemon_bg.dart';
 import 'package:flutter_template/util/converter.dart';
 import 'package:intl/intl.dart';
@@ -33,6 +34,7 @@ class PokemonScreen extends StatefulWidget {
   const PokemonScreen({
     required this.param,
     required this.onClick,
+    required this.onBack,
     Key? key
   }) : super(key: key);
 
@@ -40,6 +42,7 @@ class PokemonScreen extends StatefulWidget {
 
   final PokemonParam param;
   final void Function(BuildContext context, Object param) onClick;
+  final void Function() onBack;
 
   @override
   State<StatefulWidget> createState() => _PokemonState();
@@ -155,6 +158,17 @@ class _PokemonState extends State<PokemonScreen> {
                             onClick: widget.onClick,
                           )
                        ]
+                    )
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: CancelButton(onClick : widget.onBack)
+                      )
                     )
                   )
                 ]

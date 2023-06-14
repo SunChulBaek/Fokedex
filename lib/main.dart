@@ -61,6 +61,9 @@ class MyApp extends StatelessWidget {
               onClick: (context, param) {
                 context.pushNamed(PokemonScreen.routeName, extra: param as PokemonParam);
               },
+              onBack: () {
+                context.pop();
+              },
             ),
           ),
           GoRoute(
