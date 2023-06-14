@@ -139,7 +139,9 @@ class GetPokemonCubit extends Cubit<UiState> {
           String typeInLocale = getNameForLocale(value.names);
           types.add(UiType(id: idx, name: typeInLocale));
           _detail = _detail?.copyWith(types: types);
-          emit(Success(data: _detail!));
+          if (!_isDisposed) {
+            emit(Success(data: _detail!));
+          }
           }
         );
       }
