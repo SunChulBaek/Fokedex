@@ -71,6 +71,14 @@ class _PokemonBgState extends State<PokemonBg> with TickerProviderStateMixin {
       child: Container()
     );
   }
+
+  @override
+  void dispose() {
+    _translateController.dispose();
+    _topController.dispose();
+    _bottomController.dispose();
+    super.dispose();
+  }
 }
 
 class _PokemonBgPainter extends CustomPainter {
