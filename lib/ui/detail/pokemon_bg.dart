@@ -106,7 +106,7 @@ class _PokemonBgPainter extends CustomPainter {
           const Offset(0, 0),
           Offset(0, size.height),
           List.of([
-            Colors.lightBlue.shade50, // 50
+            Colors.lightBlue.shade100, // 50
             Colors.lightBlue.shade200, // 200
             const Color(0xFF90caf9) // 200
           ]),
