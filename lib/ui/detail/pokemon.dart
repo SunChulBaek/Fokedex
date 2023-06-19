@@ -130,33 +130,63 @@ class _PokemonState extends State<PokemonScreen> {
                             ],
                           )
                         ),
-                        Text(
-                          pokemon?.flavorText ?? "",
-                          style: const TextStyle(fontSize: 16, color: Colors.white)
-                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            pokemon?.flavorText ?? "",
+                            style: const TextStyle(fontSize: 16, color: Colors.white)
+                        )),
                         if (maxEvolutionChainLength(pokemon) > 1)
-                          const Align(
-                            alignment: Alignment.center,
-                            child: Text('Evolution Chains', style: TextStyle(fontSize: 16, color: Colors.white))
-                          ),
-                        if (maxEvolutionChainLength(pokemon) > 1)
-                          PokemonEvolutionChain(
-                            pokemon: pokemon!,
-                            size: 60,
-                            normalColor: const Color(0xFFbdbdbd),
-                            accentColor: const Color(0xFFc6ff00),
-                            onClick: widget.onClick
+                          Column(
+                            children: [
+                              const SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 60),
+                                child: Container(
+                                  color: Colors.white,
+                                  height: 1,
+                                )),
+                              const SizedBox(height: 10),
+                              const Align(
+                                  alignment: Alignment.center,
+                                  child: Text('Evolution Chains', style: TextStyle(fontSize: 16, color: Colors.white))
+                              ),
+                              const SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                child: PokemonEvolutionChain(
+                                  pokemon: pokemon!,
+                                  size: 60,
+                                  normalColor: const Color(0xFFbdbdbd),
+                                  accentColor: const Color(0xFFc6ff00),
+                                  onClick: widget.onClick
+                                ))
+                            ]
                           ),
                         if ((pokemon?.varietyIds.length ?? 0) > 1)
-                          const Align(
-                              alignment: Alignment.center,
-                              child: Text('Varieties', style: TextStyle(fontSize: 16, color: Colors.white))
+                          Column(
+                            children: [
+                              const SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 60),
+                                child: Container(
+                                  color: Colors.white,
+                                  height: 1,
+                                )),
+                              const SizedBox(height: 10),
+                              const Align(
+                                alignment: Alignment.center,
+                                child: Text('Varieties', style: TextStyle(fontSize: 16, color: Colors.white))
+                              ),
+                              const SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                child: PokemonVarieties(
+                                  pokemon: pokemon!,
+                                  onClick: widget.onClick,
+                                ))
+                            ]
                           ),
-                        if ((pokemon?.varietyIds.length ?? 0) > 1)
-                          PokemonVarieties(
-                            pokemon: pokemon!,
-                            onClick: widget.onClick,
-                          )
                        ]
                     )
                   ),
