@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../data/model/network_flavor_text.dart';
 import '../data/model/network_name.dart';
-import '../ui/model/ui_pokemon_detail.dart';
+import '../ui/model/ui_chain_entry.dart';
 
 num cosDeg(num degree) => cos(_degToRad(degree));
 
@@ -12,10 +12,10 @@ num tanDeg(num degree) => tan(_degToRad(degree));
 
 num _degToRad(num degree) => degree * pi / 180;
 
-int maxEvolutionChainLength(UiPokemonDetail? pokemon) {
-  if (pokemon?.chains != null && (pokemon?.chains.length ?? 0) > 0) {
+int maxEvolutionChainLength(List<List<UiChainEntry>>? chains) {
+  if (chains != null && (chains.length ?? 0) > 0) {
     int max = 0;
-    for (var it in pokemon!.chains) {
+    for (var it in chains) {
       if (it.length > max) {
         max = it.length;
       }

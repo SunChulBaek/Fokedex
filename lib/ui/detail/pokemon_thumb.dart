@@ -1,15 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/ui/common/pokemon_progress_indicator.dart';
-import 'package:flutter_template/ui/model/ui_pokemon_detail.dart';
 import 'package:intl/intl.dart';
 
+import '../common/pokemon_progress_indicator.dart';
 import 'pokemon.dart';
 
 class PokemonThumb extends StatefulWidget {
   const PokemonThumb({
     required this.id,
-    required this.pokemon,
+    required this.pId,
     required this.size,
     required this.normalColor,
     required this.accentColor,
@@ -19,7 +18,7 @@ class PokemonThumb extends StatefulWidget {
   });
 
   final int id;
-  final UiPokemonDetail pokemon;
+  final int pId;
   final double size;
   final Color normalColor;
   final Color accentColor;
@@ -78,17 +77,17 @@ class _PokemonThumbState extends State<PokemonThumb> {
                 )
               ),
               onTap: () {
-                if (widget.id != widget.pokemon.id) {
+                if (widget.id != widget.pId) {
                   widget.onClick(
-                      context,
-                      PokemonParam(
-                          id: widget.id,
-                          title: 'name',
-                          url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${widget
-                              .id}.png",
-                          colorStart: 0xFFe91e63,
-                          colorEnd: 0xFF03a9f4
-                      ));
+                    context,
+                    PokemonParam(
+                      id: widget.id,
+                      title: 'name',
+                      url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${widget
+                          .id}.png",
+                      colorStart: 0xFFe91e63,
+                      colorEnd: 0xFF03a9f4
+                    ));
                 }
               },
             ),

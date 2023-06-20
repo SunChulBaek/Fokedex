@@ -5,9 +5,9 @@ import 'package:flutter_template/ui/model/ui_chain_entry.dart';
 import 'package:injectable/injectable.dart';
 
 import '../data/model/network_chain_link.dart';
+import '../data/model/network_evolution_chain.dart';
 import '../data/repository.dart';
-import '../ui/model/ui_pokemon_detail.dart';
-import '../ui/model/ui_stat.dart';
+import '../ui/model/ui_pokemon_detail_item.dart';
 import '../ui/model/ui_type.dart';
 import '../util/converter.dart';
 import '../util/timber.dart';
@@ -15,144 +15,169 @@ import 'model/ui_state.dart';
 
 @injectable
 class GetPokemonCubit extends Cubit<UiState> {
+  static const int _indexName = 1;
+  static const int _indexStat = 2;
+  static const int _indexFlavorText = 3;
+  static const int _indexEvolutionChain = 4;
+
   GetPokemonCubit(this._repository, UiState state) : super(state);
 
   final Repository _repository;
 
-  UiPokemonDetail? _detail;
+  final List<UiPokemonDetailItem> items = List.of([]);
 
   void init(int id) async {
     try {
       final pokemon = await _repository.getPokemon(id: id);
-      _detail = UiPokemonDetail(
-        id: pokemon.id,
-        name: pokemon.name,
-        form: "",
-        flavorText: "",
-        types: pokemon.types.map((e) =>
-          UiType(id: getIdFromUrl(e.type.url), name: e.type.name)
-        ).toList(),
+      items.add(UiPokemonDetailImage(id: id));
+      items.add(UiPokemonDetailName(id: id, defaultName: pokemon.name));
+      items.add(UiPokemonDetailStat(
         weight: pokemon.weight,
         height: pokemon.height,
-        stats: pokemon.stats.map((e) =>
-          UiStat(
-            name: e.stat.name,
-            value: e.baseStat
-          )
-        ).toList(),
-        chains: List.of([]),
-        varietyIds: List.of([]),
-      );
+        types: pokemon.types.map((e) =>
+          UiType(id: getIdFromUrl(e.type.url), name: e.type.name)
+        ).toList()
+      ));
       if (!_isDisposed) {
-        emit(Success(data: _detail!));
+        emit(Success(data: items));
       }
 
       // Species (이름)
       _repository.getSpecies(
         id: getIdFromUrl(pokemon.species.url)
       ).then((species) {
-        int evolutionChainId = getIdFromUrl(species.evolutionChain.url);
-        Timber.d("[sunchulbaek] evolution chain id = $evolutionChainId");
-        _detail = _detail?.copyWith(
-          name: getNameForLocale(species.names),
-          flavorText: getFlavorTextForLocale(species.flavorTextEntries),
-          varietyIds: species.varieties.map((e) => getIdFromUrl(e.pokemon.url)).toList(),
+        final prevItem = items.removeAt(_indexName) as UiPokemonDetailName;
+        items.insert(_indexName, UiPokemonDetailName(
+          id: prevItem.id,
+          defaultName: pokemon.name,
+          name: getNameForLocale(species.names))
         );
+        items.insert(_indexFlavorText, UiPokemonDetailFlavorText(
+          flavorText: getFlavorTextForLocale(species.flavorTextEntries))
+        );
+        // Varieties 보여주기
+        if (species.varieties.length > 1) {
+          items.add(UiPokemonDetailVarieties(
+            pId: pokemon.id,
+            varietyIds: species.varieties.map((e) =>
+              getIdFromUrl(e.pokemon.url)).toList())
+          );
+        }
         if (!_isDisposed) {
-          emit(Success(data: _detail!));
+          emit(Success(data: items));
         }
 
         // Evolution Chain 보여주기
+        final evolutionChainId = getIdFromUrl(species.evolutionChain.url);
         if (evolutionChainId > 0) {
-          _repository.getEvolutionChain(id: evolutionChainId).then((value) {
-            final map = HashMap<int, UiChainEntry>();
-            final queue = Queue<NetworkChainLink>()..add(value.chain);
-            while (queue.isNotEmpty) {
-              final node = queue.removeFirst();
-              final nodeId = getIdFromUrl(node.species.url);
-              if (!map.containsKey(nodeId)) {
-                map[nodeId] = UiChainEntry(
-                  pId: nodeId,
-                  prevId: 0,
-                  trigger: node.evolutionDetails.firstOrNull?.item?.name ?? "0",
-                  isLeaf: false
-                );
+          _repository.getEvolutionChain(id: evolutionChainId).then((evolutionChain) {
+            final chains = getChains(evolutionChain);
+            if (maxEvolutionChainLength(chains) > 1) {
+              items.insert(_indexEvolutionChain,
+                UiPokemonDetailEvolutionChains(pId: pokemon.id, chains: chains)
+              );
+              if (!_isDisposed) {
+                emit(Success(data: items));
               }
-              if (node.evolvesTo.isEmpty) {
-                final nodex = map[getIdFromUrl(node.species.url)];
-                if (nodex != null) {
-                  map[nodeId] = nodex.copyWith(
-                    isLeaf: true
-                  );
-                }
-              }
-              node.evolvesTo.forEach((evolveTo) {
-                queue.add(evolveTo);
-                map[getIdFromUrl(evolveTo.species.url)] = UiChainEntry(
-                  pId: getIdFromUrl(evolveTo.species.url),
-                  prevId: nodeId,
-                  trigger: evolveTo.evolutionDetails.firstOrNull?.item?.name ?? "0",
-                  isLeaf: false
-                );
-              });
-            }
-            final chains = List<UiChainEntry?>.of([]);
-            map.forEach((key, value) {
-              chains.add(value);
-            });
-            List<List<UiChainEntry>> x = chains.where((it) => it?.isLeaf == true).map((leaf) {
-              final list = List<UiChainEntry>.of([]);
-              UiChainEntry? entry = leaf;
-              while (entry != null) {
-                list.add(entry);
-                entry = chains.firstWhere((it) {
-                  return it?.pId == entry?.prevId;
-                }, orElse: () => null);
-              }
-              return list.reversed.toList();
-            }).toList();
-            _detail = _detail?.copyWith(
-                chains: x
-            );
-            if (!_isDisposed) {
-              emit(Success(data: _detail!));
             }
           });
         }
       });
 
       // Form
-      _repository.getForm(id: getIdFromUrl(pokemon.forms.first.url)).then((value) {
-        _detail = _detail?.copyWith(form: getNameForLocale(value.formNames));
+      final formId = getIdFromUrl(pokemon.forms.first.url);
+      _repository.getForm(id: formId).then((form) {
+        final prevItem = items.removeAt(_indexName);
+        items.insert(_indexName, UiPokemonDetailName(
+          id: id,
+          defaultName: pokemon.name,
+          name: (prevItem as UiPokemonDetailName).name,
+          form: getNameForLocale(form.formNames)
+        ));
         if (!_isDisposed) {
-          emit(Success(data: _detail!));
+          emit(Success(data: items));
         }
       });
 
       // Type
-      final types = List<UiType>.of([]);
       for (var type in pokemon.types) {
         _repository.getType(
           id: getIdFromUrl(type.type.url)
-        ).then((value) {
-          int idx = value.id;
-          String typeInLocale = getNameForLocale(value.names);
-          types.add(UiType(id: idx, name: typeInLocale));
-          _detail = _detail?.copyWith(types: types);
+        ).then((form) {
+          final prevItem = items.removeAt(_indexStat);
+          items.insert(_indexStat, UiPokemonDetailStat(
+            weight: (prevItem as UiPokemonDetailStat).weight,
+            height: (prevItem).height,
+            types: (prevItem).types
+              ..remove(prevItem.types.firstWhere((e) => e.id == form.id))
+              ..add(UiType(id: form.id, name: getNameForLocale(form.names)))
+          ));
           if (!_isDisposed) {
-            emit(Success(data: _detail!));
+            emit(Success(data: items));
           }
-          }
-        );
+        });
       }
     } catch (e) {
       Timber.e(e);
-      emit(Error());
+      if (!_isDisposed) {
+        emit(Error());
+      }
     }
   }
 
   bool _isDisposed = false;
   void dispose() {
     _isDisposed = true;
+  }
+
+  List<List<UiChainEntry>> getChains(NetworkEvolutionChain evolutionChain) {
+    final map = HashMap<int, UiChainEntry>();
+    final queue = Queue<NetworkChainLink>()..add(evolutionChain.chain);
+    while (queue.isNotEmpty) {
+      final node = queue.removeFirst();
+      final nodeId = getIdFromUrl(node.species.url);
+      if (!map.containsKey(nodeId)) {
+        map[nodeId] = UiChainEntry(
+          pId: nodeId,
+          prevId: 0,
+          trigger: node.evolutionDetails.firstOrNull?.item?.name ?? "0",
+          isLeaf: false
+        );
+      }
+      if (node.evolvesTo.isEmpty) {
+        final nodex = map[getIdFromUrl(node.species.url)];
+        if (nodex != null) {
+          map[nodeId] = nodex.copyWith(
+            isLeaf: true
+          );
+        }
+      }
+      node.evolvesTo.forEach((evolveTo) {
+        queue.add(evolveTo);
+        map[getIdFromUrl(evolveTo.species.url)] = UiChainEntry(
+          pId: getIdFromUrl(evolveTo.species.url),
+          prevId: nodeId,
+          trigger: evolveTo.evolutionDetails.firstOrNull?.item?.name ?? "0",
+          isLeaf: false
+        );
+      });
+    }
+    final chains = List<UiChainEntry?>.of([]);
+    map.forEach((key, value) {
+      chains.add(value);
+    });
+    List<List<UiChainEntry>> x = chains.where((it) => it?.isLeaf == true).map((leaf) {
+      final list = List<UiChainEntry>.of([]);
+      UiChainEntry? entry = leaf;
+      while (entry != null) {
+        list.add(entry);
+        entry = chains.firstWhere((it) {
+          return it?.pId == entry?.prevId;
+        }, orElse: () => null);
+      }
+      return list.reversed.toList();
+    }).toList();
+
+    return x;
   }
 }
