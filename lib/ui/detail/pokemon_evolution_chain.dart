@@ -80,7 +80,7 @@ class DrawEvolutionLines extends CustomPainter {
         Offset(0, (prevNodeIndexx + 0.5) * this.size),
         Offset(size.width, (index + 0.5) * this.size),
         Paint()
-          ..color = isActivePokemon(id, chains, pId) ? Colors.lime : Colors.white
+          ..color = isActivePokemon(id, chains, pId) ? accentColor : normalColor
           ..strokeWidth = 2
       );
     });
