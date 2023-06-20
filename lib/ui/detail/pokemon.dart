@@ -70,7 +70,7 @@ class _PokemonState extends State<PokemonScreen> {
                   ListView.builder(
                     itemCount: items.length,
                     itemBuilder: (BuildContext context, int index) =>
-                      items[index].itemContent()
+                      items[index].itemContent(onClick: widget.onClick)
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,

@@ -9,7 +9,9 @@ import '../detail/pokemon_varieties.dart';
 import 'ui_chain_entry.dart';
 
 abstract class UiPokemonDetailItem {
-  Widget itemContent();
+  Widget itemContent({
+    required void Function(BuildContext context, Object param) onClick
+  });
 }
 
 class UiPokemonDetailImage extends UiPokemonDetailItem {
@@ -18,7 +20,9 @@ class UiPokemonDetailImage extends UiPokemonDetailItem {
   final int id;
 
   @override
-  Widget itemContent() => SizedBox(
+  Widget itemContent({
+    required void Function(BuildContext context, Object param) onClick,
+  }) => SizedBox(
     width: 200,
     height: 200,
     child: Hero(
@@ -66,7 +70,9 @@ class UiPokemonDetailName extends UiPokemonDetailItem {
   String? form;
 
   @override
-  Widget itemContent() => Align(
+  Widget itemContent({
+    required void Function(BuildContext context, Object param) onClick,
+  }) => Align(
     alignment: Alignment.center,
     child: Text(
       getFullName(id, defaultName, name, form),
@@ -97,7 +103,9 @@ class UiPokemonDetailStat extends UiPokemonDetailItem {
   final List<UiType> types;
 
   @override
-  Widget itemContent() => Padding(
+  Widget itemContent({
+    required void Function(BuildContext context, Object param) onClick,
+  }) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 40),
     child: Row(
       children: [
@@ -128,7 +136,9 @@ class UiPokemonDetailFlavorText extends UiPokemonDetailItem {
   final String flavorText;
 
   @override
-  Widget itemContent() => Padding(
+  Widget itemContent({
+    required void Function(BuildContext context, Object param) onClick,
+  }) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16),
     child: Text(
       flavorText,
@@ -146,7 +156,9 @@ class UiPokemonDetailEvolutionChains extends UiPokemonDetailItem {
   final List<List<UiChainEntry>> chains;
 
   @override
-  Widget itemContent() => Column(
+  Widget itemContent({
+    required void Function(BuildContext context, Object param) onClick,
+  }) => Column(
     children: [
       const SizedBox(height: 10),
       Padding(
@@ -169,7 +181,7 @@ class UiPokemonDetailEvolutionChains extends UiPokemonDetailItem {
           size: 60,
           normalColor: const Color(0xFFbdbdbd),
           accentColor: const Color(0xFFc6ff00),
-          onClick: (context, index) { }
+          onClick: onClick
         ))
     ]
   );
@@ -185,7 +197,9 @@ class UiPokemonDetailVarieties extends UiPokemonDetailItem {
   final List<int> varietyIds;
 
   @override
-  Widget itemContent() => Column(
+  Widget itemContent({
+    required void Function(BuildContext context, Object param) onClick,
+  }) => Column(
     children: [
       const SizedBox(height: 10),
       Padding(
@@ -205,7 +219,7 @@ class UiPokemonDetailVarieties extends UiPokemonDetailItem {
         child: PokemonVarieties(
           pId: pId,
           varietyIds: varietyIds,
-          onClick: (context, index) { },
+          onClick: onClick,
         ))
     ]
   );
