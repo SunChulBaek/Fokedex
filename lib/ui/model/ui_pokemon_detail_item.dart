@@ -76,7 +76,10 @@ class UiPokemonDetailName extends UiPokemonDetailItem {
     alignment: Alignment.center,
     child: Text(
       getFullName(id, defaultName, name, form),
-      style: const TextStyle(fontSize: 16, color: Colors.white)
+      style: TextStyle(
+        fontSize: (form != null && form!.isNotEmpty) ? 20 : 30,
+        color: Colors.white
+      )
     )
   );
 
@@ -106,7 +109,7 @@ class UiPokemonDetailStat extends UiPokemonDetailItem {
   Widget itemContent({
     required void Function(BuildContext context, Object param) onClick,
   }) => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 40),
+    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 40),
     child: Row(
       children: [
         Text(
@@ -139,7 +142,7 @@ class UiPokemonDetailFlavorText extends UiPokemonDetailItem {
   Widget itemContent({
     required void Function(BuildContext context, Object param) onClick,
   }) => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 16),
+    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
     child: Text(
       flavorText,
       style: const TextStyle(fontSize: 16, color: Colors.white)
@@ -158,32 +161,38 @@ class UiPokemonDetailEvolutionChains extends UiPokemonDetailItem {
   @override
   Widget itemContent({
     required void Function(BuildContext context, Object param) onClick,
-  }) => Column(
-    children: [
-      const SizedBox(height: 10),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 60),
-        child: Container(
-          color: Colors.white,
-          height: 1,
-        )),
-      const SizedBox(height: 10),
-      const Align(
-        alignment: Alignment.center,
-        child: Text('Evolution Chains', style: TextStyle(fontSize: 16, color: Colors.white))
-      ),
-      const SizedBox(height: 10),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: PokemonEvolutionChain(
-          pId: pId,
-          chains: chains,
-          size: 60,
-          normalColor: const Color(0xFFbdbdbd),
-          accentColor: const Color(0xFFc6ff00),
-          onClick: onClick
-        ))
-    ]
+  }) => Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    child: Column(
+      children: [
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 60),
+          child: Container(
+            color: Colors.white,
+            height: 1,
+          )),
+        const SizedBox(height: 10),
+        const Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Evolution Chains',
+            style: TextStyle(fontSize: 16, color: Colors.white)
+          )
+        ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: PokemonEvolutionChain(
+            pId: pId,
+            chains: chains,
+            size: 60,
+            normalColor: const Color(0xFFbdbdbd),
+            accentColor: const Color(0xFFc6ff00),
+            onClick: onClick
+          ))
+      ]
+    )
   );
 }
 
@@ -199,28 +208,31 @@ class UiPokemonDetailVarieties extends UiPokemonDetailItem {
   @override
   Widget itemContent({
     required void Function(BuildContext context, Object param) onClick,
-  }) => Column(
-    children: [
-      const SizedBox(height: 10),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 60),
-        child: Container(
-          color: Colors.white,
-          height: 1,
-        )),
-      const SizedBox(height: 10),
-      const Align(
-        alignment: Alignment.center,
-        child: Text('Varieties', style: TextStyle(fontSize: 16, color: Colors.white))
-      ),
-      const SizedBox(height: 10),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: PokemonVarieties(
-          pId: pId,
-          varietyIds: varietyIds,
-          onClick: onClick,
-        ))
-    ]
+  }) => Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    child:Column(
+      children: [
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 60),
+          child: Container(
+            color: Colors.white,
+            height: 1,
+          )),
+        const SizedBox(height: 10),
+        const Align(
+          alignment: Alignment.center,
+          child: Text('Varieties', style: TextStyle(fontSize: 16, color: Colors.white))
+        ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: PokemonVarieties(
+            pId: pId,
+            varietyIds: varietyIds,
+            onClick: onClick,
+          ))
+      ]
+    )
   );
 }
