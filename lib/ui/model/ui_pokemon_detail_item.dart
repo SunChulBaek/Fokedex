@@ -22,39 +22,79 @@ class UiPokemonDetailImage extends UiPokemonDetailItem {
   @override
   Widget itemContent({
     required void Function(BuildContext context, Object param) onClick,
-  }) => SizedBox(
+  }) => _UiPokemonDetailImageView(id: id);
+}
+
+class _UiPokemonDetailImageView extends StatefulWidget {
+  const _UiPokemonDetailImageView({
+    required this.id,
+  });
+  final int id;
+
+  @override
+  State<StatefulWidget> createState() => _UiPokemonDetailImageState();
+}
+
+class _UiPokemonDetailImageState extends State<_UiPokemonDetailImageView>
+    with TickerProviderStateMixin {
+
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(milliseconds: 1000),
+    vsync: this,
+  )..repeat(reverse: true);
+
+  late final Animation<Offset> _animation = Tween<Offset>(
+    begin: const Offset(0, 0),
+    end: const Offset(0, 0.02),
+  ).animate(CurvedAnimation(
+    parent: _controller,
+    curve: Curves.fastOutSlowIn
+  ));
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => SizedBox(
     width: 200,
     height: 200,
     child: Hero(
-      tag: id,
-      child: CachedNetworkImage(
-        imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png",
-        fit: BoxFit.fitHeight,
-        placeholder: (context, url) => AspectRatio(
-          aspectRatio: 1,
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            color: Colors.grey,
-            child: const Center(
-              child: PokemonProgressIndicator(size: 30)
-            ),
-          )
-        ),
-        errorWidget: (context, url, error) => const AspectRatio(
-          aspectRatio: 1,
-          child: SizedBox(
-            width: double.infinity,
-            height: double.infinity,
-            child: Center(
-              child: Icon(Icons.error, color: Colors.red),
-            ),
-          )
-        ),
+      tag: widget.id,
+      child: SlideTransition(
+        position: _animation,
+        child: CachedNetworkImage(
+          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${widget.id}.png",
+          fit: BoxFit.fitHeight,
+          placeholder: (context, url) => AspectRatio(
+            aspectRatio: 1,
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.grey,
+              child: const Center(
+                child: PokemonProgressIndicator(size: 30)
+              ),
+            )
+          ),
+          errorWidget: (context, url, error) => const AspectRatio(
+            aspectRatio: 1,
+            child: SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Center(
+                child: Icon(Icons.error, color: Colors.red),
+              ),
+            )
+          ),
+        )
       )
     )
   );
 }
+
 
 class UiPokemonDetailName extends UiPokemonDetailItem {
   UiPokemonDetailName({
