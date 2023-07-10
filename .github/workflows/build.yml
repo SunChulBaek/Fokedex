@@ -1,0 +1,48 @@
+name: Build
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.10.5'
+          channel: 'stable'
+      - run: flutter --version
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Decode Keystore
+        run: echo ${{ secrets.BASE64_KEYSTORE }} | base64 -d > android/keystore
+      - name: Create Keystore Properties
+        run: |
+          echo "releaseKeyAlias=${{ secrets.RELEASE_KEY_ALIAS }}" > android/keystore.properties
+          echo "releaseKeyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}" >> android/keystore.properties
+          echo "releaseKeyStore=keystore" >> android/keystore.properties
+          echo "releaseStorePassword=${{ secrets.RELEASE_STORE_PASSWORD }}" >> android/keystore.properties
+      - name: Build Binary
+        run: flutter build apk --build-name=1.0.0 --build-number=${{ github.run_number }} --release
+      - name: Send Slack Message
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,ref # repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest # selectable (default: repo,message)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always()
+      - name: Change File Name
+        run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/Fokedex-${{ github.run_number }}.apk
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Fokedex-${{ github.run_number }}
+          path: build/app/outputs/flutter-apk/*.apk
+      - name: Slack Upload Artifacts
+        uses: MeilCli/slack-upload-file@v3
+        with:
+          slack_token: ${{ secrets.SLACK_TOKEN }}
+          channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
+          file_path: 'build/app/outputs/flutter-apk/Fokedex-${{ github.run_number }}.apk'
