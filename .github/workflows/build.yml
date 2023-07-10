@@ -23,6 +23,15 @@ jobs:
           echo "releaseKeyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}" >> android/keystore.properties
           echo "releaseKeyStore=keystore" >> android/keystore.properties
           echo "releaseStorePassword=${{ secrets.RELEASE_STORE_PASSWORD }}" >> android/keystore.properties
+      - name: Cache Gradle and wrapper
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Build Binary
         run: flutter build apk --build-name=1.0.0 --build-number=${{ github.run_number }} --release
       - name: Send Slack Message
