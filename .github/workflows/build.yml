@@ -4,6 +4,12 @@ on: push
 
 env:
   APP_NAME: Fokedex
+  BUILD_NAME: 1.0.0
+  FLUTTER_VERSION: 3.10.5
+  FLUTTER_CHANNEL: stable
+  KEYSTORE: keystore
+  KEYSTORE_PROPERTIES: android/keystore.properties
+  APK_PATH: build/app/outputs/flutter-apk
 
 jobs:
   build:
@@ -13,20 +19,20 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.10.5'
-          channel: 'stable'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
           cache: true
       - run: flutter --version
       - name: Install dependencies
         run: flutter pub get
       - name: Decode Keystore
-        run: echo ${{ secrets.BASE64_KEYSTORE }} | base64 -d > android/keystore
+        run: echo ${{ secrets.BASE64_KEYSTORE }} | base64 -d > android/${{ env.KEYSTORE }}
       - name: Create Keystore Properties
         run: |
-          echo "releaseKeyAlias=${{ secrets.RELEASE_KEY_ALIAS }}" > android/keystore.properties
-          echo "releaseKeyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}" >> android/keystore.properties
-          echo "releaseKeyStore=keystore" >> android/keystore.properties
-          echo "releaseStorePassword=${{ secrets.RELEASE_STORE_PASSWORD }}" >> android/keystore.properties
+          echo "releaseKeyAlias=${{ secrets.RELEASE_KEY_ALIAS }}" > ${{ env.KEYSTORE_PROPERTIES }}
+          echo "releaseKeyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}" >> ${{ env.KEYSTORE_PROPERTIES }}
+          echo "releaseKeyStore=${{ env.KEYSTORE }}" >> ${{ env.KEYSTORE_PROPERTIES }}
+          echo "releaseStorePassword=${{ secrets.RELEASE_STORE_PASSWORD }}" >> ${{ env.KEYSTORE_PROPERTIES }}
       - name: Cache Gradle and wrapper
         uses: actions/cache@v3
         with:
@@ -37,7 +43,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Build Binary
-        run: flutter build apk --build-name=1.0.0 --build-number=${{ github.run_number }} --release
+        run: flutter build apk --build-name=${{ env.BUILD_NAME }} --build-number=${{ github.run_number }} --release
       - name: Send Slack Message
         uses: 8398a7/action-slack@v3
         with:
@@ -47,15 +53,15 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
       - name: Change File Name
-        run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/${{ env.APP_NAME }}-${{ github.run_number }}.apk
+        run: mv ${{ env.APK_PATH }}/app-release.apk ${{ env.APK_PATH }}/${{ env.APP_NAME }}-${{ github.run_number }}.apk
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.APP_NAME }}-${{ github.run_number }}
-          path: build/app/outputs/flutter-apk/*.apk
+          path: ${{ env.APK_PATH }}/*.apk
       - name: Slack Upload Artifacts
         uses: MeilCli/slack-upload-file@v3
         with:
           slack_token: ${{ secrets.SLACK_TOKEN }}
           channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-          file_path: 'build/app/outputs/flutter-apk/${{ env.APP_NAME }}-${{ github.run_number }}.apk'
+          file_path: '${{ env.APK_PATH }}/${{ env.APP_NAME }}-${{ github.run_number }}.apk'
