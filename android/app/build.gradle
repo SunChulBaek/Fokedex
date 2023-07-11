@@ -21,12 +21,28 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def buildProp = new Properties()
+def buildPropFile = rootProject.file("build.properties")
+if (buildPropFile.exists()) {
+    buildPropFile.withReader('UTF-8') { reader ->
+        buildProp.load(reader)
+    }
+}
+
+def keystoreProp = new Properties()
+def keystorePropFile = rootProject.file("keystore.properties")
+if (keystorePropFile.exists()) {
+    keystorePropFile.withReader('UTF-8') { reader ->
+        keystoreProp.load(reader)
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion buildProp["compileSdk"].toInteger()
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -43,16 +59,7 @@ android {
     }
 
     defaultConfig {
-        def buildPropFile = rootProject.file("build.properties")
-        def buildProp = new Properties()
-        if (buildPropFile.exists()) {
-            buildPropFile.withReader('UTF-8') { reader ->
-                buildProp.load(reader)
-            }
-        }
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId buildProp["applicationId"]
-        compileSdkVersion buildProp["compileSdk"].toInteger()
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion buildProp["minSdk"].toInteger()
@@ -63,13 +70,6 @@ android {
 
     signingConfigs {
         release {
-            def keystorePropFile = rootProject.file("keystore.properties")
-            def keystoreProp = new Properties()
-            if (keystorePropFile.exists()) {
-                keystorePropFile.withReader('UTF-8') { reader ->
-                    keystoreProp.load(reader)
-                }
-            }
             def path = keystoreProp["releaseKeyStore"]
             if (path != null) {
                 keyAlias keystoreProp["releaseKeyAlias"]
