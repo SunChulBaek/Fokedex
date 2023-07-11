@@ -76,15 +76,15 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
       - name: Change File Name
-        run: mv ${{ env.APK_PATH }}/app-release.apk ${{ env.APK_PATH }}/${{ vars.APP_NAME }}-${{ github.run_number }}.apk
+        run: mv ${{ env.APK_PATH }}/app-release.apk ${{ env.APK_PATH }}/${{ vars.APP_NAME }}-${{ env.VERSION_CODE }}.apk
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ vars.APP_NAME }}-${{ github.run_number }}
+          name: ${{ vars.APP_NAME }}-${{ env.VERSION_CODE }}
           path: ${{ env.APK_PATH }}/*.apk
       - name: Slack Upload Artifacts
         uses: MeilCli/slack-upload-file@v3
         with:
           slack_token: ${{ secrets.SLACK_TOKEN }}
           channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-          file_path: '${{ env.APK_PATH }}/${{ vars.APP_NAME }}-${{ github.run_number }}.apk'
+          file_path: '${{ env.APK_PATH }}/${{ vars.APP_NAME }}-${{ env.VERSION_CODE }}.apk'
