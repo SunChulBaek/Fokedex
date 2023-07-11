@@ -62,9 +62,9 @@ jobs:
       - name: Set Build Properties
         run: |
           echo applicationId=${{ secrets.APP_ID }} > ${{ env.BUILD_PROPERTIES }}
-          echo compileSdk=${{ env.COMPILE_SDK }} >> $BUILD_PROPERTIES
-          echo minSdk=${{ env.MIN_SDK }} >> $BUILD_PROPERTIES
-          echo targetSdk=${{ env.TARGET_SDK }} >> $BUILD_PROPERTIES
+          echo compileSdk=${{ env.COMPILE_SDK }} >> ${{ env.BUILD_PROPERTIES }}
+          echo minSdk=${{ env.MIN_SDK }} >> ${{ env.BUILD_PROPERTIES }}
+          echo targetSdk=${{ env.TARGET_SDK }} >> ${{ env.BUILD_PROPERTIES }}
       - name: Build Binary
         run: flutter build apk --build-name=${{ env.VERSION_NAME }} --build-number=${{ env.VERSION_CODE }} --release
       - name: Send Slack Message
