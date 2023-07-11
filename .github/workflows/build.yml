@@ -47,15 +47,15 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
       - name: Change File Name
-        run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/${{APP_NAME}}-${{ github.run_number }}.apk
+        run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/${{ env.APP_NAME }}-${{ github.run_number }}.apk
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{APP_NAME}}-${{ github.run_number }}
+          name: ${{ env.APP_NAME }}-${{ github.run_number }}
           path: build/app/outputs/flutter-apk/*.apk
       - name: Slack Upload Artifacts
         uses: MeilCli/slack-upload-file@v3
         with:
           slack_token: ${{ secrets.SLACK_TOKEN }}
           channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-          file_path: 'build/app/outputs/flutter-apk/${{APP_NAME}}-${{ github.run_number }}.apk'
+          file_path: 'build/app/outputs/flutter-apk/${{ env.APP_NAME }}-${{ github.run_number }}.apk'
