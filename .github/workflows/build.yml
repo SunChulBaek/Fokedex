@@ -1,15 +1,32 @@
+# 정의 해야 할 것
+# secrets:
+#   APP_ID
+#   BASE64_KEYSTORE
+#   RELEASE_KEY_ALIAS
+#   RELEASE_KEY_PASSWORD
+#   RELEASE_STORE_PASSWORD
+#   SLACK_CHANNEL_ID
+#   SLACK_TOKEN
+#   SLACK_WEBHOOK_URL
+# vars:
+#   APP_NAME
+
 name: Build
 
 on: push
 
 env:
-  APP_NAME: Fokedex
-  BUILD_NAME: 1.0.0
+  VERSION_CODE: ${{ github.run_number }}
+  VERSION_NAME: 1.0.0
+  COMPILE_SDK: 33
+  MIN_SDK: 21
+  TARGET_SDK: 33
   FLUTTER_VERSION: 3.10.5
   FLUTTER_CHANNEL: stable
+  APK_PATH: build/app/outputs/flutter-apk
   KEYSTORE: keystore
   KEYSTORE_PROPERTIES: android/keystore.properties
-  APK_PATH: build/app/outputs/flutter-apk
+  BUILD_PROPERTIES: android/build.properties
 
 jobs:
   build:
@@ -42,8 +59,14 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: Set Build Properties
+        run: |
+          echo applicationId=${{ secrets.APP_ID }} > ${{ env.BUILD_PROPERTIES }}
+          echo compileSdk=${{ env.COMPILE_SDK }} >> $BUILD_PROPERTIES
+          echo minSdk=${{ env.MIN_SDK }} >> $BUILD_PROPERTIES
+          echo targetSdk=${{ env.TARGET_SDK }} >> $BUILD_PROPERTIES
       - name: Build Binary
-        run: flutter build apk --build-name=${{ env.BUILD_NAME }} --build-number=${{ github.run_number }} --release
+        run: flutter build apk --build-name=${{ env.VERSION_NAME }} --build-number=${{ env.VERSION_CODE }} --release
       - name: Send Slack Message
         uses: 8398a7/action-slack@v3
         with:
@@ -53,15 +76,15 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
       - name: Change File Name
-        run: mv ${{ env.APK_PATH }}/app-release.apk ${{ env.APK_PATH }}/${{ env.APP_NAME }}-${{ github.run_number }}.apk
+        run: mv ${{ env.APK_PATH }}/app-release.apk ${{ env.APK_PATH }}/${{ vars.APP_NAME }}-${{ github.run_number }}.apk
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.APP_NAME }}-${{ github.run_number }}
+          name: ${{ vars.APP_NAME }}-${{ github.run_number }}
           path: ${{ env.APK_PATH }}/*.apk
       - name: Slack Upload Artifacts
         uses: MeilCli/slack-upload-file@v3
         with:
           slack_token: ${{ secrets.SLACK_TOKEN }}
           channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-          file_path: '${{ env.APK_PATH }}/${{ env.APP_NAME }}-${{ github.run_number }}.apk'
+          file_path: '${{ env.APK_PATH }}/${{ vars.APP_NAME }}-${{ github.run_number }}.apk'

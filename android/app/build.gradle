@@ -43,13 +43,20 @@ android {
     }
 
     defaultConfig {
+        def buildPropFile = rootProject.file("build.properties")
+        def buildProp = new Properties()
+        if (buildPropFile.exists()) {
+            buildPropFile.withReader('UTF-8') { reader ->
+                buildProp.load(reader)
+            }
+        }
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "kr.pe.ssun.fokedex"
-        compileSdkVersion 33
+        applicationId buildProp["applicationId"]
+        compileSdkVersion buildProp["compileSdk"].toInteger()
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion 19
-        targetSdkVersion 33
+        minSdkVersion buildProp["minSdk"].toInteger()
+        targetSdkVersion buildProp["targetSdk"].toInteger()
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
