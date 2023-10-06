@@ -28,7 +28,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: SunChulBaek/build_flutter@v1
+      - uses: SunChulBaek/build_flutter@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           base64-keystore: ${{ secrets.BASE64_KEYSTORE }}
@@ -45,6 +45,8 @@ jobs:
           version-code: ${{ env.VERSION_CODE }}
           version-name: ${{ env.VERSION_NAME }}
           apk-name: "${{ vars.APK_NAME }}-${{ env.VERSION_CODE }}.apk"
+          aab-name: "${{ vars.APK_NAME }}-${{ env.VERSION_CODE }}.aab"
+          artifact-name: "${{ vars.APK_NAME }}-${{ env.VERSION_CODE }}"
           slack-token: ${{ secrets.SLACK_TOKEN }}
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           slack-channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
