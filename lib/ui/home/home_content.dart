@@ -31,10 +31,10 @@ class _HomeState extends State<HomeContent> {
           final pokemonList = state is Success ? (state as Success<PokemonListData>).data.pokemonList : null;
           return Column(
             children: [
-              HomeShortcuts(
-                shortcuts: List.of([778, 10044, 10196, 10157, 936, 135, 269, 792]),
-                onClickItem: widget.onClickItem
-              ),
+              // HomeShortcuts(
+              //   shortcuts: List.of([778, 10044, 10196, 10157, 936, 135, 269, 792]),
+              //   onClickItem: widget.onClickItem
+              // ),
               Expanded(child:
                 StateView(
                   state: state,
