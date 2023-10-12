@@ -44,8 +44,6 @@ jobs:
           target-sdk: ${{ env.TARGET_SDK }}
           version-code: ${{ env.VERSION_CODE }}
           version-name: ${{ env.VERSION_NAME }}
-          apk-name: "${{ vars.APK_NAME }}-${{ env.VERSION_CODE }}.apk"
-          aab-name: "${{ vars.APK_NAME }}-${{ env.VERSION_CODE }}.aab"
           artifact-name: "${{ vars.APK_NAME }}-${{ env.VERSION_CODE }}"
           slack-token: ${{ secrets.SLACK_TOKEN }}
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
