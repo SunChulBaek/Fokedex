@@ -28,7 +28,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: SunChulBaek/build_flutter@v2
+      - uses: SunChulBaek/build_flutter@v1
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           base64-keystore: ${{ secrets.BASE64_KEYSTORE }}
