@@ -16,16 +16,16 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UiPokemonDetail {
-  int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get form => throw _privateConstructorUsedError;
-  String get flavorText => throw _privateConstructorUsedError;
-  List<UiType> get types => throw _privateConstructorUsedError;
-  int get weight => throw _privateConstructorUsedError;
-  int get height => throw _privateConstructorUsedError;
-  List<UiStat> get stats => throw _privateConstructorUsedError;
-  List<List<UiChainEntry>> get chains => throw _privateConstructorUsedError;
-  List<int> get varietyIds => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get form => throw _privateConstructorUsedError;
+  String? get flavorText => throw _privateConstructorUsedError;
+  List<UiType>? get types => throw _privateConstructorUsedError;
+  int? get weight => throw _privateConstructorUsedError;
+  int? get height => throw _privateConstructorUsedError;
+  List<UiStat>? get stats => throw _privateConstructorUsedError;
+  List<List<UiChainEntry>>? get chains => throw _privateConstructorUsedError;
+  List<int>? get varietyIds => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UiPokemonDetailCopyWith<UiPokemonDetail> get copyWith =>
@@ -39,16 +39,16 @@ abstract class $UiPokemonDetailCopyWith<$Res> {
       _$UiPokemonDetailCopyWithImpl<$Res, UiPokemonDetail>;
   @useResult
   $Res call(
-      {int id,
-      String name,
-      String form,
-      String flavorText,
-      List<UiType> types,
-      int weight,
-      int height,
-      List<UiStat> stats,
-      List<List<UiChainEntry>> chains,
-      List<int> varietyIds});
+      {int? id,
+      String? name,
+      String? form,
+      String? flavorText,
+      List<UiType>? types,
+      int? weight,
+      int? height,
+      List<UiStat>? stats,
+      List<List<UiChainEntry>>? chains,
+      List<int>? varietyIds});
 }
 
 /// @nodoc
@@ -64,211 +64,219 @@ class _$UiPokemonDetailCopyWithImpl<$Res, $Val extends UiPokemonDetail>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? form = null,
-    Object? flavorText = null,
-    Object? types = null,
-    Object? weight = null,
-    Object? height = null,
-    Object? stats = null,
-    Object? chains = null,
-    Object? varietyIds = null,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? form = freezed,
+    Object? flavorText = freezed,
+    Object? types = freezed,
+    Object? weight = freezed,
+    Object? height = freezed,
+    Object? stats = freezed,
+    Object? chains = freezed,
+    Object? varietyIds = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
+              as int?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      form: null == form
+              as String?,
+      form: freezed == form
           ? _value.form
           : form // ignore: cast_nullable_to_non_nullable
-              as String,
-      flavorText: null == flavorText
+              as String?,
+      flavorText: freezed == flavorText
           ? _value.flavorText
           : flavorText // ignore: cast_nullable_to_non_nullable
-              as String,
-      types: null == types
+              as String?,
+      types: freezed == types
           ? _value.types
           : types // ignore: cast_nullable_to_non_nullable
-              as List<UiType>,
-      weight: null == weight
+              as List<UiType>?,
+      weight: freezed == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as int,
-      height: null == height
+              as int?,
+      height: freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as int,
-      stats: null == stats
+              as int?,
+      stats: freezed == stats
           ? _value.stats
           : stats // ignore: cast_nullable_to_non_nullable
-              as List<UiStat>,
-      chains: null == chains
+              as List<UiStat>?,
+      chains: freezed == chains
           ? _value.chains
           : chains // ignore: cast_nullable_to_non_nullable
-              as List<List<UiChainEntry>>,
-      varietyIds: null == varietyIds
+              as List<List<UiChainEntry>>?,
+      varietyIds: freezed == varietyIds
           ? _value.varietyIds
           : varietyIds // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<int>?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_UiPokemonDetailCopyWith<$Res>
+abstract class _$$UiPokemonDetailImplCopyWith<$Res>
     implements $UiPokemonDetailCopyWith<$Res> {
-  factory _$$_UiPokemonDetailCopyWith(
-          _$_UiPokemonDetail value, $Res Function(_$_UiPokemonDetail) then) =
-      __$$_UiPokemonDetailCopyWithImpl<$Res>;
+  factory _$$UiPokemonDetailImplCopyWith(_$UiPokemonDetailImpl value,
+          $Res Function(_$UiPokemonDetailImpl) then) =
+      __$$UiPokemonDetailImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {int id,
-      String name,
-      String form,
-      String flavorText,
-      List<UiType> types,
-      int weight,
-      int height,
-      List<UiStat> stats,
-      List<List<UiChainEntry>> chains,
-      List<int> varietyIds});
+      {int? id,
+      String? name,
+      String? form,
+      String? flavorText,
+      List<UiType>? types,
+      int? weight,
+      int? height,
+      List<UiStat>? stats,
+      List<List<UiChainEntry>>? chains,
+      List<int>? varietyIds});
 }
 
 /// @nodoc
-class __$$_UiPokemonDetailCopyWithImpl<$Res>
-    extends _$UiPokemonDetailCopyWithImpl<$Res, _$_UiPokemonDetail>
-    implements _$$_UiPokemonDetailCopyWith<$Res> {
-  __$$_UiPokemonDetailCopyWithImpl(
-      _$_UiPokemonDetail _value, $Res Function(_$_UiPokemonDetail) _then)
+class __$$UiPokemonDetailImplCopyWithImpl<$Res>
+    extends _$UiPokemonDetailCopyWithImpl<$Res, _$UiPokemonDetailImpl>
+    implements _$$UiPokemonDetailImplCopyWith<$Res> {
+  __$$UiPokemonDetailImplCopyWithImpl(
+      _$UiPokemonDetailImpl _value, $Res Function(_$UiPokemonDetailImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? form = null,
-    Object? flavorText = null,
-    Object? types = null,
-    Object? weight = null,
-    Object? height = null,
-    Object? stats = null,
-    Object? chains = null,
-    Object? varietyIds = null,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? form = freezed,
+    Object? flavorText = freezed,
+    Object? types = freezed,
+    Object? weight = freezed,
+    Object? height = freezed,
+    Object? stats = freezed,
+    Object? chains = freezed,
+    Object? varietyIds = freezed,
   }) {
-    return _then(_$_UiPokemonDetail(
-      id: null == id
+    return _then(_$UiPokemonDetailImpl(
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
+              as int?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      form: null == form
+              as String?,
+      form: freezed == form
           ? _value.form
           : form // ignore: cast_nullable_to_non_nullable
-              as String,
-      flavorText: null == flavorText
+              as String?,
+      flavorText: freezed == flavorText
           ? _value.flavorText
           : flavorText // ignore: cast_nullable_to_non_nullable
-              as String,
-      types: null == types
+              as String?,
+      types: freezed == types
           ? _value._types
           : types // ignore: cast_nullable_to_non_nullable
-              as List<UiType>,
-      weight: null == weight
+              as List<UiType>?,
+      weight: freezed == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as int,
-      height: null == height
+              as int?,
+      height: freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as int,
-      stats: null == stats
+              as int?,
+      stats: freezed == stats
           ? _value._stats
           : stats // ignore: cast_nullable_to_non_nullable
-              as List<UiStat>,
-      chains: null == chains
+              as List<UiStat>?,
+      chains: freezed == chains
           ? _value._chains
           : chains // ignore: cast_nullable_to_non_nullable
-              as List<List<UiChainEntry>>,
-      varietyIds: null == varietyIds
+              as List<List<UiChainEntry>>?,
+      varietyIds: freezed == varietyIds
           ? _value._varietyIds
           : varietyIds // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<int>?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_UiPokemonDetail implements _UiPokemonDetail {
-  _$_UiPokemonDetail(
-      {required this.id,
-      required this.name,
-      required this.form,
-      required this.flavorText,
-      required final List<UiType> types,
-      required this.weight,
-      required this.height,
-      required final List<UiStat> stats,
-      required final List<List<UiChainEntry>> chains,
-      required final List<int> varietyIds})
+class _$UiPokemonDetailImpl implements _UiPokemonDetail {
+  _$UiPokemonDetailImpl(
+      {this.id,
+      this.name,
+      this.form,
+      this.flavorText,
+      final List<UiType>? types,
+      this.weight,
+      this.height,
+      final List<UiStat>? stats,
+      final List<List<UiChainEntry>>? chains,
+      final List<int>? varietyIds})
       : _types = types,
         _stats = stats,
         _chains = chains,
         _varietyIds = varietyIds;
 
   @override
-  final int id;
+  final int? id;
   @override
-  final String name;
+  final String? name;
   @override
-  final String form;
+  final String? form;
   @override
-  final String flavorText;
-  final List<UiType> _types;
+  final String? flavorText;
+  final List<UiType>? _types;
   @override
-  List<UiType> get types {
+  List<UiType>? get types {
+    final value = _types;
+    if (value == null) return null;
     if (_types is EqualUnmodifiableListView) return _types;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_types);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
-  final int weight;
+  final int? weight;
   @override
-  final int height;
-  final List<UiStat> _stats;
+  final int? height;
+  final List<UiStat>? _stats;
   @override
-  List<UiStat> get stats {
+  List<UiStat>? get stats {
+    final value = _stats;
+    if (value == null) return null;
     if (_stats is EqualUnmodifiableListView) return _stats;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_stats);
+    return EqualUnmodifiableListView(value);
   }
 
-  final List<List<UiChainEntry>> _chains;
+  final List<List<UiChainEntry>>? _chains;
   @override
-  List<List<UiChainEntry>> get chains {
+  List<List<UiChainEntry>>? get chains {
+    final value = _chains;
+    if (value == null) return null;
     if (_chains is EqualUnmodifiableListView) return _chains;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_chains);
+    return EqualUnmodifiableListView(value);
   }
 
-  final List<int> _varietyIds;
+  final List<int>? _varietyIds;
   @override
-  List<int> get varietyIds {
+  List<int>? get varietyIds {
+    final value = _varietyIds;
+    if (value == null) return null;
     if (_varietyIds is EqualUnmodifiableListView) return _varietyIds;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_varietyIds);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -280,7 +288,7 @@ class _$_UiPokemonDetail implements _UiPokemonDetail {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UiPokemonDetail &&
+            other is _$UiPokemonDetailImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.form, form) || other.form == form) &&
@@ -312,45 +320,46 @@ class _$_UiPokemonDetail implements _UiPokemonDetail {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UiPokemonDetailCopyWith<_$_UiPokemonDetail> get copyWith =>
-      __$$_UiPokemonDetailCopyWithImpl<_$_UiPokemonDetail>(this, _$identity);
+  _$$UiPokemonDetailImplCopyWith<_$UiPokemonDetailImpl> get copyWith =>
+      __$$UiPokemonDetailImplCopyWithImpl<_$UiPokemonDetailImpl>(
+          this, _$identity);
 }
 
 abstract class _UiPokemonDetail implements UiPokemonDetail {
   factory _UiPokemonDetail(
-      {required final int id,
-      required final String name,
-      required final String form,
-      required final String flavorText,
-      required final List<UiType> types,
-      required final int weight,
-      required final int height,
-      required final List<UiStat> stats,
-      required final List<List<UiChainEntry>> chains,
-      required final List<int> varietyIds}) = _$_UiPokemonDetail;
+      {final int? id,
+      final String? name,
+      final String? form,
+      final String? flavorText,
+      final List<UiType>? types,
+      final int? weight,
+      final int? height,
+      final List<UiStat>? stats,
+      final List<List<UiChainEntry>>? chains,
+      final List<int>? varietyIds}) = _$UiPokemonDetailImpl;
 
   @override
-  int get id;
+  int? get id;
   @override
-  String get name;
+  String? get name;
   @override
-  String get form;
+  String? get form;
   @override
-  String get flavorText;
+  String? get flavorText;
   @override
-  List<UiType> get types;
+  List<UiType>? get types;
   @override
-  int get weight;
+  int? get weight;
   @override
-  int get height;
+  int? get height;
   @override
-  List<UiStat> get stats;
+  List<UiStat>? get stats;
   @override
-  List<List<UiChainEntry>> get chains;
+  List<List<UiChainEntry>>? get chains;
   @override
-  List<int> get varietyIds;
+  List<int>? get varietyIds;
   @override
   @JsonKey(ignore: true)
-  _$$_UiPokemonDetailCopyWith<_$_UiPokemonDetail> get copyWith =>
+  _$$UiPokemonDetailImplCopyWith<_$UiPokemonDetailImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

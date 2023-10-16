@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_template/ui/detail/pokemon_detail_loading_progress.dart';
+import 'package:flutter_template/ui/model/ui_pokemon_detail.dart';
 
 import '../../bloc/get_pokemon_cubit.dart';
+import '../../bloc/model/ui_pokemon_detail_data.dart';
 import '../../bloc/model/ui_state.dart';
 import '../../injectable.dart';
 import '../common/cancel_button.dart';
@@ -48,7 +51,7 @@ class _PokemonState extends State<PokemonScreen> {
   @override
   void initState() {
     super.initState();
-    _getPokemonCubit.init(widget.param.id);
+    _getPokemonCubit.init(widget.param.id, widget.param.title);
   }
 
   @override
@@ -57,9 +60,12 @@ class _PokemonState extends State<PokemonScreen> {
       create: (_) => _getPokemonCubit,
       child: BlocBuilder<GetPokemonCubit, UiState>(
         builder: (context, state) {
+          UiPokemonDetail? pokemon;
           List<UiPokemonDetailItem> items = List.of([]);
           if (state is Success) {
-            items = (state as Success<List<UiPokemonDetailItem>>).data;
+            final data = (state as Success<UiPokemonDetailData>).data;
+            pokemon = data.pokemon;
+            items = data.items;
           }
           return Scaffold(
             backgroundColor: Colors.lightBlue.shade100, // 100
@@ -67,15 +73,23 @@ class _PokemonState extends State<PokemonScreen> {
               child: Stack(
                 children:[
                   const PokemonBg(),
-                  ListView.builder(
-                    itemCount: items.length,
-                    itemBuilder: (BuildContext context, int index) =>
-                      items[index].itemContent(onClick: widget.onClick)
+                  Column(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: ListView.builder(
+                          itemCount: items.length,
+                          itemBuilder: (BuildContext context, int index) =>
+                            items[index].itemContent(onClick: widget.onClick)
+                        )
+                      ),
+                      PokemonDetailLoadingProgress(pokemon: pokemon)
+                    ],
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(bottom: 15),
                       child: SizedBox(
                         width: 50,
                         height: 50,

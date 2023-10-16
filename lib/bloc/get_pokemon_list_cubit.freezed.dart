@@ -57,22 +57,22 @@ class _$PokemonListDataCopyWithImpl<$Res, $Val extends PokemonListData>
 }
 
 /// @nodoc
-abstract class _$$_PokemonListDataCopyWith<$Res>
+abstract class _$$PokemonListDataImplCopyWith<$Res>
     implements $PokemonListDataCopyWith<$Res> {
-  factory _$$_PokemonListDataCopyWith(
-          _$_PokemonListData value, $Res Function(_$_PokemonListData) then) =
-      __$$_PokemonListDataCopyWithImpl<$Res>;
+  factory _$$PokemonListDataImplCopyWith(_$PokemonListDataImpl value,
+          $Res Function(_$PokemonListDataImpl) then) =
+      __$$PokemonListDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<UiPokemon> pokemonList});
 }
 
 /// @nodoc
-class __$$_PokemonListDataCopyWithImpl<$Res>
-    extends _$PokemonListDataCopyWithImpl<$Res, _$_PokemonListData>
-    implements _$$_PokemonListDataCopyWith<$Res> {
-  __$$_PokemonListDataCopyWithImpl(
-      _$_PokemonListData _value, $Res Function(_$_PokemonListData) _then)
+class __$$PokemonListDataImplCopyWithImpl<$Res>
+    extends _$PokemonListDataCopyWithImpl<$Res, _$PokemonListDataImpl>
+    implements _$$PokemonListDataImplCopyWith<$Res> {
+  __$$PokemonListDataImplCopyWithImpl(
+      _$PokemonListDataImpl _value, $Res Function(_$PokemonListDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -80,7 +80,7 @@ class __$$_PokemonListDataCopyWithImpl<$Res>
   $Res call({
     Object? pokemonList = null,
   }) {
-    return _then(_$_PokemonListData(
+    return _then(_$PokemonListDataImpl(
       pokemonList: null == pokemonList
           ? _value._pokemonList
           : pokemonList // ignore: cast_nullable_to_non_nullable
@@ -91,8 +91,8 @@ class __$$_PokemonListDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PokemonListData implements _PokemonListData {
-  _$_PokemonListData({required final List<UiPokemon> pokemonList})
+class _$PokemonListDataImpl implements _PokemonListData {
+  _$PokemonListDataImpl({required final List<UiPokemon> pokemonList})
       : _pokemonList = pokemonList;
 
   final List<UiPokemon> _pokemonList;
@@ -112,7 +112,7 @@ class _$_PokemonListData implements _PokemonListData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PokemonListData &&
+            other is _$PokemonListDataImpl &&
             const DeepCollectionEquality()
                 .equals(other._pokemonList, _pokemonList));
   }
@@ -124,18 +124,19 @@ class _$_PokemonListData implements _PokemonListData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PokemonListDataCopyWith<_$_PokemonListData> get copyWith =>
-      __$$_PokemonListDataCopyWithImpl<_$_PokemonListData>(this, _$identity);
+  _$$PokemonListDataImplCopyWith<_$PokemonListDataImpl> get copyWith =>
+      __$$PokemonListDataImplCopyWithImpl<_$PokemonListDataImpl>(
+          this, _$identity);
 }
 
 abstract class _PokemonListData implements PokemonListData {
   factory _PokemonListData({required final List<UiPokemon> pokemonList}) =
-      _$_PokemonListData;
+      _$PokemonListDataImpl;
 
   @override
   List<UiPokemon> get pokemonList;
   @override
   @JsonKey(ignore: true)
-  _$$_PokemonListDataCopyWith<_$_PokemonListData> get copyWith =>
+  _$$PokemonListDataImplCopyWith<_$PokemonListDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -67,11 +67,11 @@ class _$NetworkPokemonFormCopyWithImpl<$Res, $Val extends NetworkPokemonForm>
 }
 
 /// @nodoc
-abstract class _$$_NetworkPokemonFormCopyWith<$Res>
+abstract class _$$NetworkPokemonFormImplCopyWith<$Res>
     implements $NetworkPokemonFormCopyWith<$Res> {
-  factory _$$_NetworkPokemonFormCopyWith(_$_NetworkPokemonForm value,
-          $Res Function(_$_NetworkPokemonForm) then) =
-      __$$_NetworkPokemonFormCopyWithImpl<$Res>;
+  factory _$$NetworkPokemonFormImplCopyWith(_$NetworkPokemonFormImpl value,
+          $Res Function(_$NetworkPokemonFormImpl) then) =
+      __$$NetworkPokemonFormImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -80,11 +80,11 @@ abstract class _$$_NetworkPokemonFormCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NetworkPokemonFormCopyWithImpl<$Res>
-    extends _$NetworkPokemonFormCopyWithImpl<$Res, _$_NetworkPokemonForm>
-    implements _$$_NetworkPokemonFormCopyWith<$Res> {
-  __$$_NetworkPokemonFormCopyWithImpl(
-      _$_NetworkPokemonForm _value, $Res Function(_$_NetworkPokemonForm) _then)
+class __$$NetworkPokemonFormImplCopyWithImpl<$Res>
+    extends _$NetworkPokemonFormCopyWithImpl<$Res, _$NetworkPokemonFormImpl>
+    implements _$$NetworkPokemonFormImplCopyWith<$Res> {
+  __$$NetworkPokemonFormImplCopyWithImpl(_$NetworkPokemonFormImpl _value,
+      $Res Function(_$NetworkPokemonFormImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -93,7 +93,7 @@ class __$$_NetworkPokemonFormCopyWithImpl<$Res>
     Object? id = null,
     Object? formNames = null,
   }) {
-    return _then(_$_NetworkPokemonForm(
+    return _then(_$NetworkPokemonFormImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -108,8 +108,8 @@ class __$$_NetworkPokemonFormCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NetworkPokemonForm implements _NetworkPokemonForm {
-  _$_NetworkPokemonForm(
+class _$NetworkPokemonFormImpl implements _NetworkPokemonForm {
+  _$NetworkPokemonFormImpl(
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'form_names') required final List<NetworkName> formNames})
       : _formNames = formNames;
@@ -135,7 +135,7 @@ class _$_NetworkPokemonForm implements _NetworkPokemonForm {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NetworkPokemonForm &&
+            other is _$NetworkPokemonFormImpl &&
             (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality()
                 .equals(other._formNames, _formNames));
@@ -148,17 +148,16 @@ class _$_NetworkPokemonForm implements _NetworkPokemonForm {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NetworkPokemonFormCopyWith<_$_NetworkPokemonForm> get copyWith =>
-      __$$_NetworkPokemonFormCopyWithImpl<_$_NetworkPokemonForm>(
+  _$$NetworkPokemonFormImplCopyWith<_$NetworkPokemonFormImpl> get copyWith =>
+      __$$NetworkPokemonFormImplCopyWithImpl<_$NetworkPokemonFormImpl>(
           this, _$identity);
 }
 
 abstract class _NetworkPokemonForm implements NetworkPokemonForm {
   factory _NetworkPokemonForm(
-      {@JsonKey(name: 'id')
-          required final int id,
+      {@JsonKey(name: 'id') required final int id,
       @JsonKey(name: 'form_names')
-          required final List<NetworkName> formNames}) = _$_NetworkPokemonForm;
+      required final List<NetworkName> formNames}) = _$NetworkPokemonFormImpl;
 
   @override
   @JsonKey(name: 'id')
@@ -168,6 +167,6 @@ abstract class _NetworkPokemonForm implements NetworkPokemonForm {
   List<NetworkName> get formNames;
   @override
   @JsonKey(ignore: true)
-  _$$_NetworkPokemonFormCopyWith<_$_NetworkPokemonForm> get copyWith =>
+  _$$NetworkPokemonFormImplCopyWith<_$NetworkPokemonFormImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

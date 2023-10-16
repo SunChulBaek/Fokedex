@@ -142,11 +142,11 @@ class _$NetworkPokemonCopyWithImpl<$Res, $Val extends NetworkPokemon>
 }
 
 /// @nodoc
-abstract class _$$_NetworkPokemonCopyWith<$Res>
+abstract class _$$NetworkPokemonImplCopyWith<$Res>
     implements $NetworkPokemonCopyWith<$Res> {
-  factory _$$_NetworkPokemonCopyWith(
-          _$_NetworkPokemon value, $Res Function(_$_NetworkPokemon) then) =
-      __$$_NetworkPokemonCopyWithImpl<$Res>;
+  factory _$$NetworkPokemonImplCopyWith(_$NetworkPokemonImpl value,
+          $Res Function(_$NetworkPokemonImpl) then) =
+      __$$NetworkPokemonImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -166,11 +166,11 @@ abstract class _$$_NetworkPokemonCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NetworkPokemonCopyWithImpl<$Res>
-    extends _$NetworkPokemonCopyWithImpl<$Res, _$_NetworkPokemon>
-    implements _$$_NetworkPokemonCopyWith<$Res> {
-  __$$_NetworkPokemonCopyWithImpl(
-      _$_NetworkPokemon _value, $Res Function(_$_NetworkPokemon) _then)
+class __$$NetworkPokemonImplCopyWithImpl<$Res>
+    extends _$NetworkPokemonCopyWithImpl<$Res, _$NetworkPokemonImpl>
+    implements _$$NetworkPokemonImplCopyWith<$Res> {
+  __$$NetworkPokemonImplCopyWithImpl(
+      _$NetworkPokemonImpl _value, $Res Function(_$NetworkPokemonImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -187,7 +187,7 @@ class __$$_NetworkPokemonCopyWithImpl<$Res>
     Object? stats = null,
     Object? species = null,
   }) {
-    return _then(_$_NetworkPokemon(
+    return _then(_$NetworkPokemonImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -234,28 +234,19 @@ class __$$_NetworkPokemonCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NetworkPokemon implements _NetworkPokemon {
-  _$_NetworkPokemon(
-      {@JsonKey(name: 'id')
-          required this.id,
-      @JsonKey(name: 'name')
-          required this.name,
-      @JsonKey(name: 'height')
-          required this.height,
-      @JsonKey(name: 'is_default')
-          required this.isDefault,
-      @JsonKey(name: 'order')
-          required this.order,
-      @JsonKey(name: 'weight')
-          required this.weight,
+class _$NetworkPokemonImpl implements _NetworkPokemon {
+  _$NetworkPokemonImpl(
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'name') required this.name,
+      @JsonKey(name: 'height') required this.height,
+      @JsonKey(name: 'is_default') required this.isDefault,
+      @JsonKey(name: 'order') required this.order,
+      @JsonKey(name: 'weight') required this.weight,
       @JsonKey(name: 'forms')
-          required final List<NetworkNamedAPIResource> forms,
-      @JsonKey(name: 'types')
-          required final List<NetworkPokemonType> types,
-      @JsonKey(name: 'stats')
-          required final List<NetworkPokemonStat> stats,
-      @JsonKey(name: 'species')
-          required this.species})
+      required final List<NetworkNamedAPIResource> forms,
+      @JsonKey(name: 'types') required final List<NetworkPokemonType> types,
+      @JsonKey(name: 'stats') required final List<NetworkPokemonStat> stats,
+      @JsonKey(name: 'species') required this.species})
       : _forms = forms,
         _types = types,
         _stats = stats;
@@ -319,7 +310,7 @@ class _$_NetworkPokemon implements _NetworkPokemon {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NetworkPokemon &&
+            other is _$NetworkPokemonImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.height, height) || other.height == height) &&
@@ -350,32 +341,25 @@ class _$_NetworkPokemon implements _NetworkPokemon {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NetworkPokemonCopyWith<_$_NetworkPokemon> get copyWith =>
-      __$$_NetworkPokemonCopyWithImpl<_$_NetworkPokemon>(this, _$identity);
+  _$$NetworkPokemonImplCopyWith<_$NetworkPokemonImpl> get copyWith =>
+      __$$NetworkPokemonImplCopyWithImpl<_$NetworkPokemonImpl>(
+          this, _$identity);
 }
 
 abstract class _NetworkPokemon implements NetworkPokemon {
   factory _NetworkPokemon(
-      {@JsonKey(name: 'id')
-          required final int id,
-      @JsonKey(name: 'name')
-          required final String name,
-      @JsonKey(name: 'height')
-          required final int height,
-      @JsonKey(name: 'is_default')
-          required final bool isDefault,
-      @JsonKey(name: 'order')
-          required final int order,
-      @JsonKey(name: 'weight')
-          required final int weight,
+      {@JsonKey(name: 'id') required final int id,
+      @JsonKey(name: 'name') required final String name,
+      @JsonKey(name: 'height') required final int height,
+      @JsonKey(name: 'is_default') required final bool isDefault,
+      @JsonKey(name: 'order') required final int order,
+      @JsonKey(name: 'weight') required final int weight,
       @JsonKey(name: 'forms')
-          required final List<NetworkNamedAPIResource> forms,
-      @JsonKey(name: 'types')
-          required final List<NetworkPokemonType> types,
-      @JsonKey(name: 'stats')
-          required final List<NetworkPokemonStat> stats,
+      required final List<NetworkNamedAPIResource> forms,
+      @JsonKey(name: 'types') required final List<NetworkPokemonType> types,
+      @JsonKey(name: 'stats') required final List<NetworkPokemonStat> stats,
       @JsonKey(name: 'species')
-          required final NetworkNamedAPIResource species}) = _$_NetworkPokemon;
+      required final NetworkNamedAPIResource species}) = _$NetworkPokemonImpl;
 
   @override
   @JsonKey(name: 'id')
@@ -409,6 +393,6 @@ abstract class _NetworkPokemon implements NetworkPokemon {
   NetworkNamedAPIResource get species;
   @override
   @JsonKey(ignore: true)
-  _$$_NetworkPokemonCopyWith<_$_NetworkPokemon> get copyWith =>
+  _$$NetworkPokemonImplCopyWith<_$NetworkPokemonImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
