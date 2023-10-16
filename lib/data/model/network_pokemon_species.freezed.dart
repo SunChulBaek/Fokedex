@@ -41,16 +41,13 @@ abstract class $NetworkPokemonSpeciesCopyWith<$Res> {
       _$NetworkPokemonSpeciesCopyWithImpl<$Res, NetworkPokemonSpecies>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id')
-          int id,
-      @JsonKey(name: 'names')
-          List<NetworkName> names,
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'names') List<NetworkName> names,
       @JsonKey(name: 'flavor_text_entries')
-          List<NetworkFlavorText> flavorTextEntries,
-      @JsonKey(name: 'evolution_chain')
-          NetworkAPIResource evolutionChain,
+      List<NetworkFlavorText> flavorTextEntries,
+      @JsonKey(name: 'evolution_chain') NetworkAPIResource evolutionChain,
       @JsonKey(name: 'varieties')
-          List<NetworkPokemonSpeciesVariety> varieties});
+      List<NetworkPokemonSpeciesVariety> varieties});
 
   $NetworkAPIResourceCopyWith<$Res> get evolutionChain;
 }
@@ -109,35 +106,34 @@ class _$NetworkPokemonSpeciesCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_NetworkPokemonSpeciesCopyWith<$Res>
+abstract class _$$NetworkPokemonSpeciesImplCopyWith<$Res>
     implements $NetworkPokemonSpeciesCopyWith<$Res> {
-  factory _$$_NetworkPokemonSpeciesCopyWith(_$_NetworkPokemonSpecies value,
-          $Res Function(_$_NetworkPokemonSpecies) then) =
-      __$$_NetworkPokemonSpeciesCopyWithImpl<$Res>;
+  factory _$$NetworkPokemonSpeciesImplCopyWith(
+          _$NetworkPokemonSpeciesImpl value,
+          $Res Function(_$NetworkPokemonSpeciesImpl) then) =
+      __$$NetworkPokemonSpeciesImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id')
-          int id,
-      @JsonKey(name: 'names')
-          List<NetworkName> names,
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'names') List<NetworkName> names,
       @JsonKey(name: 'flavor_text_entries')
-          List<NetworkFlavorText> flavorTextEntries,
-      @JsonKey(name: 'evolution_chain')
-          NetworkAPIResource evolutionChain,
+      List<NetworkFlavorText> flavorTextEntries,
+      @JsonKey(name: 'evolution_chain') NetworkAPIResource evolutionChain,
       @JsonKey(name: 'varieties')
-          List<NetworkPokemonSpeciesVariety> varieties});
+      List<NetworkPokemonSpeciesVariety> varieties});
 
   @override
   $NetworkAPIResourceCopyWith<$Res> get evolutionChain;
 }
 
 /// @nodoc
-class __$$_NetworkPokemonSpeciesCopyWithImpl<$Res>
-    extends _$NetworkPokemonSpeciesCopyWithImpl<$Res, _$_NetworkPokemonSpecies>
-    implements _$$_NetworkPokemonSpeciesCopyWith<$Res> {
-  __$$_NetworkPokemonSpeciesCopyWithImpl(_$_NetworkPokemonSpecies _value,
-      $Res Function(_$_NetworkPokemonSpecies) _then)
+class __$$NetworkPokemonSpeciesImplCopyWithImpl<$Res>
+    extends _$NetworkPokemonSpeciesCopyWithImpl<$Res,
+        _$NetworkPokemonSpeciesImpl>
+    implements _$$NetworkPokemonSpeciesImplCopyWith<$Res> {
+  __$$NetworkPokemonSpeciesImplCopyWithImpl(_$NetworkPokemonSpeciesImpl _value,
+      $Res Function(_$NetworkPokemonSpeciesImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -149,7 +145,7 @@ class __$$_NetworkPokemonSpeciesCopyWithImpl<$Res>
     Object? evolutionChain = null,
     Object? varieties = null,
   }) {
-    return _then(_$_NetworkPokemonSpecies(
+    return _then(_$NetworkPokemonSpeciesImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -176,18 +172,15 @@ class __$$_NetworkPokemonSpeciesCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NetworkPokemonSpecies implements _NetworkPokemonSpecies {
-  _$_NetworkPokemonSpecies(
-      {@JsonKey(name: 'id')
-          required this.id,
-      @JsonKey(name: 'names')
-          required final List<NetworkName> names,
+class _$NetworkPokemonSpeciesImpl implements _NetworkPokemonSpecies {
+  _$NetworkPokemonSpeciesImpl(
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'names') required final List<NetworkName> names,
       @JsonKey(name: 'flavor_text_entries')
-          required final List<NetworkFlavorText> flavorTextEntries,
-      @JsonKey(name: 'evolution_chain')
-          required this.evolutionChain,
+      required final List<NetworkFlavorText> flavorTextEntries,
+      @JsonKey(name: 'evolution_chain') required this.evolutionChain,
       @JsonKey(name: 'varieties')
-          required final List<NetworkPokemonSpeciesVariety> varieties})
+      required final List<NetworkPokemonSpeciesVariety> varieties})
       : _names = names,
         _flavorTextEntries = flavorTextEntries,
         _varieties = varieties;
@@ -235,7 +228,7 @@ class _$_NetworkPokemonSpecies implements _NetworkPokemonSpecies {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NetworkPokemonSpecies &&
+            other is _$NetworkPokemonSpeciesImpl &&
             (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other._names, _names) &&
             const DeepCollectionEquality()
@@ -258,24 +251,22 @@ class _$_NetworkPokemonSpecies implements _NetworkPokemonSpecies {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NetworkPokemonSpeciesCopyWith<_$_NetworkPokemonSpecies> get copyWith =>
-      __$$_NetworkPokemonSpeciesCopyWithImpl<_$_NetworkPokemonSpecies>(
-          this, _$identity);
+  _$$NetworkPokemonSpeciesImplCopyWith<_$NetworkPokemonSpeciesImpl>
+      get copyWith => __$$NetworkPokemonSpeciesImplCopyWithImpl<
+          _$NetworkPokemonSpeciesImpl>(this, _$identity);
 }
 
 abstract class _NetworkPokemonSpecies implements NetworkPokemonSpecies {
   factory _NetworkPokemonSpecies(
-          {@JsonKey(name: 'id')
-              required final int id,
-          @JsonKey(name: 'names')
-              required final List<NetworkName> names,
+          {@JsonKey(name: 'id') required final int id,
+          @JsonKey(name: 'names') required final List<NetworkName> names,
           @JsonKey(name: 'flavor_text_entries')
-              required final List<NetworkFlavorText> flavorTextEntries,
+          required final List<NetworkFlavorText> flavorTextEntries,
           @JsonKey(name: 'evolution_chain')
-              required final NetworkAPIResource evolutionChain,
+          required final NetworkAPIResource evolutionChain,
           @JsonKey(name: 'varieties')
-              required final List<NetworkPokemonSpeciesVariety> varieties}) =
-      _$_NetworkPokemonSpecies;
+          required final List<NetworkPokemonSpeciesVariety> varieties}) =
+      _$NetworkPokemonSpeciesImpl;
 
   @override
   @JsonKey(name: 'id')
@@ -294,6 +285,6 @@ abstract class _NetworkPokemonSpecies implements NetworkPokemonSpecies {
   List<NetworkPokemonSpeciesVariety> get varieties;
   @override
   @JsonKey(ignore: true)
-  _$$_NetworkPokemonSpeciesCopyWith<_$_NetworkPokemonSpecies> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$NetworkPokemonSpeciesImplCopyWith<_$NetworkPokemonSpeciesImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

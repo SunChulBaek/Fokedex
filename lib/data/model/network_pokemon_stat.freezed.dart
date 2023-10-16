@@ -85,11 +85,11 @@ class _$NetworkPokemonStatCopyWithImpl<$Res, $Val extends NetworkPokemonStat>
 }
 
 /// @nodoc
-abstract class _$$_NetworkPokemonStatCopyWith<$Res>
+abstract class _$$NetworkPokemonStatImplCopyWith<$Res>
     implements $NetworkPokemonStatCopyWith<$Res> {
-  factory _$$_NetworkPokemonStatCopyWith(_$_NetworkPokemonStat value,
-          $Res Function(_$_NetworkPokemonStat) then) =
-      __$$_NetworkPokemonStatCopyWithImpl<$Res>;
+  factory _$$NetworkPokemonStatImplCopyWith(_$NetworkPokemonStatImpl value,
+          $Res Function(_$NetworkPokemonStatImpl) then) =
+      __$$NetworkPokemonStatImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -102,11 +102,11 @@ abstract class _$$_NetworkPokemonStatCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NetworkPokemonStatCopyWithImpl<$Res>
-    extends _$NetworkPokemonStatCopyWithImpl<$Res, _$_NetworkPokemonStat>
-    implements _$$_NetworkPokemonStatCopyWith<$Res> {
-  __$$_NetworkPokemonStatCopyWithImpl(
-      _$_NetworkPokemonStat _value, $Res Function(_$_NetworkPokemonStat) _then)
+class __$$NetworkPokemonStatImplCopyWithImpl<$Res>
+    extends _$NetworkPokemonStatCopyWithImpl<$Res, _$NetworkPokemonStatImpl>
+    implements _$$NetworkPokemonStatImplCopyWith<$Res> {
+  __$$NetworkPokemonStatImplCopyWithImpl(_$NetworkPokemonStatImpl _value,
+      $Res Function(_$NetworkPokemonStatImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -116,7 +116,7 @@ class __$$_NetworkPokemonStatCopyWithImpl<$Res>
     Object? effort = null,
     Object? stat = null,
   }) {
-    return _then(_$_NetworkPokemonStat(
+    return _then(_$NetworkPokemonStatImpl(
       baseStat: null == baseStat
           ? _value.baseStat
           : baseStat // ignore: cast_nullable_to_non_nullable
@@ -135,8 +135,8 @@ class __$$_NetworkPokemonStatCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NetworkPokemonStat implements _NetworkPokemonStat {
-  _$_NetworkPokemonStat(
+class _$NetworkPokemonStatImpl implements _NetworkPokemonStat {
+  _$NetworkPokemonStatImpl(
       {@JsonKey(name: 'base_stat') required this.baseStat,
       @JsonKey(name: 'effort') required this.effort,
       @JsonKey(name: 'stat') required this.stat});
@@ -160,7 +160,7 @@ class _$_NetworkPokemonStat implements _NetworkPokemonStat {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NetworkPokemonStat &&
+            other is _$NetworkPokemonStatImpl &&
             (identical(other.baseStat, baseStat) ||
                 other.baseStat == baseStat) &&
             (identical(other.effort, effort) || other.effort == effort) &&
@@ -173,8 +173,8 @@ class _$_NetworkPokemonStat implements _NetworkPokemonStat {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NetworkPokemonStatCopyWith<_$_NetworkPokemonStat> get copyWith =>
-      __$$_NetworkPokemonStatCopyWithImpl<_$_NetworkPokemonStat>(
+  _$$NetworkPokemonStatImplCopyWith<_$NetworkPokemonStatImpl> get copyWith =>
+      __$$NetworkPokemonStatImplCopyWithImpl<_$NetworkPokemonStatImpl>(
           this, _$identity);
 }
 
@@ -183,7 +183,7 @@ abstract class _NetworkPokemonStat implements NetworkPokemonStat {
           {@JsonKey(name: 'base_stat') required final int baseStat,
           @JsonKey(name: 'effort') required final int effort,
           @JsonKey(name: 'stat') required final NetworkNamedAPIResource stat}) =
-      _$_NetworkPokemonStat;
+      _$NetworkPokemonStatImpl;
 
   @override
   @JsonKey(name: 'base_stat')
@@ -196,6 +196,6 @@ abstract class _NetworkPokemonStat implements NetworkPokemonStat {
   NetworkNamedAPIResource get stat;
   @override
   @JsonKey(ignore: true)
-  _$$_NetworkPokemonStatCopyWith<_$_NetworkPokemonStat> get copyWith =>
+  _$$NetworkPokemonStatImplCopyWith<_$NetworkPokemonStatImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

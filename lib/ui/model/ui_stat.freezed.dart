@@ -61,19 +61,21 @@ class _$UiStatCopyWithImpl<$Res, $Val extends UiStat>
 }
 
 /// @nodoc
-abstract class _$$_UiStatCopyWith<$Res> implements $UiStatCopyWith<$Res> {
-  factory _$$_UiStatCopyWith(_$_UiStat value, $Res Function(_$_UiStat) then) =
-      __$$_UiStatCopyWithImpl<$Res>;
+abstract class _$$UiStatImplCopyWith<$Res> implements $UiStatCopyWith<$Res> {
+  factory _$$UiStatImplCopyWith(
+          _$UiStatImpl value, $Res Function(_$UiStatImpl) then) =
+      __$$UiStatImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, int value});
 }
 
 /// @nodoc
-class __$$_UiStatCopyWithImpl<$Res>
-    extends _$UiStatCopyWithImpl<$Res, _$_UiStat>
-    implements _$$_UiStatCopyWith<$Res> {
-  __$$_UiStatCopyWithImpl(_$_UiStat _value, $Res Function(_$_UiStat) _then)
+class __$$UiStatImplCopyWithImpl<$Res>
+    extends _$UiStatCopyWithImpl<$Res, _$UiStatImpl>
+    implements _$$UiStatImplCopyWith<$Res> {
+  __$$UiStatImplCopyWithImpl(
+      _$UiStatImpl _value, $Res Function(_$UiStatImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -82,7 +84,7 @@ class __$$_UiStatCopyWithImpl<$Res>
     Object? name = null,
     Object? value = null,
   }) {
-    return _then(_$_UiStat(
+    return _then(_$UiStatImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -97,8 +99,8 @@ class __$$_UiStatCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UiStat implements _UiStat {
-  _$_UiStat({required this.name, required this.value});
+class _$UiStatImpl implements _UiStat {
+  _$UiStatImpl({required this.name, required this.value});
 
   @override
   final String name;
@@ -114,7 +116,7 @@ class _$_UiStat implements _UiStat {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UiStat &&
+            other is _$UiStatImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.value, value) || other.value == value));
   }
@@ -125,13 +127,13 @@ class _$_UiStat implements _UiStat {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UiStatCopyWith<_$_UiStat> get copyWith =>
-      __$$_UiStatCopyWithImpl<_$_UiStat>(this, _$identity);
+  _$$UiStatImplCopyWith<_$UiStatImpl> get copyWith =>
+      __$$UiStatImplCopyWithImpl<_$UiStatImpl>(this, _$identity);
 }
 
 abstract class _UiStat implements UiStat {
   factory _UiStat({required final String name, required final int value}) =
-      _$_UiStat;
+      _$UiStatImpl;
 
   @override
   String get name;
@@ -139,6 +141,6 @@ abstract class _UiStat implements UiStat {
   int get value;
   @override
   @JsonKey(ignore: true)
-  _$$_UiStatCopyWith<_$_UiStat> get copyWith =>
+  _$$UiStatImplCopyWith<_$UiStatImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

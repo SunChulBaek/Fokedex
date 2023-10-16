@@ -80,12 +80,12 @@ class _$NetworkPokemonSpeciesVarietyCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_NetworkPokemonSpeciesVarietyCopyWith<$Res>
+abstract class _$$NetworkPokemonSpeciesVarietyImplCopyWith<$Res>
     implements $NetworkPokemonSpeciesVarietyCopyWith<$Res> {
-  factory _$$_NetworkPokemonSpeciesVarietyCopyWith(
-          _$_NetworkPokemonSpeciesVariety value,
-          $Res Function(_$_NetworkPokemonSpeciesVariety) then) =
-      __$$_NetworkPokemonSpeciesVarietyCopyWithImpl<$Res>;
+  factory _$$NetworkPokemonSpeciesVarietyImplCopyWith(
+          _$NetworkPokemonSpeciesVarietyImpl value,
+          $Res Function(_$NetworkPokemonSpeciesVarietyImpl) then) =
+      __$$NetworkPokemonSpeciesVarietyImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -97,13 +97,13 @@ abstract class _$$_NetworkPokemonSpeciesVarietyCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NetworkPokemonSpeciesVarietyCopyWithImpl<$Res>
+class __$$NetworkPokemonSpeciesVarietyImplCopyWithImpl<$Res>
     extends _$NetworkPokemonSpeciesVarietyCopyWithImpl<$Res,
-        _$_NetworkPokemonSpeciesVariety>
-    implements _$$_NetworkPokemonSpeciesVarietyCopyWith<$Res> {
-  __$$_NetworkPokemonSpeciesVarietyCopyWithImpl(
-      _$_NetworkPokemonSpeciesVariety _value,
-      $Res Function(_$_NetworkPokemonSpeciesVariety) _then)
+        _$NetworkPokemonSpeciesVarietyImpl>
+    implements _$$NetworkPokemonSpeciesVarietyImplCopyWith<$Res> {
+  __$$NetworkPokemonSpeciesVarietyImplCopyWithImpl(
+      _$NetworkPokemonSpeciesVarietyImpl _value,
+      $Res Function(_$NetworkPokemonSpeciesVarietyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -112,7 +112,7 @@ class __$$_NetworkPokemonSpeciesVarietyCopyWithImpl<$Res>
     Object? isDefault = null,
     Object? pokemon = null,
   }) {
-    return _then(_$_NetworkPokemonSpeciesVariety(
+    return _then(_$NetworkPokemonSpeciesVarietyImpl(
       isDefault: null == isDefault
           ? _value.isDefault
           : isDefault // ignore: cast_nullable_to_non_nullable
@@ -127,8 +127,9 @@ class __$$_NetworkPokemonSpeciesVarietyCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NetworkPokemonSpeciesVariety implements _NetworkPokemonSpeciesVariety {
-  _$_NetworkPokemonSpeciesVariety(
+class _$NetworkPokemonSpeciesVarietyImpl
+    implements _NetworkPokemonSpeciesVariety {
+  _$NetworkPokemonSpeciesVarietyImpl(
       {@JsonKey(name: 'is_default') required this.isDefault,
       @JsonKey(name: 'pokemon') required this.pokemon});
 
@@ -148,7 +149,7 @@ class _$_NetworkPokemonSpeciesVariety implements _NetworkPokemonSpeciesVariety {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NetworkPokemonSpeciesVariety &&
+            other is _$NetworkPokemonSpeciesVarietyImpl &&
             (identical(other.isDefault, isDefault) ||
                 other.isDefault == isDefault) &&
             (identical(other.pokemon, pokemon) || other.pokemon == pokemon));
@@ -160,19 +161,19 @@ class _$_NetworkPokemonSpeciesVariety implements _NetworkPokemonSpeciesVariety {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NetworkPokemonSpeciesVarietyCopyWith<_$_NetworkPokemonSpeciesVariety>
-      get copyWith => __$$_NetworkPokemonSpeciesVarietyCopyWithImpl<
-          _$_NetworkPokemonSpeciesVariety>(this, _$identity);
+  _$$NetworkPokemonSpeciesVarietyImplCopyWith<
+          _$NetworkPokemonSpeciesVarietyImpl>
+      get copyWith => __$$NetworkPokemonSpeciesVarietyImplCopyWithImpl<
+          _$NetworkPokemonSpeciesVarietyImpl>(this, _$identity);
 }
 
 abstract class _NetworkPokemonSpeciesVariety
     implements NetworkPokemonSpeciesVariety {
   factory _NetworkPokemonSpeciesVariety(
-          {@JsonKey(name: 'is_default')
-              required final bool isDefault,
+          {@JsonKey(name: 'is_default') required final bool isDefault,
           @JsonKey(name: 'pokemon')
-              required final NetworkNamedAPIResource pokemon}) =
-      _$_NetworkPokemonSpeciesVariety;
+          required final NetworkNamedAPIResource pokemon}) =
+      _$NetworkPokemonSpeciesVarietyImpl;
 
   @override
   @JsonKey(name: 'is_default')
@@ -182,6 +183,7 @@ abstract class _NetworkPokemonSpeciesVariety
   NetworkNamedAPIResource get pokemon;
   @override
   @JsonKey(ignore: true)
-  _$$_NetworkPokemonSpeciesVarietyCopyWith<_$_NetworkPokemonSpeciesVariety>
+  _$$NetworkPokemonSpeciesVarietyImplCopyWith<
+          _$NetworkPokemonSpeciesVarietyImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

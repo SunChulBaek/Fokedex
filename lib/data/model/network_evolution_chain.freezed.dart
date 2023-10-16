@@ -78,11 +78,12 @@ class _$NetworkEvolutionChainCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_NetworkEvolutionChainCopyWith<$Res>
+abstract class _$$NetworkEvolutionChainImplCopyWith<$Res>
     implements $NetworkEvolutionChainCopyWith<$Res> {
-  factory _$$_NetworkEvolutionChainCopyWith(_$_NetworkEvolutionChain value,
-          $Res Function(_$_NetworkEvolutionChain) then) =
-      __$$_NetworkEvolutionChainCopyWithImpl<$Res>;
+  factory _$$NetworkEvolutionChainImplCopyWith(
+          _$NetworkEvolutionChainImpl value,
+          $Res Function(_$NetworkEvolutionChainImpl) then) =
+      __$$NetworkEvolutionChainImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -94,11 +95,12 @@ abstract class _$$_NetworkEvolutionChainCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NetworkEvolutionChainCopyWithImpl<$Res>
-    extends _$NetworkEvolutionChainCopyWithImpl<$Res, _$_NetworkEvolutionChain>
-    implements _$$_NetworkEvolutionChainCopyWith<$Res> {
-  __$$_NetworkEvolutionChainCopyWithImpl(_$_NetworkEvolutionChain _value,
-      $Res Function(_$_NetworkEvolutionChain) _then)
+class __$$NetworkEvolutionChainImplCopyWithImpl<$Res>
+    extends _$NetworkEvolutionChainCopyWithImpl<$Res,
+        _$NetworkEvolutionChainImpl>
+    implements _$$NetworkEvolutionChainImplCopyWith<$Res> {
+  __$$NetworkEvolutionChainImplCopyWithImpl(_$NetworkEvolutionChainImpl _value,
+      $Res Function(_$NetworkEvolutionChainImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -107,7 +109,7 @@ class __$$_NetworkEvolutionChainCopyWithImpl<$Res>
     Object? id = null,
     Object? chain = null,
   }) {
-    return _then(_$_NetworkEvolutionChain(
+    return _then(_$NetworkEvolutionChainImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -122,8 +124,8 @@ class __$$_NetworkEvolutionChainCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NetworkEvolutionChain implements _NetworkEvolutionChain {
-  _$_NetworkEvolutionChain(
+class _$NetworkEvolutionChainImpl implements _NetworkEvolutionChain {
+  _$NetworkEvolutionChainImpl(
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'chain') required this.chain});
 
@@ -143,7 +145,7 @@ class _$_NetworkEvolutionChain implements _NetworkEvolutionChain {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NetworkEvolutionChain &&
+            other is _$NetworkEvolutionChainImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.chain, chain) || other.chain == chain));
   }
@@ -154,16 +156,16 @@ class _$_NetworkEvolutionChain implements _NetworkEvolutionChain {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NetworkEvolutionChainCopyWith<_$_NetworkEvolutionChain> get copyWith =>
-      __$$_NetworkEvolutionChainCopyWithImpl<_$_NetworkEvolutionChain>(
-          this, _$identity);
+  _$$NetworkEvolutionChainImplCopyWith<_$NetworkEvolutionChainImpl>
+      get copyWith => __$$NetworkEvolutionChainImplCopyWithImpl<
+          _$NetworkEvolutionChainImpl>(this, _$identity);
 }
 
 abstract class _NetworkEvolutionChain implements NetworkEvolutionChain {
   factory _NetworkEvolutionChain(
           {@JsonKey(name: 'id') required final int id,
           @JsonKey(name: 'chain') required final NetworkChainLink chain}) =
-      _$_NetworkEvolutionChain;
+      _$NetworkEvolutionChainImpl;
 
   @override
   @JsonKey(name: 'id')
@@ -173,6 +175,6 @@ abstract class _NetworkEvolutionChain implements NetworkEvolutionChain {
   NetworkChainLink get chain;
   @override
   @JsonKey(ignore: true)
-  _$$_NetworkEvolutionChainCopyWith<_$_NetworkEvolutionChain> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$NetworkEvolutionChainImplCopyWith<_$NetworkEvolutionChainImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
