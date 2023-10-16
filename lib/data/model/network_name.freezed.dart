@@ -77,11 +77,11 @@ class _$NetworkNameCopyWithImpl<$Res, $Val extends NetworkName>
 }
 
 /// @nodoc
-abstract class _$$_NetworkNameCopyWith<$Res>
+abstract class _$$NetworkNameImplCopyWith<$Res>
     implements $NetworkNameCopyWith<$Res> {
-  factory _$$_NetworkNameCopyWith(
-          _$_NetworkName value, $Res Function(_$_NetworkName) then) =
-      __$$_NetworkNameCopyWithImpl<$Res>;
+  factory _$$NetworkNameImplCopyWith(
+          _$NetworkNameImpl value, $Res Function(_$NetworkNameImpl) then) =
+      __$$NetworkNameImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -93,11 +93,11 @@ abstract class _$$_NetworkNameCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NetworkNameCopyWithImpl<$Res>
-    extends _$NetworkNameCopyWithImpl<$Res, _$_NetworkName>
-    implements _$$_NetworkNameCopyWith<$Res> {
-  __$$_NetworkNameCopyWithImpl(
-      _$_NetworkName _value, $Res Function(_$_NetworkName) _then)
+class __$$NetworkNameImplCopyWithImpl<$Res>
+    extends _$NetworkNameCopyWithImpl<$Res, _$NetworkNameImpl>
+    implements _$$NetworkNameImplCopyWith<$Res> {
+  __$$NetworkNameImplCopyWithImpl(
+      _$NetworkNameImpl _value, $Res Function(_$NetworkNameImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -106,7 +106,7 @@ class __$$_NetworkNameCopyWithImpl<$Res>
     Object? name = null,
     Object? language = null,
   }) {
-    return _then(_$_NetworkName(
+    return _then(_$NetworkNameImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -121,8 +121,8 @@ class __$$_NetworkNameCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NetworkName implements _NetworkName {
-  _$_NetworkName(
+class _$NetworkNameImpl implements _NetworkName {
+  _$NetworkNameImpl(
       {@JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'language') required this.language});
 
@@ -142,7 +142,7 @@ class _$_NetworkName implements _NetworkName {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NetworkName &&
+            other is _$NetworkNameImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.language, language) ||
                 other.language == language));
@@ -154,16 +154,15 @@ class _$_NetworkName implements _NetworkName {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NetworkNameCopyWith<_$_NetworkName> get copyWith =>
-      __$$_NetworkNameCopyWithImpl<_$_NetworkName>(this, _$identity);
+  _$$NetworkNameImplCopyWith<_$NetworkNameImpl> get copyWith =>
+      __$$NetworkNameImplCopyWithImpl<_$NetworkNameImpl>(this, _$identity);
 }
 
 abstract class _NetworkName implements NetworkName {
   factory _NetworkName(
-      {@JsonKey(name: 'name')
-          required final String name,
+      {@JsonKey(name: 'name') required final String name,
       @JsonKey(name: 'language')
-          required final NetworkNamedAPIResource language}) = _$_NetworkName;
+      required final NetworkNamedAPIResource language}) = _$NetworkNameImpl;
 
   @override
   @JsonKey(name: 'name')
@@ -173,6 +172,6 @@ abstract class _NetworkName implements NetworkName {
   NetworkNamedAPIResource get language;
   @override
   @JsonKey(ignore: true)
-  _$$_NetworkNameCopyWith<_$_NetworkName> get copyWith =>
+  _$$NetworkNameImplCopyWith<_$NetworkNameImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

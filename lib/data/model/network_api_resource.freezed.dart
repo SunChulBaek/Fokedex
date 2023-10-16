@@ -58,22 +58,22 @@ class _$NetworkAPIResourceCopyWithImpl<$Res, $Val extends NetworkAPIResource>
 }
 
 /// @nodoc
-abstract class _$$_NetworkAPIResourceCopyWith<$Res>
+abstract class _$$NetworkAPIResourceImplCopyWith<$Res>
     implements $NetworkAPIResourceCopyWith<$Res> {
-  factory _$$_NetworkAPIResourceCopyWith(_$_NetworkAPIResource value,
-          $Res Function(_$_NetworkAPIResource) then) =
-      __$$_NetworkAPIResourceCopyWithImpl<$Res>;
+  factory _$$NetworkAPIResourceImplCopyWith(_$NetworkAPIResourceImpl value,
+          $Res Function(_$NetworkAPIResourceImpl) then) =
+      __$$NetworkAPIResourceImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({@JsonKey(name: 'url') String url});
 }
 
 /// @nodoc
-class __$$_NetworkAPIResourceCopyWithImpl<$Res>
-    extends _$NetworkAPIResourceCopyWithImpl<$Res, _$_NetworkAPIResource>
-    implements _$$_NetworkAPIResourceCopyWith<$Res> {
-  __$$_NetworkAPIResourceCopyWithImpl(
-      _$_NetworkAPIResource _value, $Res Function(_$_NetworkAPIResource) _then)
+class __$$NetworkAPIResourceImplCopyWithImpl<$Res>
+    extends _$NetworkAPIResourceCopyWithImpl<$Res, _$NetworkAPIResourceImpl>
+    implements _$$NetworkAPIResourceImplCopyWith<$Res> {
+  __$$NetworkAPIResourceImplCopyWithImpl(_$NetworkAPIResourceImpl _value,
+      $Res Function(_$NetworkAPIResourceImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -81,7 +81,7 @@ class __$$_NetworkAPIResourceCopyWithImpl<$Res>
   $Res call({
     Object? url = null,
   }) {
-    return _then(_$_NetworkAPIResource(
+    return _then(_$NetworkAPIResourceImpl(
       url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -92,8 +92,8 @@ class __$$_NetworkAPIResourceCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NetworkAPIResource implements _NetworkAPIResource {
-  _$_NetworkAPIResource({@JsonKey(name: 'url') required this.url});
+class _$NetworkAPIResourceImpl implements _NetworkAPIResource {
+  _$NetworkAPIResourceImpl({@JsonKey(name: 'url') required this.url});
 
   @override
   @JsonKey(name: 'url')
@@ -108,7 +108,7 @@ class _$_NetworkAPIResource implements _NetworkAPIResource {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NetworkAPIResource &&
+            other is _$NetworkAPIResourceImpl &&
             (identical(other.url, url) || other.url == url));
   }
 
@@ -118,21 +118,21 @@ class _$_NetworkAPIResource implements _NetworkAPIResource {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NetworkAPIResourceCopyWith<_$_NetworkAPIResource> get copyWith =>
-      __$$_NetworkAPIResourceCopyWithImpl<_$_NetworkAPIResource>(
+  _$$NetworkAPIResourceImplCopyWith<_$NetworkAPIResourceImpl> get copyWith =>
+      __$$NetworkAPIResourceImplCopyWithImpl<_$NetworkAPIResourceImpl>(
           this, _$identity);
 }
 
 abstract class _NetworkAPIResource implements NetworkAPIResource {
   factory _NetworkAPIResource(
           {@JsonKey(name: 'url') required final String url}) =
-      _$_NetworkAPIResource;
+      _$NetworkAPIResourceImpl;
 
   @override
   @JsonKey(name: 'url')
   String get url;
   @override
   @JsonKey(ignore: true)
-  _$$_NetworkAPIResourceCopyWith<_$_NetworkAPIResource> get copyWith =>
+  _$$NetworkAPIResourceImplCopyWith<_$NetworkAPIResourceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

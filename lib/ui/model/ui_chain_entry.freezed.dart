@@ -75,22 +75,22 @@ class _$UiChainEntryCopyWithImpl<$Res, $Val extends UiChainEntry>
 }
 
 /// @nodoc
-abstract class _$$_UiChainEntryCopyWith<$Res>
+abstract class _$$UiChainEntryImplCopyWith<$Res>
     implements $UiChainEntryCopyWith<$Res> {
-  factory _$$_UiChainEntryCopyWith(
-          _$_UiChainEntry value, $Res Function(_$_UiChainEntry) then) =
-      __$$_UiChainEntryCopyWithImpl<$Res>;
+  factory _$$UiChainEntryImplCopyWith(
+          _$UiChainEntryImpl value, $Res Function(_$UiChainEntryImpl) then) =
+      __$$UiChainEntryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int pId, int prevId, String trigger, bool isLeaf});
 }
 
 /// @nodoc
-class __$$_UiChainEntryCopyWithImpl<$Res>
-    extends _$UiChainEntryCopyWithImpl<$Res, _$_UiChainEntry>
-    implements _$$_UiChainEntryCopyWith<$Res> {
-  __$$_UiChainEntryCopyWithImpl(
-      _$_UiChainEntry _value, $Res Function(_$_UiChainEntry) _then)
+class __$$UiChainEntryImplCopyWithImpl<$Res>
+    extends _$UiChainEntryCopyWithImpl<$Res, _$UiChainEntryImpl>
+    implements _$$UiChainEntryImplCopyWith<$Res> {
+  __$$UiChainEntryImplCopyWithImpl(
+      _$UiChainEntryImpl _value, $Res Function(_$UiChainEntryImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -101,7 +101,7 @@ class __$$_UiChainEntryCopyWithImpl<$Res>
     Object? trigger = null,
     Object? isLeaf = null,
   }) {
-    return _then(_$_UiChainEntry(
+    return _then(_$UiChainEntryImpl(
       pId: null == pId
           ? _value.pId
           : pId // ignore: cast_nullable_to_non_nullable
@@ -124,8 +124,8 @@ class __$$_UiChainEntryCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UiChainEntry implements _UiChainEntry {
-  _$_UiChainEntry(
+class _$UiChainEntryImpl implements _UiChainEntry {
+  _$UiChainEntryImpl(
       {required this.pId,
       required this.prevId,
       required this.trigger,
@@ -149,7 +149,7 @@ class _$_UiChainEntry implements _UiChainEntry {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UiChainEntry &&
+            other is _$UiChainEntryImpl &&
             (identical(other.pId, pId) || other.pId == pId) &&
             (identical(other.prevId, prevId) || other.prevId == prevId) &&
             (identical(other.trigger, trigger) || other.trigger == trigger) &&
@@ -162,8 +162,8 @@ class _$_UiChainEntry implements _UiChainEntry {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UiChainEntryCopyWith<_$_UiChainEntry> get copyWith =>
-      __$$_UiChainEntryCopyWithImpl<_$_UiChainEntry>(this, _$identity);
+  _$$UiChainEntryImplCopyWith<_$UiChainEntryImpl> get copyWith =>
+      __$$UiChainEntryImplCopyWithImpl<_$UiChainEntryImpl>(this, _$identity);
 }
 
 abstract class _UiChainEntry implements UiChainEntry {
@@ -171,7 +171,7 @@ abstract class _UiChainEntry implements UiChainEntry {
       {required final int pId,
       required final int prevId,
       required final String trigger,
-      required final bool isLeaf}) = _$_UiChainEntry;
+      required final bool isLeaf}) = _$UiChainEntryImpl;
 
   @override
   int get pId;
@@ -183,6 +183,6 @@ abstract class _UiChainEntry implements UiChainEntry {
   bool get isLeaf;
   @override
   @JsonKey(ignore: true)
-  _$$_UiChainEntryCopyWith<_$_UiChainEntry> get copyWith =>
+  _$$UiChainEntryImplCopyWith<_$UiChainEntryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

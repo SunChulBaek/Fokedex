@@ -61,19 +61,21 @@ class _$UiTypeCopyWithImpl<$Res, $Val extends UiType>
 }
 
 /// @nodoc
-abstract class _$$_UiTypeCopyWith<$Res> implements $UiTypeCopyWith<$Res> {
-  factory _$$_UiTypeCopyWith(_$_UiType value, $Res Function(_$_UiType) then) =
-      __$$_UiTypeCopyWithImpl<$Res>;
+abstract class _$$UiTypeImplCopyWith<$Res> implements $UiTypeCopyWith<$Res> {
+  factory _$$UiTypeImplCopyWith(
+          _$UiTypeImpl value, $Res Function(_$UiTypeImpl) then) =
+      __$$UiTypeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int id, String name});
 }
 
 /// @nodoc
-class __$$_UiTypeCopyWithImpl<$Res>
-    extends _$UiTypeCopyWithImpl<$Res, _$_UiType>
-    implements _$$_UiTypeCopyWith<$Res> {
-  __$$_UiTypeCopyWithImpl(_$_UiType _value, $Res Function(_$_UiType) _then)
+class __$$UiTypeImplCopyWithImpl<$Res>
+    extends _$UiTypeCopyWithImpl<$Res, _$UiTypeImpl>
+    implements _$$UiTypeImplCopyWith<$Res> {
+  __$$UiTypeImplCopyWithImpl(
+      _$UiTypeImpl _value, $Res Function(_$UiTypeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -82,7 +84,7 @@ class __$$_UiTypeCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
   }) {
-    return _then(_$_UiType(
+    return _then(_$UiTypeImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -97,8 +99,8 @@ class __$$_UiTypeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UiType implements _UiType {
-  _$_UiType({required this.id, required this.name});
+class _$UiTypeImpl implements _UiType {
+  _$UiTypeImpl({required this.id, required this.name});
 
   @override
   final int id;
@@ -114,7 +116,7 @@ class _$_UiType implements _UiType {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UiType &&
+            other is _$UiTypeImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name));
   }
@@ -125,13 +127,13 @@ class _$_UiType implements _UiType {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UiTypeCopyWith<_$_UiType> get copyWith =>
-      __$$_UiTypeCopyWithImpl<_$_UiType>(this, _$identity);
+  _$$UiTypeImplCopyWith<_$UiTypeImpl> get copyWith =>
+      __$$UiTypeImplCopyWithImpl<_$UiTypeImpl>(this, _$identity);
 }
 
 abstract class _UiType implements UiType {
   factory _UiType({required final int id, required final String name}) =
-      _$_UiType;
+      _$UiTypeImpl;
 
   @override
   int get id;
@@ -139,6 +141,6 @@ abstract class _UiType implements UiType {
   String get name;
   @override
   @JsonKey(ignore: true)
-  _$$_UiTypeCopyWith<_$_UiType> get copyWith =>
+  _$$UiTypeImplCopyWith<_$UiTypeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

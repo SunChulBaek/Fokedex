@@ -23,8 +23,6 @@ import 'data/rest_client.dart' as _i7;
 import 'di/api_module.dart' as _i11;
 import 'di/app_module.dart' as _i12;
 
-// ignore_for_file: unnecessary_lambdas
-// ignore_for_file: lines_longer_than_80_chars
 // initializes the registration of main-scope dependencies inside of GetIt
 _i1.GetIt $initGetIt(
   _i1.GetIt getIt, {

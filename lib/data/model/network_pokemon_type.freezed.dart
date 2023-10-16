@@ -77,11 +77,11 @@ class _$NetworkPokemonTypeCopyWithImpl<$Res, $Val extends NetworkPokemonType>
 }
 
 /// @nodoc
-abstract class _$$_NetworkPokemonTypeCopyWith<$Res>
+abstract class _$$NetworkPokemonTypeImplCopyWith<$Res>
     implements $NetworkPokemonTypeCopyWith<$Res> {
-  factory _$$_NetworkPokemonTypeCopyWith(_$_NetworkPokemonType value,
-          $Res Function(_$_NetworkPokemonType) then) =
-      __$$_NetworkPokemonTypeCopyWithImpl<$Res>;
+  factory _$$NetworkPokemonTypeImplCopyWith(_$NetworkPokemonTypeImpl value,
+          $Res Function(_$NetworkPokemonTypeImpl) then) =
+      __$$NetworkPokemonTypeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -93,11 +93,11 @@ abstract class _$$_NetworkPokemonTypeCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NetworkPokemonTypeCopyWithImpl<$Res>
-    extends _$NetworkPokemonTypeCopyWithImpl<$Res, _$_NetworkPokemonType>
-    implements _$$_NetworkPokemonTypeCopyWith<$Res> {
-  __$$_NetworkPokemonTypeCopyWithImpl(
-      _$_NetworkPokemonType _value, $Res Function(_$_NetworkPokemonType) _then)
+class __$$NetworkPokemonTypeImplCopyWithImpl<$Res>
+    extends _$NetworkPokemonTypeCopyWithImpl<$Res, _$NetworkPokemonTypeImpl>
+    implements _$$NetworkPokemonTypeImplCopyWith<$Res> {
+  __$$NetworkPokemonTypeImplCopyWithImpl(_$NetworkPokemonTypeImpl _value,
+      $Res Function(_$NetworkPokemonTypeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -106,7 +106,7 @@ class __$$_NetworkPokemonTypeCopyWithImpl<$Res>
     Object? slot = null,
     Object? type = null,
   }) {
-    return _then(_$_NetworkPokemonType(
+    return _then(_$NetworkPokemonTypeImpl(
       slot: null == slot
           ? _value.slot
           : slot // ignore: cast_nullable_to_non_nullable
@@ -121,8 +121,8 @@ class __$$_NetworkPokemonTypeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NetworkPokemonType implements _NetworkPokemonType {
-  _$_NetworkPokemonType(
+class _$NetworkPokemonTypeImpl implements _NetworkPokemonType {
+  _$NetworkPokemonTypeImpl(
       {@JsonKey(name: 'slot') required this.slot,
       @JsonKey(name: 'type') required this.type});
 
@@ -142,7 +142,7 @@ class _$_NetworkPokemonType implements _NetworkPokemonType {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NetworkPokemonType &&
+            other is _$NetworkPokemonTypeImpl &&
             (identical(other.slot, slot) || other.slot == slot) &&
             (identical(other.type, type) || other.type == type));
   }
@@ -153,8 +153,8 @@ class _$_NetworkPokemonType implements _NetworkPokemonType {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NetworkPokemonTypeCopyWith<_$_NetworkPokemonType> get copyWith =>
-      __$$_NetworkPokemonTypeCopyWithImpl<_$_NetworkPokemonType>(
+  _$$NetworkPokemonTypeImplCopyWith<_$NetworkPokemonTypeImpl> get copyWith =>
+      __$$NetworkPokemonTypeImplCopyWithImpl<_$NetworkPokemonTypeImpl>(
           this, _$identity);
 }
 
@@ -162,7 +162,7 @@ abstract class _NetworkPokemonType implements NetworkPokemonType {
   factory _NetworkPokemonType(
           {@JsonKey(name: 'slot') required final int slot,
           @JsonKey(name: 'type') required final NetworkNamedAPIResource type}) =
-      _$_NetworkPokemonType;
+      _$NetworkPokemonTypeImpl;
 
   @override
   @JsonKey(name: 'slot')
@@ -172,6 +172,6 @@ abstract class _NetworkPokemonType implements NetworkPokemonType {
   NetworkNamedAPIResource get type;
   @override
   @JsonKey(ignore: true)
-  _$$_NetworkPokemonTypeCopyWith<_$_NetworkPokemonType> get copyWith =>
+  _$$NetworkPokemonTypeImplCopyWith<_$NetworkPokemonTypeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

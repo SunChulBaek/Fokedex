@@ -38,14 +38,11 @@ abstract class $NetworkChainLinkCopyWith<$Res> {
       _$NetworkChainLinkCopyWithImpl<$Res, NetworkChainLink>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'is_baby')
-          bool isBaby,
-      @JsonKey(name: 'species')
-          NetworkNamedAPIResource species,
+      {@JsonKey(name: 'is_baby') bool isBaby,
+      @JsonKey(name: 'species') NetworkNamedAPIResource species,
       @JsonKey(name: 'evolution_details')
-          List<NetworkEvolutionDetail> evolutionDetails,
-      @JsonKey(name: 'evolves_to')
-          List<NetworkChainLink> evolvesTo});
+      List<NetworkEvolutionDetail> evolutionDetails,
+      @JsonKey(name: 'evolves_to') List<NetworkChainLink> evolvesTo});
 
   $NetworkNamedAPIResourceCopyWith<$Res> get species;
 }
@@ -98,33 +95,30 @@ class _$NetworkChainLinkCopyWithImpl<$Res, $Val extends NetworkChainLink>
 }
 
 /// @nodoc
-abstract class _$$_NetworkChainLinkCopyWith<$Res>
+abstract class _$$NetworkChainLinkImplCopyWith<$Res>
     implements $NetworkChainLinkCopyWith<$Res> {
-  factory _$$_NetworkChainLinkCopyWith(
-          _$_NetworkChainLink value, $Res Function(_$_NetworkChainLink) then) =
-      __$$_NetworkChainLinkCopyWithImpl<$Res>;
+  factory _$$NetworkChainLinkImplCopyWith(_$NetworkChainLinkImpl value,
+          $Res Function(_$NetworkChainLinkImpl) then) =
+      __$$NetworkChainLinkImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'is_baby')
-          bool isBaby,
-      @JsonKey(name: 'species')
-          NetworkNamedAPIResource species,
+      {@JsonKey(name: 'is_baby') bool isBaby,
+      @JsonKey(name: 'species') NetworkNamedAPIResource species,
       @JsonKey(name: 'evolution_details')
-          List<NetworkEvolutionDetail> evolutionDetails,
-      @JsonKey(name: 'evolves_to')
-          List<NetworkChainLink> evolvesTo});
+      List<NetworkEvolutionDetail> evolutionDetails,
+      @JsonKey(name: 'evolves_to') List<NetworkChainLink> evolvesTo});
 
   @override
   $NetworkNamedAPIResourceCopyWith<$Res> get species;
 }
 
 /// @nodoc
-class __$$_NetworkChainLinkCopyWithImpl<$Res>
-    extends _$NetworkChainLinkCopyWithImpl<$Res, _$_NetworkChainLink>
-    implements _$$_NetworkChainLinkCopyWith<$Res> {
-  __$$_NetworkChainLinkCopyWithImpl(
-      _$_NetworkChainLink _value, $Res Function(_$_NetworkChainLink) _then)
+class __$$NetworkChainLinkImplCopyWithImpl<$Res>
+    extends _$NetworkChainLinkCopyWithImpl<$Res, _$NetworkChainLinkImpl>
+    implements _$$NetworkChainLinkImplCopyWith<$Res> {
+  __$$NetworkChainLinkImplCopyWithImpl(_$NetworkChainLinkImpl _value,
+      $Res Function(_$NetworkChainLinkImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -135,7 +129,7 @@ class __$$_NetworkChainLinkCopyWithImpl<$Res>
     Object? evolutionDetails = null,
     Object? evolvesTo = null,
   }) {
-    return _then(_$_NetworkChainLink(
+    return _then(_$NetworkChainLinkImpl(
       isBaby: null == isBaby
           ? _value.isBaby
           : isBaby // ignore: cast_nullable_to_non_nullable
@@ -158,16 +152,14 @@ class __$$_NetworkChainLinkCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NetworkChainLink implements _NetworkChainLink {
-  _$_NetworkChainLink(
-      {@JsonKey(name: 'is_baby')
-          required this.isBaby,
-      @JsonKey(name: 'species')
-          required this.species,
+class _$NetworkChainLinkImpl implements _NetworkChainLink {
+  _$NetworkChainLinkImpl(
+      {@JsonKey(name: 'is_baby') required this.isBaby,
+      @JsonKey(name: 'species') required this.species,
       @JsonKey(name: 'evolution_details')
-          required final List<NetworkEvolutionDetail> evolutionDetails,
+      required final List<NetworkEvolutionDetail> evolutionDetails,
       @JsonKey(name: 'evolves_to')
-          required final List<NetworkChainLink> evolvesTo})
+      required final List<NetworkChainLink> evolvesTo})
       : _evolutionDetails = evolutionDetails,
         _evolvesTo = evolvesTo;
 
@@ -205,7 +197,7 @@ class _$_NetworkChainLink implements _NetworkChainLink {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NetworkChainLink &&
+            other is _$NetworkChainLinkImpl &&
             (identical(other.isBaby, isBaby) || other.isBaby == isBaby) &&
             (identical(other.species, species) || other.species == species) &&
             const DeepCollectionEquality()
@@ -225,21 +217,20 @@ class _$_NetworkChainLink implements _NetworkChainLink {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NetworkChainLinkCopyWith<_$_NetworkChainLink> get copyWith =>
-      __$$_NetworkChainLinkCopyWithImpl<_$_NetworkChainLink>(this, _$identity);
+  _$$NetworkChainLinkImplCopyWith<_$NetworkChainLinkImpl> get copyWith =>
+      __$$NetworkChainLinkImplCopyWithImpl<_$NetworkChainLinkImpl>(
+          this, _$identity);
 }
 
 abstract class _NetworkChainLink implements NetworkChainLink {
   factory _NetworkChainLink(
-          {@JsonKey(name: 'is_baby')
-              required final bool isBaby,
-          @JsonKey(name: 'species')
-              required final NetworkNamedAPIResource species,
-          @JsonKey(name: 'evolution_details')
-              required final List<NetworkEvolutionDetail> evolutionDetails,
-          @JsonKey(name: 'evolves_to')
-              required final List<NetworkChainLink> evolvesTo}) =
-      _$_NetworkChainLink;
+      {@JsonKey(name: 'is_baby') required final bool isBaby,
+      @JsonKey(name: 'species') required final NetworkNamedAPIResource species,
+      @JsonKey(name: 'evolution_details')
+      required final List<NetworkEvolutionDetail> evolutionDetails,
+      @JsonKey(name: 'evolves_to')
+      required final List<NetworkChainLink>
+          evolvesTo}) = _$NetworkChainLinkImpl;
 
   @override
   @JsonKey(name: 'is_baby')
@@ -255,6 +246,6 @@ abstract class _NetworkChainLink implements NetworkChainLink {
   List<NetworkChainLink> get evolvesTo;
   @override
   @JsonKey(ignore: true)
-  _$$_NetworkChainLinkCopyWith<_$_NetworkChainLink> get copyWith =>
+  _$$NetworkChainLinkImplCopyWith<_$NetworkChainLinkImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

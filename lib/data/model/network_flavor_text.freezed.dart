@@ -94,11 +94,11 @@ class _$NetworkFlavorTextCopyWithImpl<$Res, $Val extends NetworkFlavorText>
 }
 
 /// @nodoc
-abstract class _$$_NetworkFlavorTextCopyWith<$Res>
+abstract class _$$NetworkFlavorTextImplCopyWith<$Res>
     implements $NetworkFlavorTextCopyWith<$Res> {
-  factory _$$_NetworkFlavorTextCopyWith(_$_NetworkFlavorText value,
-          $Res Function(_$_NetworkFlavorText) then) =
-      __$$_NetworkFlavorTextCopyWithImpl<$Res>;
+  factory _$$NetworkFlavorTextImplCopyWith(_$NetworkFlavorTextImpl value,
+          $Res Function(_$NetworkFlavorTextImpl) then) =
+      __$$NetworkFlavorTextImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -113,11 +113,11 @@ abstract class _$$_NetworkFlavorTextCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NetworkFlavorTextCopyWithImpl<$Res>
-    extends _$NetworkFlavorTextCopyWithImpl<$Res, _$_NetworkFlavorText>
-    implements _$$_NetworkFlavorTextCopyWith<$Res> {
-  __$$_NetworkFlavorTextCopyWithImpl(
-      _$_NetworkFlavorText _value, $Res Function(_$_NetworkFlavorText) _then)
+class __$$NetworkFlavorTextImplCopyWithImpl<$Res>
+    extends _$NetworkFlavorTextCopyWithImpl<$Res, _$NetworkFlavorTextImpl>
+    implements _$$NetworkFlavorTextImplCopyWith<$Res> {
+  __$$NetworkFlavorTextImplCopyWithImpl(_$NetworkFlavorTextImpl _value,
+      $Res Function(_$NetworkFlavorTextImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -127,7 +127,7 @@ class __$$_NetworkFlavorTextCopyWithImpl<$Res>
     Object? language = null,
     Object? version = null,
   }) {
-    return _then(_$_NetworkFlavorText(
+    return _then(_$NetworkFlavorTextImpl(
       flavorText: null == flavorText
           ? _value.flavorText
           : flavorText // ignore: cast_nullable_to_non_nullable
@@ -146,8 +146,8 @@ class __$$_NetworkFlavorTextCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NetworkFlavorText implements _NetworkFlavorText {
-  _$_NetworkFlavorText(
+class _$NetworkFlavorTextImpl implements _NetworkFlavorText {
+  _$NetworkFlavorTextImpl(
       {@JsonKey(name: 'flavor_text') required this.flavorText,
       @JsonKey(name: 'language') required this.language,
       @JsonKey(name: 'version') required this.version});
@@ -171,7 +171,7 @@ class _$_NetworkFlavorText implements _NetworkFlavorText {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NetworkFlavorText &&
+            other is _$NetworkFlavorTextImpl &&
             (identical(other.flavorText, flavorText) ||
                 other.flavorText == flavorText) &&
             (identical(other.language, language) ||
@@ -185,20 +185,19 @@ class _$_NetworkFlavorText implements _NetworkFlavorText {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NetworkFlavorTextCopyWith<_$_NetworkFlavorText> get copyWith =>
-      __$$_NetworkFlavorTextCopyWithImpl<_$_NetworkFlavorText>(
+  _$$NetworkFlavorTextImplCopyWith<_$NetworkFlavorTextImpl> get copyWith =>
+      __$$NetworkFlavorTextImplCopyWithImpl<_$NetworkFlavorTextImpl>(
           this, _$identity);
 }
 
 abstract class _NetworkFlavorText implements NetworkFlavorText {
   factory _NetworkFlavorText(
-          {@JsonKey(name: 'flavor_text')
-              required final String flavorText,
+          {@JsonKey(name: 'flavor_text') required final String flavorText,
           @JsonKey(name: 'language')
-              required final NetworkNamedAPIResource language,
+          required final NetworkNamedAPIResource language,
           @JsonKey(name: 'version')
-              required final NetworkNamedAPIResource version}) =
-      _$_NetworkFlavorText;
+          required final NetworkNamedAPIResource version}) =
+      _$NetworkFlavorTextImpl;
 
   @override
   @JsonKey(name: 'flavor_text')
@@ -211,6 +210,6 @@ abstract class _NetworkFlavorText implements NetworkFlavorText {
   NetworkNamedAPIResource get version;
   @override
   @JsonKey(ignore: true)
-  _$$_NetworkFlavorTextCopyWith<_$_NetworkFlavorText> get copyWith =>
+  _$$NetworkFlavorTextImplCopyWith<_$NetworkFlavorTextImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

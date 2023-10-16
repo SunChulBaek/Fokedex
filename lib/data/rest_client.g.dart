@@ -22,8 +22,8 @@ class _RestClient implements RestClient {
 
   @override
   Future<NetworkNamedAPIResourceList<dynamic>> getPokemonList({
-    limit = 20,
-    offset = 0,
+    int limit = 20,
+    int offset = 0,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -44,7 +44,11 @@ class _RestClient implements RestClient {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = NetworkNamedAPIResourceList<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -53,7 +57,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<NetworkPokemon> getPokemon({required id}) async {
+  Future<NetworkPokemon> getPokemon({required int id}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -70,13 +74,17 @@ class _RestClient implements RestClient {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = NetworkPokemon.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<NetworkPokemonSpecies> getSpecies({required id}) async {
+  Future<NetworkPokemonSpecies> getSpecies({required int id}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -93,13 +101,17 @@ class _RestClient implements RestClient {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = NetworkPokemonSpecies.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<NetworkPokemonForm> getForm({required id}) async {
+  Future<NetworkPokemonForm> getForm({required int id}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -116,13 +128,17 @@ class _RestClient implements RestClient {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = NetworkPokemonForm.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<NetworkType> getType({required id}) async {
+  Future<NetworkType> getType({required int id}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -139,13 +155,17 @@ class _RestClient implements RestClient {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = NetworkType.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<NetworkEvolutionChain> getEvolutionChain({required id}) async {
+  Future<NetworkEvolutionChain> getEvolutionChain({required int id}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -162,7 +182,11 @@ class _RestClient implements RestClient {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = NetworkEvolutionChain.fromJson(_result.data!);
     return value;
   }
@@ -178,5 +202,22 @@ class _RestClient implements RestClient {
       }
     }
     return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
