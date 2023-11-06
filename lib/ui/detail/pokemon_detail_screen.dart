@@ -5,8 +5,7 @@ import 'pokemon_detail_bg.dart';
 import 'pokemon_detail_loading_progress.dart';
 import 'pokemon_detail_view_model.dart';
 import '../common/cancel_button.dart';
-import '../../bloc/model/ui_pokemon_detail_data.dart';
-import '../../bloc/model/ui_state.dart';
+import '../model/ui_state.dart';
 import '../../data/repository.dart';
 import '../../injectable.dart';
 

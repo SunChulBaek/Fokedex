@@ -1,13 +1,13 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../data/repository.dart';
-import '../ui/model/ui_pokemon.dart';
-import '../util/timber.dart';
-import 'model/ui_state.dart';
+import '../model/ui_pokemon.dart';
+import '../model/ui_state.dart';
+import '../../data/repository.dart';
+import '../../util/timber.dart';
 
-part 'get_pokemon_list_cubit.freezed.dart';
+part 'home_view_model.freezed.dart';
 
 @freezed
 @injectable
@@ -20,13 +20,16 @@ class PokemonListData with _$PokemonListData {
   factory PokemonListData.from() => PokemonListData(pokemonList: List.of([]));
 }
 
-@injectable
-class GetPokemonListCubit extends Cubit<UiState> {
-  GetPokemonListCubit(this._repository, UiState state) : super(state);
+class HomeViewModel with ChangeNotifier {
+  HomeViewModel(this._repository);
 
   final Repository _repository;
 
   List<UiPokemon> list = List.empty(growable: true);
+
+  UiState _uiState = Loading();
+
+  UiState get uiState => _uiState;
 
   void init({ int limit = 60, int offset = 0 }) async {
     try {
@@ -34,21 +37,16 @@ class GetPokemonListCubit extends Cubit<UiState> {
       list.addAll(pokemonList.results.map((e) =>
           UiPokemon.from(e)
       ).where((e) =>
-          !list.map((x) => x.id).contains(e.id)
+      !list.map((x) => x.id).contains(e.id)
       ));
-      if (!_isDisposed) {
-        emit(Success(
-            data: PokemonListData(pokemonList: list.toList())
-        ));
-      }
+      _uiState = Success(
+          data: PokemonListData(pokemonList: list.toList())
+      );
+      notifyListeners();
     } catch (e) {
       Timber.e(e);
-      emit(Error());
+      _uiState = Error();
+      notifyListeners();
     }
-  }
-
-  bool _isDisposed = false;
-  void dispose() {
-    _isDisposed = true;
   }
 }

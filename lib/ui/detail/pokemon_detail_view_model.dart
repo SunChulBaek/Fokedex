@@ -1,14 +1,14 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../model/ui_chain_entry.dart';
 import '../model/ui_pokemon_detail.dart';
 import '../model/ui_pokemon_detail_item.dart';
 import '../model/ui_type.dart';
-import '../../bloc/model/ui_pokemon_detail_data.dart';
-import '../../bloc/model/ui_state.dart';
+import '../model/ui_state.dart';
 import '../../data/model/network_chain_link.dart';
 import '../../data/model/network_evolution_chain.dart';
 import '../../data/model/network_pokemon.dart';
@@ -18,6 +18,16 @@ import '../../data/repository.dart';
 import '../../util/converter.dart';
 import '../../util/timber.dart';
 
+part 'pokemon_detail_view_model.freezed.dart';
+
+@freezed
+class UiPokemonDetailData with _$UiPokemonDetailData {
+  factory UiPokemonDetailData ({
+    required UiPokemonDetail? pokemon,
+    required List<UiPokemonDetailItem> items,
+  }) = _UiPokemonDetailData;
+}
+
 @injectable
 class PokemonDetailViewModel with ChangeNotifier {
   static const int _indexName = 1;
@@ -25,9 +35,7 @@ class PokemonDetailViewModel with ChangeNotifier {
   static const int _indexFlavorText = 3;
   static const int _indexEvolutionChain = 4;
 
-  PokemonDetailViewModel(this._repository) {
-    Timber.i("PokemonViewModel created $hashCode");
-  }
+  PokemonDetailViewModel(this._repository);
 
   final Repository _repository;
 
