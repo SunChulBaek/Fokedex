@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'home_content.dart';
+import 'bottom_loader.dart';
+import 'home_view_model.dart';
+import 'pokemon_list_item.dart';
+import '../common/state_view.dart';
+import '../model/ui_state.dart';
+import '../../data/repository.dart';
+import '../../injectable.dart';
 
 // 참고 : https://dopble2k.tistory.com/9
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({
     required this.title,
     required this.onClickMon,
@@ -16,14 +23,40 @@ class HomeScreen extends StatefulWidget {
   final void Function(BuildContext context, Object param) onClickMon;
 
   @override
-  State<HomeScreen> createState() => _HomeState();
+  Widget build(BuildContext context) => ChangeNotifierProvider(
+    create: (_) => HomeViewModel(getIt<Repository>())..init(),
+    child: _HomeContent(title: title, onClickMon: onClickMon)
+  );
 }
 
-class _HomeState extends State<HomeScreen> {
+class _HomeContent extends StatefulWidget {
+  const _HomeContent({
+    required this.title,
+    required this.onClickMon,
+  });
+
+  final String title;
+  final void Function(BuildContext context, Object param) onClickMon;
+
+  @override
+  State<StatefulWidget> createState() => _HomeState();
+}
+
+class _HomeState extends State<_HomeContent> {
+  late HomeViewModel _viewModel;
   DateTime? currentBackPressTime;
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = context.read<HomeViewModel>();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<HomeViewModel>().uiState;
+    final pokemonList = state is Success ? (state as Success<PokemonListData>).data.pokemonList : null;
     return WillPopScope(
       onWillPop: () {
         DateTime now = DateTime.now();
@@ -45,7 +78,49 @@ class _HomeState extends State<HomeScreen> {
           foregroundColor: Colors.white,
         ),
         body: SafeArea(
-          child: HomeContent(onClickItem: widget.onClickMon)
+          child: Column(
+            children: [
+              // HomeShortcuts(
+              //   shortcuts: List.of([778, 10044, 10196, 10157, 936, 135, 269, 792]),
+              //   onClickItem: widget.onClickItem
+              // ),
+              Expanded(
+                child: StateView(
+                  state: state,
+                  child: (pokemonList?.isEmpty ?? true)
+                    ? const Center(child: Text('No pokemon!'))
+                    : Scrollbar(
+                    thumbVisibility: true,
+                    controller: _scrollController,
+                    child: NotificationListener<ScrollNotification>(
+                      onNotification: (ScrollNotification scrollInfo) {
+                        if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+                          _viewModel.init(offset: pokemonList.length);
+                        }
+                        return true;
+                      },
+                      child: GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 5
+                        ),
+                        controller: _scrollController,
+                        padding: const EdgeInsets.only(left: 0.0, right: 0.0),
+                        itemBuilder: (BuildContext context, int index) {
+                          return index >= pokemonList.length
+                            ? const BottomLoader()
+                            : PokemonGridItem(
+                            pokemon: pokemonList[index],
+                            onClick: widget.onClickMon
+                          );
+                        },
+                        itemCount: pokemonList!.length,
+                      )
+                    )
+                  )
+                )
+              )
+            ]
+          )
         ),
       )
     );

@@ -1,11 +1,8 @@
 # Fokedex <a href="https://play.google.com/store/apps/details?id=kr.pe.ssun.fokedex"><img src="./google-play-badge.png" width="150px"></a> ![Build Badge](https://github.com/SunChulBaek/Fokedex/actions/workflows/build.yml/badge.svg)
 * Flutter 버전 포켓몬 도감 ([Compose 버전](https://github.com/SunChulBaek/Cokedex))
-* Architecture
-  * [BLoC](https://www.didierboelens.com/2018/08/reactive-programming-streams-bloc/) 패턴
 * Library
-  * BLoc
-    * [bloc](https://pub.dev/packages/bloc)
-    * [flutter_bloc](https://pub.dev/packages/flutter_bloc)
+  * 상태관리
+    * [provider](https://pub.dev/packages/provider)
   * DI
     * [injectable](https://pub.dev/packages/injectable)
     * [get_it](https://pub.dev/packages/get_it)

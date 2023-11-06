@@ -1,8 +1,7 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../detail/pokemon.dart';
+import '../detail/pokemon_detail_screen.dart';
 
 class HomeShortcuts extends StatelessWidget {
   HomeShortcuts({super.key, required this.shortcuts, required this.onClickItem});
@@ -37,7 +36,7 @@ class HomeShortcuts extends StatelessWidget {
             onTap: () {
               onClickItem(
                 context,
-                PokemonParam(
+                PokemonDetailParam(
                   id: id,
                   title: "name", // TODO : 수정
                   url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png",

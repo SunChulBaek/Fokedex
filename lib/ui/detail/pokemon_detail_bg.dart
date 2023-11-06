@@ -1,16 +1,17 @@
-import 'dart:math';
 import 'dart:ui' as ui;
-import 'package:flutter/material.dart';
-import 'package:flutter_template/util/converter.dart';
 
-class PokemonBg extends StatefulWidget {
-  const PokemonBg({super.key});
+import 'package:flutter/material.dart';
+
+import '../../util/converter.dart';
+
+class PokemonDetailBg extends StatefulWidget {
+  const PokemonDetailBg({super.key});
 
   @override
-  State<StatefulWidget> createState() => _PokemonBgState();
+  State<StatefulWidget> createState() => _PokemonDetailBgState();
 }
 
-class _PokemonBgState extends State<PokemonBg> with TickerProviderStateMixin {
+class _PokemonDetailBgState extends State<PokemonDetailBg> with TickerProviderStateMixin {
   static const timeUnit = 500;
 
   // 콘트롤러
