@@ -15,13 +15,13 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i6;
 
-import 'bloc/get_pokemon_cubit.dart' as _i10;
 import 'bloc/get_pokemon_list_cubit.dart' as _i5;
 import 'bloc/model/ui_state.dart' as _i8;
 import 'data/repository.dart' as _i9;
 import 'data/rest_client.dart' as _i7;
 import 'di/api_module.dart' as _i11;
 import 'di/app_module.dart' as _i12;
+import 'ui/detail/pokemon_detail_view_model.dart' as _i10;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 _i1.GetIt $initGetIt(
@@ -45,14 +45,12 @@ _i1.GetIt $initGetIt(
   gh.singleton<_i7.RestClient>(_i7.RestClient.from(gh<_i3.Dio>()));
   gh.factory<_i8.UiState>(() => _i8.UiState.from());
   gh.factory<_i9.Repository>(() => _i9.Repository(gh<_i7.RestClient>()));
-  gh.factory<_i10.GetPokemonCubit>(() => _i10.GetPokemonCubit(
-        gh<_i9.Repository>(),
-        gh<_i8.UiState>(),
-      ));
   gh.factory<_i5.GetPokemonListCubit>(() => _i5.GetPokemonListCubit(
         gh<_i9.Repository>(),
         gh<_i8.UiState>(),
       ));
+  gh.factory<_i10.PokemonDetailViewModel>(
+      () => _i10.PokemonDetailViewModel(gh<_i9.Repository>()));
   return getIt;
 }
 

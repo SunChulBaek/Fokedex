@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'bottom_loader.dart';
+import 'pokemon_list_item.dart';
+import '../common/state_view.dart';
 import '../../bloc/get_pokemon_list_cubit.dart';
 import '../../bloc/model/ui_state.dart';
 import '../../injectable.dart';
-import '../common/state_view.dart';
-import 'bottom_loader.dart';
-import 'home_shortcuts.dart';
-import 'pokemon_list_item.dart';
 
 class HomeContent extends StatefulWidget {
   const HomeContent({Key? key, required this.onClickItem}) : super(key: key);

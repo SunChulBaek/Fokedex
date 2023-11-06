@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'pokemon_detail_screen.dart';
 import '../common/pokemon_progress_indicator.dart';
-import 'pokemon.dart';
 
 class PokemonThumb extends StatefulWidget {
   const PokemonThumb({
@@ -80,7 +80,7 @@ class _PokemonThumbState extends State<PokemonThumb> {
                 if (widget.id != widget.pId) {
                   widget.onClick(
                     context,
-                    PokemonParam(
+                    PokemonDetailParam(
                       id: widget.id,
                       title: 'name',
                       url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${widget

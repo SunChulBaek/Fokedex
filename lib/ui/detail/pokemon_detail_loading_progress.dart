@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/ui/model/ui_pokemon_detail.dart';
+
+import '../model/ui_pokemon_detail.dart';
 
 class PokemonDetailLoadingProgress extends StatelessWidget {
   const PokemonDetailLoadingProgress({
