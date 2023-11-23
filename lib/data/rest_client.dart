@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:retrofit/http.dart';
 
+import 'data_source.dart';
 import 'model/network_evolution_chain.dart';
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
@@ -12,9 +13,10 @@ import 'model/network_type.dart';
 
 part 'rest_client.g.dart';
 
-@singleton
+@Named("remote")
+@Singleton(as: DataSource)
 @RestApi(baseUrl: 'https://pokeapi.co/api/v2/')
-abstract class RestClient {
+abstract class RestClient implements DataSource {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
   @factoryMethod

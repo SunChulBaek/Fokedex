@@ -1,23 +1,30 @@
+import 'package:flutter_template/data/data_source.dart';
 import 'package:flutter_template/data/model/network_pokemon_form.dart';
+import 'package:flutter_template/model/pokemon.dart';
 import 'package:injectable/injectable.dart';
 
 import 'model/network_evolution_chain.dart';
-import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
 import 'model/network_pokemon_species.dart';
 import 'model/network_type.dart';
-import 'rest_client.dart';
 
 @injectable
 class Repository {
-  Repository(this._restClient);
+  Repository(
+    @Named("remote") this._restClient,
+    @Named("local") this._localDataSource,
+  );
 
-  final RestClient _restClient;
+  final DataSource _restClient;
+  final DataSource _localDataSource;
 
-  Future<NetworkNamedAPIResourceList> getPokemonList({
+  Future<List<Pokemon>> getPokemonList({
     int limit = 20,
     int offset = 0
-  }) => _restClient.getPokemonList(limit: limit, offset: offset);
+  }) async {
+    final list = await _localDataSource.getPokemonList(limit: limit, offset: offset);
+    return list.results.map((e) => Pokemon.from(e)).toList();
+  }
 
   Future<NetworkPokemon> getPokemon({
     required int id
