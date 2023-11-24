@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/ui/model/ui_type.dart';
+import 'package:flutter_template/model/type.dart';
 import 'package:intl/intl.dart';
 
 import '../common/pokemon_progress_indicator.dart';
@@ -143,7 +143,7 @@ class UiPokemonDetailStat extends UiPokemonDetailItem {
 
   final int weight;
   final int height;
-  final List<UiType> types;
+  final List<Type> types;
 
   @override
   Widget itemContent({

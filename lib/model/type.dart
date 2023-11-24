@@ -1,13 +1,14 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'loadable.dart';
 
-part 'ui_type.freezed.dart';
-
-@freezed
-class UiType with _$UiType {
-  factory UiType({
+class Type extends Loadable {
+  Type({
     required int id,
-    required String name,
-  }) = _UiType;
+    required this.name,
+    bool fromDB = false
+  }) : super(id, fromDB);
+
+  final String name;
+
   // normal(Color(0xFF9E9E9E)),
   // fighting(Color(0xFF9E9E9E)),
   // flying(Color(0xFF607D8B)),

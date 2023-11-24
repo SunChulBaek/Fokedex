@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../model/evolution_chain.dart';
+import '../../model/lang_value.dart';
+import '../../model/lang_value_version.dart';
+import '../../model/species.dart';
 import '../model/ui_chain_entry.dart';
-import '../model/ui_pokemon_detail.dart';
+import '../../model/pokemon_detail.dart';
 import '../model/ui_pokemon_detail_item.dart';
-import '../model/ui_type.dart';
+import '../../model/type.dart';
 import '../model/ui_state.dart';
 import '../../data/model/network_chain_link.dart';
 import '../../data/model/network_evolution_chain.dart';
@@ -17,13 +21,14 @@ import '../../data/model/network_pokemon_type.dart';
 import '../../data/repository.dart';
 import '../../util/converter.dart';
 import '../../util/timber.dart';
+import '../../model/form.dart' as ui;
 
 part 'pokemon_detail_view_model.freezed.dart';
 
 @freezed
 class UiPokemonDetailData with _$UiPokemonDetailData {
   factory UiPokemonDetailData ({
-    required UiPokemonDetail? pokemon,
+    required PokemonDetail? pokemon,
     required List<UiPokemonDetailItem> items,
   }) = _UiPokemonDetailData;
 }
@@ -39,7 +44,7 @@ class PokemonDetailViewModel with ChangeNotifier {
 
   final Repository _repository;
 
-  UiPokemonDetail detail = UiPokemonDetail();
+  PokemonDetail detail = PokemonDetail();
 
   final List<UiPokemonDetailItem> items = List.of([]);
 
@@ -78,7 +83,7 @@ class PokemonDetailViewModel with ChangeNotifier {
   }
 
   void simpleUpdate(
-      UiPokemonDetail pokemon,
+      PokemonDetail pokemon,
       List<UiPokemonDetailItem> items
       ) {
     detail = pokemon;
@@ -94,7 +99,7 @@ class PokemonDetailViewModel with ChangeNotifier {
 
   void setLocalizedName(
       String localizedName,
-      UiPokemonDetail pokemon,
+      PokemonDetail pokemon,
       List<UiPokemonDetailItem> items
       ) {
     // 디폴트 이름에서 번역된 이름으로 교체
@@ -108,7 +113,7 @@ class PokemonDetailViewModel with ChangeNotifier {
   }
 
   void setLocalizedForm(
-      UiPokemonDetail pokemon,
+      PokemonDetail pokemon,
       String form
       ) {
     final prevItem = items.removeAt(_indexName);
@@ -122,7 +127,7 @@ class PokemonDetailViewModel with ChangeNotifier {
   }
 
   void setLocalizedType(
-      UiPokemonDetail pokemon,
+      PokemonDetail pokemon,
       int typeId,
       String typeName
       ) {
@@ -132,13 +137,13 @@ class PokemonDetailViewModel with ChangeNotifier {
         height: (prevItem).height,
         types: (prevItem).types
           ..remove(prevItem.types.firstWhere((e) => e.id == typeId))
-          ..add(UiType(id: typeId, name: typeName))
+          ..add(Type(id: typeId, name: typeName))
     ));
     simpleUpdate(pokemon, List.empty());
   }
 
   void setEvolutionChain(
-      UiPokemonDetail pokemon,
+      PokemonDetail pokemon,
       List<List<UiChainEntry>> chains
       ) {
     if (maxEvolutionChainLength(chains) > 1) {
@@ -155,11 +160,11 @@ class PokemonDetailViewModel with ChangeNotifier {
     required int pId,
     required String name,
     required void Function(
-        UiPokemonDetail pokemon,
+        PokemonDetail pokemon,
         List<UiPokemonDetailItem> items
         ) onUpdate
   }) async {
-    final pokemon = UiPokemonDetail(id: pId, name: name);
+    final pokemon = PokemonDetail(id: pId, name: name);
     final List<UiPokemonDetailItem> items = List.of([]);
     items.add(UiPokemonDetailImage(id: pId));
     items.add(UiPokemonDetailName(id: pId, defaultName: name));
@@ -169,18 +174,18 @@ class PokemonDetailViewModel with ChangeNotifier {
   // 상세
   Future<NetworkPokemon> getDetail(
       int pId,
-      UiPokemonDetail detail,
+      PokemonDetail detail,
       void Function(
-          UiPokemonDetail pokemon,
+          PokemonDetail pokemon,
           List<UiPokemonDetailItem> items
           ) onUpdate
       ) async {
-    final List<UiType> types = List<UiType>.of([]);
+    final List<Type> types = List<Type>.of([]);
     final List<UiPokemonDetailItem> items = List.of([]);
 
     final pokemon = await _repository.getPokemon(id: pId);
     for (var e in pokemon.types) {
-      types.add(UiType(id: getIdFromUrl(e.type.url), name: ""));
+      types.add(Type(id: getIdFromUrl(e.type.url), name: ""));
     }
     final newDetail = detail.copyWith(
         weight: pokemon.weight,
@@ -191,7 +196,7 @@ class PokemonDetailViewModel with ChangeNotifier {
         weight: pokemon.weight,
         height: pokemon.height,
         types: pokemon.types.map((e) =>
-            UiType(id: getIdFromUrl(e.type.url), name: e.type.name)
+            Type(id: getIdFromUrl(e.type.url), name: e.type.name)
         ).toList()
     ));
     onUpdate(newDetail, items);
@@ -201,17 +206,28 @@ class PokemonDetailViewModel with ChangeNotifier {
   // species
   Future<NetworkPokemonSpecies> getSpecies(
       NetworkPokemon pokemon,
-      UiPokemonDetail detail,
+      PokemonDetail detail,
       void Function(
           String localizedName,
-          UiPokemonDetail pokemon,
+          PokemonDetail pokemon,
           List<UiPokemonDetailItem> items
           ) onUpdate
       ) async {
     final List<UiPokemonDetailItem> items = List.of([]);
     final species = await _repository.getSpecies(id: getIdFromUrl(pokemon.species.url));
     final newDetail = detail.copyWith(
-        flavorText: getFlavorTextForLocale(species.flavorTextEntries)
+      speciesId: getIdFromUrl(pokemon.species.url),
+      species: Species(
+        id: getIdFromUrl(pokemon.species.url),
+        flavorTexts: species.flavorTextEntries.map((e) =>
+          LangValueVersion(
+            lang: e.language.name,
+            value: e.flavorText,
+            version: e.version.name
+          )
+        ).toList(),
+        fromDB: false
+      ),
     );
 
     items.add(UiPokemonDetailFlavorText(
@@ -233,9 +249,9 @@ class PokemonDetailViewModel with ChangeNotifier {
   Future<void> getEvolutionChain(
       int pId,
       int ecId,
-      UiPokemonDetail detail,
+      PokemonDetail detail,
       void Function(
-          UiPokemonDetail pokemon,
+          PokemonDetail pokemon,
           List<List<UiChainEntry>> chains
           ) onUpdate
       ) async {
@@ -243,7 +259,14 @@ class PokemonDetailViewModel with ChangeNotifier {
       await _repository.getEvolutionChain(id: ecId).then((evolutionChain) {
         final List<UiPokemonDetailItem> items = List.of([]);
         final chains = getChains(evolutionChain);
-        final newDetail = detail.copyWith(chains: chains);
+        final newDetail = detail.copyWith(
+          evolutionChainId: ecId,
+          evolutionChain: EvolutionChain(
+            id: ecId,
+            chains: chains,
+            fromDB: false
+          )
+        );
         onUpdate(newDetail, chains);
       });
     }
@@ -253,14 +276,24 @@ class PokemonDetailViewModel with ChangeNotifier {
   Future<void> getForm(
       int pId,
       int fId,
-      UiPokemonDetail detail,
+      PokemonDetail detail,
       void Function(
-          UiPokemonDetail pokemon,
+          PokemonDetail pokemon,
           String form
           ) onUpdate
       ) async {
     await _repository.getForm(id: fId).then((form) {
-      final newDetail = detail.copyWith(form: getNameForLocale(form.formNames));
+      final newDetail = detail.copyWith(
+        formId: fId,
+        form: ui.Form(
+          id: fId,
+          names: form.formNames.map((e) => LangValue(
+            lang: e.language.name,
+            value: e.name,
+          )).toList(),
+          fromDB: false
+        )
+      );
       onUpdate(newDetail, getNameForLocale(form.formNames));
     });
   }
@@ -268,22 +301,25 @@ class PokemonDetailViewModel with ChangeNotifier {
   // Type
   Future<void> getType(
       List<NetworkPokemonType> types,
-      UiPokemonDetail detail,
+      PokemonDetail detail,
       void Function(
-          UiPokemonDetail pokemon,
+          PokemonDetail pokemon,
           int typeId,
           String typeName
           ) onUpdate
       ) async {
-    final newTypes = List<UiType>.from(detail.types!);
+    final newTypes = List<Type>.from(detail.types!);
     for (var type in types) {
       _repository.getType(
           id: getIdFromUrl(type.type.url)
       ).then((type) {
         newTypes
           ..remove(detail.types?.firstWhere((e) => e.id == type.id))
-          ..add(UiType(id: type.id, name: getNameForLocale(type.names)));
-        final newDetail = detail.copyWith(types: newTypes);
+          ..add(Type(id: type.id, name: getNameForLocale(type.names)));
+        final newDetail = detail.copyWith(
+          totalTypeIds: detail.types?.map((e) => e.id).toList(),
+          types: newTypes
+        );
         onUpdate(newDetail, type.id, getNameForLocale(type.names));
       });
     }
@@ -318,7 +354,7 @@ class PokemonDetailViewModel with ChangeNotifier {
           );
         }
       }
-      node.evolvesTo.forEach((evolveTo) {
+      for (var evolveTo in node.evolvesTo) {
         queue.add(evolveTo);
         map[getIdFromUrl(evolveTo.species.url)] = UiChainEntry(
             pId: getIdFromUrl(evolveTo.species.url),
@@ -326,7 +362,7 @@ class PokemonDetailViewModel with ChangeNotifier {
             trigger: evolveTo.evolutionDetails.firstOrNull?.item?.name ?? "0",
             isLeaf: false
         );
-      });
+      }
     }
     final chains = List<UiChainEntry?>.of([]);
     map.forEach((key, value) {

@@ -1,19 +1,30 @@
 import '../data/model/network_named_api_resource.dart';
+import '../util/converter.dart';
+import 'loadable.dart';
 
-class Pokemon {
+class Pokemon extends Loadable {
   Pokemon({
-    required this.id,
+    required int id,
     required this.name,
     required this.imageUrl,
-  });
-  final int id;
+    bool fromDB = false,
+  }) : super(id, fromDB);
+
   final String name;
   final String imageUrl;
 
-  factory Pokemon.from(NetworkNamedAPIResource pokemon) {
-    int id = int.parse(pokemon.url.split("/")[6]);
+  factory Pokemon.from({
+    required NetworkNamedAPIResource pokemon,
+    bool fromDB = false,
+  }) {
+    int id = getIdFromUrl(pokemon.url);
     String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png";
 
-    return Pokemon(id: id, name: pokemon.name, imageUrl: imageUrl);
+    return Pokemon(
+      id: id,
+      name: pokemon.name,
+      imageUrl: imageUrl,
+      fromDB: fromDB
+    );
   }
 }

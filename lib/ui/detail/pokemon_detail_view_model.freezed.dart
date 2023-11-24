@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UiPokemonDetailData {
-  UiPokemonDetail? get pokemon => throw _privateConstructorUsedError;
+  PokemonDetail? get pokemon => throw _privateConstructorUsedError;
   List<UiPokemonDetailItem> get items => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,9 +30,9 @@ abstract class $UiPokemonDetailDataCopyWith<$Res> {
           UiPokemonDetailData value, $Res Function(UiPokemonDetailData) then) =
       _$UiPokemonDetailDataCopyWithImpl<$Res, UiPokemonDetailData>;
   @useResult
-  $Res call({UiPokemonDetail? pokemon, List<UiPokemonDetailItem> items});
+  $Res call({PokemonDetail? pokemon, List<UiPokemonDetailItem> items});
 
-  $UiPokemonDetailCopyWith<$Res>? get pokemon;
+  $PokemonDetailCopyWith<$Res>? get pokemon;
 }
 
 /// @nodoc
@@ -55,7 +55,7 @@ class _$UiPokemonDetailDataCopyWithImpl<$Res, $Val extends UiPokemonDetailData>
       pokemon: freezed == pokemon
           ? _value.pokemon
           : pokemon // ignore: cast_nullable_to_non_nullable
-              as UiPokemonDetail?,
+              as PokemonDetail?,
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -65,12 +65,12 @@ class _$UiPokemonDetailDataCopyWithImpl<$Res, $Val extends UiPokemonDetailData>
 
   @override
   @pragma('vm:prefer-inline')
-  $UiPokemonDetailCopyWith<$Res>? get pokemon {
+  $PokemonDetailCopyWith<$Res>? get pokemon {
     if (_value.pokemon == null) {
       return null;
     }
 
-    return $UiPokemonDetailCopyWith<$Res>(_value.pokemon!, (value) {
+    return $PokemonDetailCopyWith<$Res>(_value.pokemon!, (value) {
       return _then(_value.copyWith(pokemon: value) as $Val);
     });
   }
@@ -84,10 +84,10 @@ abstract class _$$UiPokemonDetailDataImplCopyWith<$Res>
       __$$UiPokemonDetailDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({UiPokemonDetail? pokemon, List<UiPokemonDetailItem> items});
+  $Res call({PokemonDetail? pokemon, List<UiPokemonDetailItem> items});
 
   @override
-  $UiPokemonDetailCopyWith<$Res>? get pokemon;
+  $PokemonDetailCopyWith<$Res>? get pokemon;
 }
 
 /// @nodoc
@@ -108,7 +108,7 @@ class __$$UiPokemonDetailDataImplCopyWithImpl<$Res>
       pokemon: freezed == pokemon
           ? _value.pokemon
           : pokemon // ignore: cast_nullable_to_non_nullable
-              as UiPokemonDetail?,
+              as PokemonDetail?,
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
@@ -125,7 +125,7 @@ class _$UiPokemonDetailDataImpl implements _UiPokemonDetailData {
       : _items = items;
 
   @override
-  final UiPokemonDetail? pokemon;
+  final PokemonDetail? pokemon;
   final List<UiPokemonDetailItem> _items;
   @override
   List<UiPokemonDetailItem> get items {
@@ -162,12 +162,12 @@ class _$UiPokemonDetailDataImpl implements _UiPokemonDetailData {
 
 abstract class _UiPokemonDetailData implements UiPokemonDetailData {
   factory _UiPokemonDetailData(
-          {required final UiPokemonDetail? pokemon,
+          {required final PokemonDetail? pokemon,
           required final List<UiPokemonDetailItem> items}) =
       _$UiPokemonDetailDataImpl;
 
   @override
-  UiPokemonDetail? get pokemon;
+  PokemonDetail? get pokemon;
   @override
   List<UiPokemonDetailItem> get items;
   @override

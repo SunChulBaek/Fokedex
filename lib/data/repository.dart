@@ -23,7 +23,11 @@ class Repository {
     int offset = 0
   }) async {
     final list = await _localDataSource.getPokemonList(limit: limit, offset: offset);
-    return list.results.map((e) => Pokemon.from(e)).toList();
+    return list.results.map((e) =>
+      Pokemon.from(
+        pokemon: e,
+        fromDB: true
+    )).toList();
   }
 
   Future<NetworkPokemon> getPokemon({
