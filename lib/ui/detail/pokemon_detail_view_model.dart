@@ -4,24 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../model/evolution_chain.dart';
-import '../../model/lang_value.dart';
-import '../../model/lang_value_version.dart';
-import '../../model/species.dart';
 import '../model/ui_chain_entry.dart';
-import '../../model/pokemon_detail.dart';
 import '../model/ui_pokemon_detail_item.dart';
-import '../../model/type.dart';
 import '../model/ui_state.dart';
 import '../../data/model/network_chain_link.dart';
 import '../../data/model/network_evolution_chain.dart';
 import '../../data/model/network_pokemon.dart';
 import '../../data/model/network_pokemon_species.dart';
 import '../../data/model/network_pokemon_type.dart';
-import '../../data/repository.dart';
+import '../../data/pokemon_repository.dart';
+import '../../model/evolution_chain.dart';
+import '../../model/lang_value.dart';
+import '../../model/lang_value_version.dart';
+import '../../model/species.dart';
+import '../../model/pokemon_detail.dart';
+import '../../model/type.dart';
+import '../../model/form.dart' as ui;
 import '../../util/converter.dart';
 import '../../util/timber.dart';
-import '../../model/form.dart' as ui;
 
 part 'pokemon_detail_view_model.freezed.dart';
 
@@ -42,7 +42,7 @@ class PokemonDetailViewModel with ChangeNotifier {
 
   PokemonDetailViewModel(this._repository);
 
-  final Repository _repository;
+  final PokemonRepository _repository;
 
   PokemonDetail detail = PokemonDetail();
 
@@ -315,12 +315,12 @@ class PokemonDetailViewModel with ChangeNotifier {
       ).then((type) {
         newTypes
           ..remove(detail.types?.firstWhere((e) => e.id == type.id))
-          ..add(Type(id: type.id, name: getNameForLocale(type.names)));
+          ..add(type);
         final newDetail = detail.copyWith(
           totalTypeIds: detail.types?.map((e) => e.id).toList(),
           types: newTypes
         );
-        onUpdate(newDetail, type.id, getNameForLocale(type.names));
+        onUpdate(newDetail, type.id, type.name);
       });
     }
   }

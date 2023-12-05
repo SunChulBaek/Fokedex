@@ -3,7 +3,6 @@ import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:retrofit/http.dart';
 
-import 'data_source.dart';
 import 'model/network_evolution_chain.dart';
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
@@ -13,41 +12,46 @@ import 'model/network_type.dart';
 
 part 'rest_client.g.dart';
 
-@Named("remote")
-@Singleton(as: DataSource)
+@singleton
 @RestApi(baseUrl: 'https://pokeapi.co/api/v2/')
-abstract class RestClient implements DataSource {
+abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
   @factoryMethod
   factory RestClient.from(Dio dio) => RestClient(dio);
 
+  @override
   @GET('pokemon')
   Future<NetworkNamedAPIResourceList> getPokemonList({
     @Query("limit") int limit = 20,
     @Query("offset") int offset = 0,
   });
 
+  @override
   @GET('pokemon/{id}')
   Future<NetworkPokemon> getPokemon({
     @Path('id') required int id
   });
 
+  @override
   @GET('pokemon-species/{id}')
   Future<NetworkPokemonSpecies> getSpecies({
     @Path('id') required int id
   });
 
+  @override
   @GET('pokemon-form/{id}')
   Future<NetworkPokemonForm> getForm({
     @Path('id') required int id
   });
 
+  @override
   @GET('type/{id}')
   Future<NetworkType> getType({
     @Path('id') required int id
   });
 
+  @override
   @GET('evolution-chain/{id}')
   Future<NetworkEvolutionChain> getEvolutionChain({
     @Path('id') required int id

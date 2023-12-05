@@ -2,22 +2,23 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_template/data/data_source.dart';
-import 'package:flutter_template/data/model/network_evolution_chain.dart';
-import 'package:flutter_template/data/model/network_named_api_resource_list.dart';
-import 'package:flutter_template/data/model/network_pokemon.dart';
-import 'package:flutter_template/data/model/network_pokemon_form.dart';
-import 'package:flutter_template/data/model/network_pokemon_species.dart';
-import 'package:flutter_template/data/model/network_type.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../util/timber.dart';
+import 'pokemon_data_source.dart';
+import 'model/network_evolution_chain.dart';
+import 'model/network_name.dart';
 import 'model/network_named_api_resource.dart';
+import 'model/network_named_api_resource_list.dart';
+import 'model/network_pokemon.dart';
+import 'model/network_pokemon_form.dart';
+import 'model/network_pokemon_species.dart';
+import 'model/network_type.dart';
+import '../util/timber.dart';
 
 @Named("local")
-@Injectable(as: DataSource)
-class LocalDataSource implements DataSource {
+@Injectable(as: PokemonDataSource)
+class PokemonLocalDataSource implements PokemonDataSource {
   static const dbName = "cokedex-database.db";
 
   Database? _db;
@@ -76,11 +77,44 @@ class LocalDataSource implements DataSource {
   }
 
   @override
-  Future<NetworkType> getType({
+  Future<NetworkType?> getType({
     required int id
-  }) {
-    // TODO: implement getType
-    throw UnimplementedError();
+  }) async {
+    final db = await getDb();
+    final type = await db.query(
+      "type",
+      where: "t_id = ?",
+      whereArgs: [id]
+    );
+    if (type.isNotEmpty) {
+      return NetworkType(
+        id: int.parse(type[0]["t_id"].toString()),
+        name: "",
+        names: type[0]["names"].toString().split(":").where((e) => e.isNotEmpty).map((e) {
+          return NetworkName(
+            name: e.split("=")[1],
+            language: NetworkNamedAPIResource(
+              name: e.split("=")[0],
+              url: ''
+            )
+          );
+        }).toList()
+      );
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future<void> saveType({required NetworkType type}) async {
+    final db = await getDb();
+    await db.insert("type", {
+      "t_id": type.id,
+      "names": type.names.fold("", (acc, name) {
+          return "$acc:${name.language.name}=${name.name}";
+        }
+      )
+    });
   }
 
   Future<Database> getDb() async {

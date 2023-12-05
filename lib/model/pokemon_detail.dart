@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../ui/model/ui_chain_entry.dart';
 import 'evolution_chain.dart';
 import 'form.dart';
 import 'species.dart';

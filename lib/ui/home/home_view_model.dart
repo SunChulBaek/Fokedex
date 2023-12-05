@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../model/pokemon.dart';
 import '../model/ui_state.dart';
-import '../../data/repository.dart';
+import '../../data/pokemon_repository.dart';
 import '../../util/timber.dart';
 
 part 'home_view_model.freezed.dart';
@@ -23,7 +23,7 @@ class PokemonListData with _$PokemonListData {
 class HomeViewModel with ChangeNotifier {
   HomeViewModel(this._repository);
 
-  final Repository _repository;
+  final PokemonRepository _repository;
 
   List<Pokemon> list = List.empty(growable: true);
 

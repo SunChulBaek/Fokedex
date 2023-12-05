@@ -6,7 +6,7 @@ import 'pokemon_detail_loading_progress.dart';
 import 'pokemon_detail_view_model.dart';
 import '../common/cancel_button.dart';
 import '../model/ui_state.dart';
-import '../../data/repository.dart';
+import '../../data/pokemon_repository.dart';
 import '../../injectable.dart';
 
 class PokemonDetailParam {
@@ -30,8 +30,8 @@ class PokemonDetailScreen extends StatelessWidget {
     required this.param,
     required this.onClick,
     required this.onBack,
-    Key? key
-  }) : super(key: key);
+    super.key
+  });
 
   static const routeName = "/pokemon";
 
@@ -41,7 +41,7 @@ class PokemonDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-    create: (_) => PokemonDetailViewModel(getIt<Repository>())..init(param.id, param.title),
+    create: (_) => PokemonDetailViewModel(getIt<PokemonRepository>())..init(param.id, param.title),
     child: _PokemonDetailContent(onClick: onClick, onBack: onBack)
   );
 }

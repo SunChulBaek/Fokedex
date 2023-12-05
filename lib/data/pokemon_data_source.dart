@@ -5,7 +5,7 @@ import 'model/network_pokemon_form.dart';
 import 'model/network_pokemon_species.dart';
 import 'model/network_type.dart';
 
-abstract class DataSource {
+abstract class PokemonDataSource {
 
   Future<NetworkNamedAPIResourceList> getPokemonList({
     int limit = 20,
@@ -24,8 +24,12 @@ abstract class DataSource {
     required int id
   }) => throw Exception("Not Implemented yet.");
 
-  Future<NetworkType> getType({
+  Future<NetworkType?> getType({
     required int id
+  }) => throw Exception("Not Implemented yet.");
+
+  Future<void> saveType({
+    required NetworkType type
   }) => throw Exception("Not Implemented yet.");
 
   Future<NetworkEvolutionChain> getEvolutionChain({

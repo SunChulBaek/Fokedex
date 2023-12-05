@@ -1,22 +1,22 @@
-import 'package:flutter_template/data/data_source.dart';
-import 'package:flutter_template/data/model/network_pokemon_form.dart';
-import 'package:flutter_template/model/pokemon.dart';
 import 'package:injectable/injectable.dart';
 
+import 'pokemon_data_source.dart';
 import 'model/network_evolution_chain.dart';
 import 'model/network_pokemon.dart';
+import 'model/network_pokemon_form.dart';
 import 'model/network_pokemon_species.dart';
-import 'model/network_type.dart';
+import '../model/pokemon.dart';
+import '../model/type.dart';
 
 @injectable
-class Repository {
-  Repository(
+class PokemonRepository {
+  PokemonRepository(
     @Named("remote") this._restClient,
     @Named("local") this._localDataSource,
   );
 
-  final DataSource _restClient;
-  final DataSource _localDataSource;
+  final PokemonDataSource _restClient;
+  final PokemonDataSource _localDataSource;
 
   Future<List<Pokemon>> getPokemonList({
     int limit = 20,
@@ -42,9 +42,18 @@ class Repository {
     required int id
   }) => _restClient.getForm(id: id);
 
-  Future<NetworkType> getType({
+  Future<Type> getType({
     required int id
-  }) => _restClient.getType(id: id);
+  }) async {
+    var typeFromDB = await _localDataSource.getType(id: id);
+    if (typeFromDB != null) {
+      return Type.fromNetworkModel(typeFromDB, fromDB: true);
+    } else {
+      final type = await _restClient.getType(id: id);
+      await _localDataSource.saveType(type: type!);
+      return Type.fromNetworkModel(type);
+    }
+  }
 
   Future<NetworkEvolutionChain> getEvolutionChain({
     required int id

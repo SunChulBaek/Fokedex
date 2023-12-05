@@ -5,10 +5,10 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           Icon(Icons.error, size: 72, color: Colors.red),
           Text('에러가 발생하였습니다.', style: TextStyle(color: Colors.red, fontSize: 16))
         ]

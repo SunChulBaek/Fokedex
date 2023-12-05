@@ -1,3 +1,5 @@
+import '../data/model/network_type.dart';
+import '../util/converter.dart';
 import 'loadable.dart';
 
 class Type extends Loadable {
@@ -8,6 +10,17 @@ class Type extends Loadable {
   }) : super(id, fromDB);
 
   final String name;
+
+  factory Type.fromNetworkModel(
+    NetworkType type,
+    {
+      bool fromDB = false
+    }
+  ) => Type(
+    id: type.id,
+    name: getNameForLocale(type.names),
+    fromDB: fromDB
+  );
 
   // normal(Color(0xFF9E9E9E)),
   // fighting(Color(0xFF9E9E9E)),

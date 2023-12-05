@@ -6,7 +6,7 @@ import 'home_view_model.dart';
 import 'pokemon_list_item.dart';
 import '../common/state_view.dart';
 import '../model/ui_state.dart';
-import '../../data/repository.dart';
+import '../../data/pokemon_repository.dart';
 import '../../injectable.dart';
 
 // 참고 : https://dopble2k.tistory.com/9
@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-    create: (_) => HomeViewModel(getIt<Repository>())..init(),
+    create: (_) => HomeViewModel(getIt<PokemonRepository>())..init(),
     child: _HomeContent(title: title, onClickMon: onClickMon)
   );
 }

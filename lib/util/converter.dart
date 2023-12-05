@@ -76,5 +76,5 @@ Color getColorFromId(int id) {
       return const Color(0xFF9C27B0);
     default:
       return const Color(0xFF9E9E9E);
-  };
+  }
 }
