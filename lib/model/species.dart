@@ -1,6 +1,7 @@
+import 'loadable.dart';
 import '../data/model/network_pokemon_species.dart';
 import '../util/converter.dart';
-import 'loadable.dart';
+import '../util/timber.dart';
 
 class Species extends Loadable {
   Species({
@@ -22,12 +23,17 @@ class Species extends Loadable {
     {
       bool fromDB = false
     }
-  ) => Species(
-    id: species.id,
-    name: getNameForLocale(species.names),
-    flavorText: getFlavorTextForLocale(species.flavorTextEntries),
-    ecId: getIdFromUrl(species.evolutionChain.url),
-    vIds: species.varieties.map((e) => getIdFromUrl(e.pokemon.url)).toList(),
-    fromDB: fromDB
-  );
+  ) {
+    return Species(
+      id: species.id,
+      name: getNameForLocale(species.names),
+      flavorText: getFlavorTextForLocale(species.flavorTextEntries),
+      ecId: getIdFromUrl(species.evolutionChain.url),
+      vIds: species.varieties.map((e) {
+        Timber.i("Species.fromNetworkModel(v = $e)");
+        return getIdFromUrl(e.pokemon.url);
+      }).toList(),
+      fromDB: fromDB
+    );
+  }
 }

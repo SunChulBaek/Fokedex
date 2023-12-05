@@ -5,11 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../util/converter.dart';
-import 'model/network_api_resource.dart';
-import 'model/network_pokemon_species_variety.dart';
 import 'pokemon_data_source.dart';
 import 'type_converter.dart';
+import 'model/network_api_resource.dart';
 import 'model/network_evolution_chain.dart';
 import 'model/network_named_api_resource.dart';
 import 'model/network_named_api_resource_list.dart';
@@ -17,6 +15,7 @@ import 'model/network_pokemon.dart';
 import 'model/network_pokemon_form.dart';
 import 'model/network_pokemon_species.dart';
 import 'model/network_type.dart';
+import '../util/converter.dart';
 import '../util/timber.dart';
 
 @Named("local")
@@ -107,13 +106,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
         names: TypeConverter.stringToNames(species[0]["names"].toString()),
         flavorTextEntries: TypeConverter.stringToFlavors(species[0]["flavor_texts"].toString()),
         evolutionChain: NetworkAPIResource(url: "https://pokeapi.co/api/v2/evolution-chain/${species[0]["ec_id"].toString()}/"),
-        varieties: species[0]["v_ids"].toString().split(":").where((e) => e.isNotEmpty).map((e) => NetworkPokemonSpeciesVariety(
-          isDefault: true,
-          pokemon: NetworkNamedAPIResource(
-            name: "",
-            url: "https://pokeapi.co/api/v2/evolution-chain/$e/"
-          )
-        )).toList()
+        varieties: TypeConverter.stringToVarieties(species[0]["v_ids"].toString())
       );
     } else {
       return null;
@@ -128,7 +121,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
       "names": TypeConverter.namesToString(species.names),
       "flavor_texts": TypeConverter.flavorsToString(species.flavorTextEntries),
       "ec_id": getIdFromUrl(species.evolutionChain.url),
-      "v_ids": species.varieties.fold("", (acc, e) => "$acc:${getIdFromUrl(e.pokemon.url)}"),
+      "v_ids": TypeConverter.varietiesToString(species.varieties),
     });
   }
 

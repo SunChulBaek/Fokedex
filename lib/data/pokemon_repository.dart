@@ -7,6 +7,7 @@ import '../model/form.dart';
 import '../model/pokemon.dart';
 import '../model/species.dart';
 import '../model/type.dart';
+import '../util/timber.dart';
 
 @injectable
 class PokemonRepository {
@@ -22,6 +23,7 @@ class PokemonRepository {
     int limit = 20,
     int offset = 0
   }) async {
+    Timber.i("PokemonRepository.getPokemonList(limit = $limit, offset = $offset)");
     final list = await _localDataSource.getPokemonList(limit: limit, offset: offset);
     return list.results.map((e) =>
       Pokemon.from(
@@ -32,11 +34,15 @@ class PokemonRepository {
 
   Future<NetworkPokemon> getPokemon({
     required int id
-  }) => _restClient.getPokemon(id: id);
+  }) {
+    Timber.i("PokemonRepository.getPokemon(id = $id)");
+    return _restClient.getPokemon(id: id);
+  }
 
   Future<Species> getSpecies({
     required int id
   }) async {
+    Timber.i("PokemonRepository.getSpecies(id = $id)");
     final speciesFromDB = await _localDataSource.getSpecies(id: id);
     if (speciesFromDB != null) {
       return Species.fromNetworkModel(speciesFromDB, fromDB: true);
@@ -50,6 +56,7 @@ class PokemonRepository {
   Future<Form> getForm({
     required int id
   }) async {
+    Timber.i("PokemonRepository.getForm(id = $id)");
     final formFromDB = await _localDataSource.getForm(id: id);
     if (formFromDB != null) {
       return Form.fromNetworkModel(formFromDB, fromDB: true);
@@ -63,6 +70,7 @@ class PokemonRepository {
   Future<Type> getType({
     required int id
   }) async {
+    Timber.i("PokemonRepository.getType(id = $id)");
     final typeFromDB = await _localDataSource.getType(id: id);
     if (typeFromDB != null) {
       return Type.fromNetworkModel(typeFromDB, fromDB: true);
@@ -75,5 +83,8 @@ class PokemonRepository {
 
   Future<NetworkEvolutionChain> getEvolutionChain({
     required int id
-  }) => _restClient.getEvolutionChain(id: id);
+  }) {
+    Timber.i("PokemonRepository.getEvolutionChain(id = $id)");
+    return _restClient.getEvolutionChain(id: id);
+  }
 }
