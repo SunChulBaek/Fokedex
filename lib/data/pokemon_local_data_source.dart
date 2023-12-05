@@ -53,11 +53,42 @@ class PokemonLocalDataSource implements PokemonDataSource {
   }
 
   @override
-  Future<NetworkPokemonForm> getForm({
+  Future<NetworkPokemonForm?> getForm({
     required int id
-  }) {
-    // TODO: implement getForm
-    throw UnimplementedError();
+  }) async {
+    final db = await getDb();
+    final form = await db.query("form",
+      where: "f_id = ?",
+      whereArgs: [id]
+    );
+    if (form.isNotEmpty) {
+      return NetworkPokemonForm(
+        id: int.parse(form[0]["f_id"].toString()),
+        formNames: form[0]["names"].toString().split(":").where((e) => e.isNotEmpty).map((e) =>
+          NetworkName(
+            name: e.split("=")[1],
+            language: NetworkNamedAPIResource(
+              name: e.split("=")[0],
+              url: ""
+            )
+          )
+        ).toList()
+      );
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future<void> saveForm({required NetworkPokemonForm form}) async {
+    Timber.i("Local.saveForm()");
+    final db = await getDb();
+    await db.insert("form", {
+      "f_id": form.id,
+      "names": form.formNames.fold("", (acc, name) {
+        return "$acc:${name.language.name}=${name.name}";
+      })
+    });
   }
 
   @override
@@ -111,9 +142,8 @@ class PokemonLocalDataSource implements PokemonDataSource {
     await db.insert("type", {
       "t_id": type.id,
       "names": type.names.fold("", (acc, name) {
-          return "$acc:${name.language.name}=${name.name}";
-        }
-      )
+        return "$acc:${name.language.name}=${name.name}";
+      })
     });
   }
 

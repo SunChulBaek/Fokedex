@@ -14,12 +14,10 @@ import '../../data/model/network_pokemon_species.dart';
 import '../../data/model/network_pokemon_type.dart';
 import '../../data/pokemon_repository.dart';
 import '../../model/evolution_chain.dart';
-import '../../model/lang_value.dart';
 import '../../model/lang_value_version.dart';
 import '../../model/species.dart';
 import '../../model/pokemon_detail.dart';
 import '../../model/type.dart';
-import '../../model/form.dart' as ui;
 import '../../util/converter.dart';
 import '../../util/timber.dart';
 
@@ -285,16 +283,9 @@ class PokemonDetailViewModel with ChangeNotifier {
     await _repository.getForm(id: fId).then((form) {
       final newDetail = detail.copyWith(
         formId: fId,
-        form: ui.Form(
-          id: fId,
-          names: form.formNames.map((e) => LangValue(
-            lang: e.language.name,
-            value: e.name,
-          )).toList(),
-          fromDB: false
-        )
+        form: form
       );
-      onUpdate(newDetail, getNameForLocale(form.formNames));
+      onUpdate(newDetail, form.name);
     });
   }
 

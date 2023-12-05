@@ -20,8 +20,12 @@ abstract class PokemonDataSource {
     required int id
   }) => throw Exception("Not Implemented yet.");
 
-  Future<NetworkPokemonForm> getForm({
+  Future<NetworkPokemonForm?> getForm({
     required int id
+  }) => throw Exception("Not Implemented yet.");
+
+  Future<void> saveForm({
+    required NetworkPokemonForm form
   }) => throw Exception("Not Implemented yet.");
 
   Future<NetworkType?> getType({

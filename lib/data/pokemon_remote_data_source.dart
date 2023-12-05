@@ -23,8 +23,13 @@ class PokemonRemoteDataSource implements PokemonDataSource {
     => _client.getEvolutionChain(id: id);
 
   @override
-  Future<NetworkPokemonForm> getForm({required int id})
+  Future<NetworkPokemonForm?> getForm({required int id})
     => _client.getForm(id: id);
+
+  @override
+  Future<void> saveForm({required NetworkPokemonForm form}) {
+    throw UnimplementedError();
+  }
 
   @override
   Future<NetworkPokemon> getPokemon({required int id})
