@@ -6,8 +6,8 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'pokemon_data_source.dart';
+import 'type_converter.dart';
 import 'model/network_evolution_chain.dart';
-import 'model/network_name.dart';
 import 'model/network_named_api_resource.dart';
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
@@ -64,15 +64,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
     if (form.isNotEmpty) {
       return NetworkPokemonForm(
         id: int.parse(form[0]["f_id"].toString()),
-        formNames: form[0]["names"].toString().split(":").where((e) => e.isNotEmpty).map((e) =>
-          NetworkName(
-            name: e.split("=")[1],
-            language: NetworkNamedAPIResource(
-              name: e.split("=")[0],
-              url: ""
-            )
-          )
-        ).toList()
+        formNames: TypeConverter.stringToNames(form[0]["names"].toString())
       );
     } else {
       return null;
@@ -85,9 +77,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
     final db = await getDb();
     await db.insert("form", {
       "f_id": form.id,
-      "names": form.formNames.fold("", (acc, name) {
-        return "$acc:${name.language.name}=${name.name}";
-      })
+      "names": TypeConverter.namesToString(form.formNames)
     });
   }
 
@@ -121,15 +111,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
       return NetworkType(
         id: int.parse(type[0]["t_id"].toString()),
         name: "",
-        names: type[0]["names"].toString().split(":").where((e) => e.isNotEmpty).map((e) {
-          return NetworkName(
-            name: e.split("=")[1],
-            language: NetworkNamedAPIResource(
-              name: e.split("=")[0],
-              url: ''
-            )
-          );
-        }).toList()
+        names: TypeConverter.stringToNames(type[0]["names"].toString())
       );
     } else {
       return null;
@@ -141,9 +123,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
     final db = await getDb();
     await db.insert("type", {
       "t_id": type.id,
-      "names": type.names.fold("", (acc, name) {
-        return "$acc:${name.language.name}=${name.name}";
-      })
+      "names": TypeConverter.namesToString(type.names)
     });
   }
 
