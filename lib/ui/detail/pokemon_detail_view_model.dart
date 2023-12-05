@@ -10,13 +10,11 @@ import '../model/ui_state.dart';
 import '../../data/model/network_chain_link.dart';
 import '../../data/model/network_evolution_chain.dart';
 import '../../data/model/network_pokemon.dart';
-import '../../data/model/network_pokemon_species.dart';
 import '../../data/model/network_pokemon_type.dart';
 import '../../data/pokemon_repository.dart';
 import '../../model/evolution_chain.dart';
-import '../../model/lang_value_version.dart';
-import '../../model/species.dart';
 import '../../model/pokemon_detail.dart';
+import '../../model/species.dart';
 import '../../model/type.dart';
 import '../../util/converter.dart';
 import '../../util/timber.dart';
@@ -62,8 +60,7 @@ class PokemonDetailViewModel with ChangeNotifier {
       final species = await getSpecies(pokemon, detail, setLocalizedName);
 
       // Evolution Chain
-      final ecId = getIdFromUrl(species.evolutionChain.url);
-      await getEvolutionChain(pokemon.id, ecId, detail, setEvolutionChain);
+      await getEvolutionChain(pokemon.id, species.ecId, detail, setEvolutionChain);
 
       // Form
       final fId = getIdFromUrl(pokemon.forms.first.url);
@@ -202,7 +199,7 @@ class PokemonDetailViewModel with ChangeNotifier {
   }
 
   // species
-  Future<NetworkPokemonSpecies> getSpecies(
+  Future<Species> getSpecies(
       NetworkPokemon pokemon,
       PokemonDetail detail,
       void Function(
@@ -215,31 +212,20 @@ class PokemonDetailViewModel with ChangeNotifier {
     final species = await _repository.getSpecies(id: getIdFromUrl(pokemon.species.url));
     final newDetail = detail.copyWith(
       speciesId: getIdFromUrl(pokemon.species.url),
-      species: Species(
-        id: getIdFromUrl(pokemon.species.url),
-        flavorTexts: species.flavorTextEntries.map((e) =>
-          LangValueVersion(
-            lang: e.language.name,
-            value: e.flavorText,
-            version: e.version.name
-          )
-        ).toList(),
-        fromDB: false
-      ),
+      species: species
     );
 
     items.add(UiPokemonDetailFlavorText(
-        flavorText: getFlavorTextForLocale(species.flavorTextEntries))
+      flavorText: species.flavorText)
     );
     // Varieties 보여주기
-    if (species.varieties.length > 1) {
+    if (species.vIds.length > 1) {
       items.add(UiPokemonDetailVarieties(
-          pId: pokemon.id,
-          varietyIds: species.varieties.map((e) =>
-              getIdFromUrl(e.pokemon.url)).toList())
-      );
+        pId: pokemon.id,
+        varietyIds: species.vIds
+      ));
     }
-    onUpdate(getNameForLocale(species.names), newDetail, items);
+    onUpdate(species.name, newDetail, items);
     return species;
   }
 

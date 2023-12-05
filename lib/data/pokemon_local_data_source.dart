@@ -5,6 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../util/converter.dart';
+import 'model/network_api_resource.dart';
+import 'model/network_pokemon_species_variety.dart';
 import 'pokemon_data_source.dart';
 import 'type_converter.dart';
 import 'model/network_evolution_chain.dart';
@@ -90,11 +93,43 @@ class PokemonLocalDataSource implements PokemonDataSource {
   }
 
   @override
-  Future<NetworkPokemonSpecies> getSpecies({
+  Future<NetworkPokemonSpecies?> getSpecies({
     required int id
-  }) {
-    // TODO: implement getSpecies
-    throw UnimplementedError();
+  }) async {
+    final db = await getDb();
+    final species = await db.query("species",
+      where: "s_id = ?",
+      whereArgs: [id]
+    );
+    if (species.isNotEmpty) {
+      return NetworkPokemonSpecies(
+        id: int.parse(species[0]["s_id"].toString()),
+        names: TypeConverter.stringToNames(species[0]["names"].toString()),
+        flavorTextEntries: TypeConverter.stringToFlavors(species[0]["flavor_texts"].toString()),
+        evolutionChain: NetworkAPIResource(url: "https://pokeapi.co/api/v2/evolution-chain/${species[0]["ec_id"].toString()}/"),
+        varieties: species[0]["v_ids"].toString().split(":").where((e) => e.isNotEmpty).map((e) => NetworkPokemonSpeciesVariety(
+          isDefault: true,
+          pokemon: NetworkNamedAPIResource(
+            name: "",
+            url: "https://pokeapi.co/api/v2/evolution-chain/$e/"
+          )
+        )).toList()
+      );
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future<void> saveSpecies({required NetworkPokemonSpecies species}) async {
+    final db = await getDb();
+    await db.insert("species", {
+      "s_id": species.id,
+      "names": TypeConverter.namesToString(species.names),
+      "flavor_texts": TypeConverter.flavorsToString(species.flavorTextEntries),
+      "ec_id": getIdFromUrl(species.evolutionChain.url),
+      "v_ids": species.varieties.fold("", (acc, e) => "$acc:${getIdFromUrl(e.pokemon.url)}"),
+    });
   }
 
   @override

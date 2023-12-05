@@ -40,8 +40,13 @@ class PokemonRemoteDataSource implements PokemonDataSource {
     => _client.getPokemonList(limit: limit, offset: offset);
 
   @override
-  Future<NetworkPokemonSpecies> getSpecies({required int id})
+  Future<NetworkPokemonSpecies?> getSpecies({required int id})
     => _client.getSpecies(id: id);
+
+  @override
+  Future<void> saveSpecies({required NetworkPokemonSpecies species}) {
+    throw UnimplementedError();
+  }
 
   @override
   Future<NetworkType?> getType({required int id})

@@ -1,13 +1,33 @@
-import 'package:flutter_template/model/lang_value_version.dart';
-
+import '../data/model/network_pokemon_species.dart';
+import '../util/converter.dart';
 import 'loadable.dart';
 
 class Species extends Loadable {
   Species({
     required int id,
-    required this.flavorTexts,
+    required this.name,
+    required this.flavorText,
+    required this.ecId,
+    required this.vIds,
     bool fromDB = false,
   }) : super(id, fromDB);
 
-  final List<LangValueVersion> flavorTexts;
+  final String name;
+  final String flavorText;
+  final int ecId;
+  final List<int> vIds;
+
+  factory Species.fromNetworkModel(
+    NetworkPokemonSpecies species,
+    {
+      bool fromDB = false
+    }
+  ) => Species(
+    id: species.id,
+    name: getNameForLocale(species.names),
+    flavorText: getFlavorTextForLocale(species.flavorTextEntries),
+    ecId: getIdFromUrl(species.evolutionChain.url),
+    vIds: species.varieties.map((e) => getIdFromUrl(e.pokemon.url)).toList(),
+    fromDB: fromDB
+  );
 }

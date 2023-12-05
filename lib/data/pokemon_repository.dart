@@ -3,9 +3,9 @@ import 'package:injectable/injectable.dart';
 import 'pokemon_data_source.dart';
 import 'model/network_evolution_chain.dart';
 import 'model/network_pokemon.dart';
-import 'model/network_pokemon_species.dart';
 import '../model/form.dart';
 import '../model/pokemon.dart';
+import '../model/species.dart';
 import '../model/type.dart';
 
 @injectable
@@ -34,9 +34,18 @@ class PokemonRepository {
     required int id
   }) => _restClient.getPokemon(id: id);
 
-  Future<NetworkPokemonSpecies> getSpecies({
+  Future<Species> getSpecies({
     required int id
-  }) => _restClient.getSpecies(id: id);
+  }) async {
+    final speciesFromDB = await _localDataSource.getSpecies(id: id);
+    if (speciesFromDB != null) {
+      return Species.fromNetworkModel(speciesFromDB, fromDB: true);
+    } else {
+      final species = await _restClient.getSpecies(id: id);
+      await _localDataSource.saveSpecies(species: species!);
+      return Species.fromNetworkModel(species);
+    }
+  }
 
   Future<Form> getForm({
     required int id
