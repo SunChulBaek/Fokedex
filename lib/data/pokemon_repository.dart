@@ -87,11 +87,11 @@ class PokemonRepository {
     Timber.i("PokemonRepository.getEvolutionChain(id = $id)");
     final cachedChain = await _localDataSource.getEvolutionChain(id: id);
     if (cachedChain != null) {
-      return EvolutionChain.fromNetworkModel(cachedChain, fromDB: true);
+      return cachedChain;
     } else {
       final chain = await _restClient.getEvolutionChain(id: id);
       await _localDataSource.saveEvolutionChain(chain: chain!);
-      return EvolutionChain.fromNetworkModel(chain);
+      return chain!;
     }
   }
 }

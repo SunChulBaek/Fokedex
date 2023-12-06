@@ -1,9 +1,9 @@
-import 'model/network_evolution_chain.dart';
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
 import 'model/network_pokemon_form.dart';
 import 'model/network_pokemon_species.dart';
 import 'model/network_type.dart';
+import '../model/evolution_chain.dart';
 
 abstract class PokemonDataSource {
 
@@ -40,11 +40,11 @@ abstract class PokemonDataSource {
     required NetworkType type
   }) => throw Exception("Not Implemented yet.");
 
-  Future<NetworkEvolutionChain?> getEvolutionChain({
+  Future<EvolutionChain?> getEvolutionChain({
     required int id
   }) => throw Exception("Not Implemented yet.");
 
   Future<void> saveEvolutionChain({
-    required NetworkEvolutionChain chain
+    required EvolutionChain chain
   }) => throw Exception("Not Implemented yet.");
 }

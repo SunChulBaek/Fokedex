@@ -8,13 +8,14 @@ import 'package:sqflite/sqflite.dart';
 import 'pokemon_data_source.dart';
 import 'type_converter.dart';
 import 'model/network_api_resource.dart';
-import 'model/network_evolution_chain.dart';
 import 'model/network_named_api_resource.dart';
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
 import 'model/network_pokemon_form.dart';
 import 'model/network_pokemon_species.dart';
 import 'model/network_type.dart';
+import '../model/evolution_chain.dart';
+import '../ui/model/ui_chain_entry.dart';
 import '../util/converter.dart';
 import '../util/timber.dart';
 
@@ -147,6 +148,64 @@ class PokemonLocalDataSource implements PokemonDataSource {
     });
   }
 
+  @override
+  Future<EvolutionChain?> getEvolutionChain({
+    required int id
+  }) async {
+    Timber.i("PokemonLocalDataSource.getEvolutionChain($id)");
+    final db = await getDb();
+    final chains = await db.query("evolution_chain",
+      where: "c_id = ?",
+      whereArgs: [id]
+    );
+    if (chains.isNotEmpty) {
+      return EvolutionChain(
+        id: id,
+        chains: chains.where((e) => e["is_leaf"] == 1).map((leaf) {
+          final list = List<UiChainEntry>.of([]);
+          UiChainEntry? entry = UiChainEntry(
+            pId: leaf["p_id"] as int,
+            prevId: (leaf["prev_id"] as int?) ?? 0,
+            trigger: leaf["trigger"] as String,
+            isLeaf: (leaf["is_leaf"] as int) == 1 ? true : false
+          );
+          while (entry != null) {
+            list.add(entry);
+            entry = chains.where((e) => e["p_id"] == entry?.prevId).map((e) =>
+              UiChainEntry(
+                pId: e["p_id"] as int,
+                prevId: (e["prev_id"] as int?) ?? 0,
+                trigger: e["trigger"] as String,
+                isLeaf: (e["is_leaf"] as int) == 1 ? true : false
+              )
+            ).firstOrNull;
+          }
+          return list;
+        }).toList(),
+        fromDB: true
+      );
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future<void> saveEvolutionChain({required EvolutionChain chain}) async {
+    Timber.i("PokemonLocalDataSource.saveEvolutionChain()");
+    final db = await getDb();
+    for (var i in chain.chains) {
+      for (var element in i) {
+        await db.insert("evolution_chain", {
+          "c_id": chain.id,
+          "p_id": element.pId,
+          "trigger": element.trigger,
+          "prev_id": element.prevId,
+          "is_leaf": element.isLeaf ? 1 : 0
+        });
+      }
+    }
+  }
+
   Future<Database> getDb() async {
     if (_db != null) {
       return _db!;
@@ -154,19 +213,6 @@ class PokemonLocalDataSource implements PokemonDataSource {
       _db = await initDb();
       return _db!;
     }
-  }
-
-  @override
-  Future<NetworkEvolutionChain?> getEvolutionChain({
-    required int id
-  }) async {
-    // TODO: implement getEvolutionChain
-    return null;
-  }
-
-  @override
-  Future<void> saveEvolutionChain({required NetworkEvolutionChain chain}) async {
-    return;
   }
 
   Future<Database> initDb() async {
