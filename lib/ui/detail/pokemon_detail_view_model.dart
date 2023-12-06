@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -7,12 +5,9 @@ import 'package:injectable/injectable.dart';
 import '../model/ui_chain_entry.dart';
 import '../model/ui_pokemon_detail_item.dart';
 import '../model/ui_state.dart';
-import '../../data/model/network_chain_link.dart';
-import '../../data/model/network_evolution_chain.dart';
 import '../../data/model/network_pokemon.dart';
 import '../../data/model/network_pokemon_type.dart';
 import '../../data/pokemon_repository.dart';
-import '../../model/evolution_chain.dart';
 import '../../model/pokemon_detail.dart';
 import '../../model/species.dart';
 import '../../model/type.dart';
@@ -241,17 +236,11 @@ class PokemonDetailViewModel with ChangeNotifier {
       ) async {
     if (ecId > 0) {
       await _repository.getEvolutionChain(id: ecId).then((evolutionChain) {
-        final List<UiPokemonDetailItem> items = List.of([]);
-        final chains = getChains(evolutionChain);
         final newDetail = detail.copyWith(
           evolutionChainId: ecId,
-          evolutionChain: EvolutionChain(
-            id: ecId,
-            chains: chains,
-            fromDB: false
-          )
+          evolutionChain: evolutionChain
         );
-        onUpdate(newDetail, chains);
+        onUpdate(newDetail, evolutionChain.chains);
       });
     }
   }
@@ -307,56 +296,5 @@ class PokemonDetailViewModel with ChangeNotifier {
   void dispose() {
     super.dispose();
     _isDisposed = true;
-  }
-
-  List<List<UiChainEntry>> getChains(NetworkEvolutionChain evolutionChain) {
-    final map = HashMap<int, UiChainEntry>();
-    final queue = Queue<NetworkChainLink>()..add(evolutionChain.chain);
-    while (queue.isNotEmpty) {
-      final node = queue.removeFirst();
-      final nodeId = getIdFromUrl(node.species.url);
-      if (!map.containsKey(nodeId)) {
-        map[nodeId] = UiChainEntry(
-            pId: nodeId,
-            prevId: 0,
-            trigger: node.evolutionDetails.firstOrNull?.item?.name ?? "0",
-            isLeaf: false
-        );
-      }
-      if (node.evolvesTo.isEmpty) {
-        final nodex = map[getIdFromUrl(node.species.url)];
-        if (nodex != null) {
-          map[nodeId] = nodex.copyWith(
-              isLeaf: true
-          );
-        }
-      }
-      for (var evolveTo in node.evolvesTo) {
-        queue.add(evolveTo);
-        map[getIdFromUrl(evolveTo.species.url)] = UiChainEntry(
-            pId: getIdFromUrl(evolveTo.species.url),
-            prevId: nodeId,
-            trigger: evolveTo.evolutionDetails.firstOrNull?.item?.name ?? "0",
-            isLeaf: false
-        );
-      }
-    }
-    final chains = List<UiChainEntry?>.of([]);
-    map.forEach((key, value) {
-      chains.add(value);
-    });
-    List<List<UiChainEntry>> x = chains.where((it) => it?.isLeaf == true).map((leaf) {
-      final list = List<UiChainEntry>.of([]);
-      UiChainEntry? entry = leaf;
-      while (entry != null) {
-        list.add(entry);
-        entry = chains.firstWhere((it) {
-          return it?.pId == entry?.prevId;
-        }, orElse: () => null);
-      }
-      return list.reversed.toList();
-    }).toList();
-
-    return x;
   }
 }

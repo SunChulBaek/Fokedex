@@ -40,7 +40,11 @@ abstract class PokemonDataSource {
     required NetworkType type
   }) => throw Exception("Not Implemented yet.");
 
-  Future<NetworkEvolutionChain> getEvolutionChain({
+  Future<NetworkEvolutionChain?> getEvolutionChain({
     required int id
+  }) => throw Exception("Not Implemented yet.");
+
+  Future<void> saveEvolutionChain({
+    required NetworkEvolutionChain chain
   }) => throw Exception("Not Implemented yet.");
 }

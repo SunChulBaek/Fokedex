@@ -47,14 +47,6 @@ class PokemonLocalDataSource implements PokemonDataSource {
   }
 
   @override
-  Future<NetworkEvolutionChain> getEvolutionChain({
-    required int id
-  }) {
-    // TODO: implement getEvolutionChain
-    throw UnimplementedError();
-  }
-
-  @override
   Future<NetworkPokemonForm?> getForm({
     required int id
   }) async {
@@ -162,6 +154,19 @@ class PokemonLocalDataSource implements PokemonDataSource {
       _db = await initDb();
       return _db!;
     }
+  }
+
+  @override
+  Future<NetworkEvolutionChain?> getEvolutionChain({
+    required int id
+  }) async {
+    // TODO: implement getEvolutionChain
+    return null;
+  }
+
+  @override
+  Future<void> saveEvolutionChain({required NetworkEvolutionChain chain}) async {
+    return;
   }
 
   Future<Database> initDb() async {

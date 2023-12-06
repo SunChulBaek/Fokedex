@@ -19,10 +19,6 @@ class PokemonRemoteDataSource implements PokemonDataSource {
   final RestClient _client;
 
   @override
-  Future<NetworkEvolutionChain> getEvolutionChain({required int id})
-    => _client.getEvolutionChain(id: id);
-
-  @override
   Future<NetworkPokemonForm?> getForm({required int id})
     => _client.getForm(id: id);
 
@@ -54,6 +50,15 @@ class PokemonRemoteDataSource implements PokemonDataSource {
 
   @override
   Future<void> saveType({required NetworkType type}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<NetworkEvolutionChain> getEvolutionChain({required int id})
+  => _client.getEvolutionChain(id: id);
+
+  @override
+  Future<void> saveEvolutionChain({required NetworkEvolutionChain chain}) {
     throw UnimplementedError();
   }
 }

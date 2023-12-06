@@ -1,7 +1,7 @@
+import 'package:flutter_template/model/evolution_chain.dart';
 import 'package:injectable/injectable.dart';
 
 import 'pokemon_data_source.dart';
-import 'model/network_evolution_chain.dart';
 import 'model/network_pokemon.dart';
 import '../model/form.dart';
 import '../model/pokemon.dart';
@@ -43,9 +43,9 @@ class PokemonRepository {
     required int id
   }) async {
     Timber.i("PokemonRepository.getSpecies(id = $id)");
-    final speciesFromDB = await _localDataSource.getSpecies(id: id);
-    if (speciesFromDB != null) {
-      return Species.fromNetworkModel(speciesFromDB, fromDB: true);
+    final cachedSpecies = await _localDataSource.getSpecies(id: id);
+    if (cachedSpecies != null) {
+      return Species.fromNetworkModel(cachedSpecies, fromDB: true);
     } else {
       final species = await _restClient.getSpecies(id: id);
       await _localDataSource.saveSpecies(species: species!);
@@ -57,9 +57,9 @@ class PokemonRepository {
     required int id
   }) async {
     Timber.i("PokemonRepository.getForm(id = $id)");
-    final formFromDB = await _localDataSource.getForm(id: id);
-    if (formFromDB != null) {
-      return Form.fromNetworkModel(formFromDB, fromDB: true);
+    final cachedForm = await _localDataSource.getForm(id: id);
+    if (cachedForm != null) {
+      return Form.fromNetworkModel(cachedForm, fromDB: true);
     } else {
       final form = await _restClient.getForm(id: id);
       await _localDataSource.saveForm(form: form!);
@@ -71,9 +71,9 @@ class PokemonRepository {
     required int id
   }) async {
     Timber.i("PokemonRepository.getType(id = $id)");
-    final typeFromDB = await _localDataSource.getType(id: id);
-    if (typeFromDB != null) {
-      return Type.fromNetworkModel(typeFromDB, fromDB: true);
+    final cachedType = await _localDataSource.getType(id: id);
+    if (cachedType != null) {
+      return Type.fromNetworkModel(cachedType, fromDB: true);
     } else {
       final type = await _restClient.getType(id: id);
       await _localDataSource.saveType(type: type!);
@@ -81,10 +81,17 @@ class PokemonRepository {
     }
   }
 
-  Future<NetworkEvolutionChain> getEvolutionChain({
+  Future<EvolutionChain> getEvolutionChain({
     required int id
-  }) {
+  }) async {
     Timber.i("PokemonRepository.getEvolutionChain(id = $id)");
-    return _restClient.getEvolutionChain(id: id);
+    final cachedChain = await _localDataSource.getEvolutionChain(id: id);
+    if (cachedChain != null) {
+      return EvolutionChain.fromNetworkModel(cachedChain, fromDB: true);
+    } else {
+      final chain = await _restClient.getEvolutionChain(id: id);
+      await _localDataSource.saveEvolutionChain(chain: chain!);
+      return EvolutionChain.fromNetworkModel(chain);
+    }
   }
 }
