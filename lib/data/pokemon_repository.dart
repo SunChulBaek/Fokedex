@@ -26,10 +26,8 @@ class PokemonRepository {
   }) async {
     Timber.i("PokemonRepository.getPokemonList(limit = $limit, offset = $offset)");
     final list = await _localDataSource.getPokemonList(limit: limit, offset: offset);
-    return list.results.map((e) =>
-      Pokemon.from(
-        pokemon: e,
-        fromDB: true
+    return list.map((e) =>
+      Pokemon.fromEntity(e, fromDB: true
     )).toList();
   }
 

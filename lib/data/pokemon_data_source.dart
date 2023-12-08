@@ -1,5 +1,5 @@
-import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
+import '../database/model/pokemon_item_entity.dart';
 import '../database/model/evolution_chain_entity.dart';
 import '../database/model/form_entity.dart';
 import '../database/model/species_entity.dart';
@@ -7,11 +7,12 @@ import '../database/model/type_entity.dart';
 
 abstract class PokemonDataSource {
 
-  Future<NetworkNamedAPIResourceList> getPokemonList({
+  Future<List<PokemonItemEntity>> getPokemonList({
     int limit = 20,
     int offset = 0
   }) => throw Exception("Not Implemented yet.");
 
+  // TODO
   Future<NetworkPokemon> getPokemon({
     required int id
   }) => throw Exception("Not Implemented yet.");

@@ -2,10 +2,10 @@ import 'package:injectable/injectable.dart';
 
 import 'pokemon_data_source.dart';
 import 'rest_client.dart';
-import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
 import '../database/model/evolution_chain_entity.dart';
 import '../database/model/form_entity.dart';
+import '../database/model/pokemon_item_entity.dart';
 import '../database/model/species_entity.dart';
 import '../database/model/type_entity.dart';
 
@@ -34,8 +34,13 @@ class PokemonRemoteDataSource implements PokemonDataSource {
     => _client.getPokemon(id: id);
 
   @override
-  Future<NetworkNamedAPIResourceList> getPokemonList({int limit = 20, int offset = 0})
-    => _client.getPokemonList(limit: limit, offset: offset);
+  Future<List<PokemonItemEntity>> getPokemonList({int limit = 20, int offset = 0}) async {
+    final list = await _client.getPokemonList(limit: limit, offset: offset);
+    var index = 0;
+    return list.results.map((e) =>
+      PokemonItemEntity.fromNetworkModel(index++, e)
+    ).toList();
+  }
 
   @override
   Future<SpeciesEntity?> getSpecies({required int id}) async {

@@ -1,6 +1,5 @@
-import '../data/model/network_named_api_resource.dart';
-import '../util/converter.dart';
 import 'loadable.dart';
+import '../database/model/pokemon_item_entity.dart';
 
 class Pokemon extends Loadable {
   Pokemon({
@@ -13,15 +12,16 @@ class Pokemon extends Loadable {
   final String name;
   final String imageUrl;
 
-  factory Pokemon.from({
-    required NetworkNamedAPIResource pokemon,
-    bool fromDB = false,
-  }) {
-    int id = getIdFromUrl(pokemon.url);
-    String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png";
+  factory Pokemon.fromEntity(
+    PokemonItemEntity pokemon,
+    {
+      bool fromDB = false,
+    }
+  ) {
+    String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png";
 
     return Pokemon(
-      id: id,
+      id: pokemon.id,
       name: pokemon.name,
       imageUrl: imageUrl,
       fromDB: fromDB

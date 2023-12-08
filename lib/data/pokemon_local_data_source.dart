@@ -7,11 +7,10 @@ import 'package:sqflite/sqflite.dart';
 
 import 'pokemon_data_source.dart';
 import 'type_converter.dart';
-import 'model/network_named_api_resource.dart';
-import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
 import '../database/model/evolution_chain_entity.dart';
 import '../database/model/form_entity.dart';
+import '../database/model/pokemon_item_entity.dart';
 import '../database/model/species_entity.dart';
 import '../database/model/type_entity.dart';
 import '../util/timber.dart';
@@ -24,24 +23,18 @@ class PokemonLocalDataSource implements PokemonDataSource {
   Database? _db;
 
   @override
-  Future<NetworkNamedAPIResourceList> getPokemonList({
+  Future<List<PokemonItemEntity>> getPokemonList({
     int limit = 20,
     int offset = 0
   }) async {
     final db = await getDb();
     final pokemonList = await db.query("pokemon_item");
     Timber.i("LocalDataSource.getPokemonList(${pokemonList.length})");
-    return NetworkNamedAPIResourceList(
-      pokemonList.length,
-      null,
-      null,
-      pokemonList.map((e) {
-        return NetworkNamedAPIResource(
-          name: e["name"].toString(),
-          url: "https://pokeapi.co/api/v2/pokemon/${e["id"].toString()}/"
-        );
-      }).toList()
-    );
+    return pokemonList.map((e) => PokemonItemEntity(
+      id: int.parse(e["id"].toString()),
+      index: int.parse(e["indexx"].toString()),
+      name: e["name"].toString()
+    )).toList();
   }
 
   @override
