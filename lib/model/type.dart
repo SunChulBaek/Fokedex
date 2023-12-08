@@ -1,6 +1,6 @@
-import '../data/model/network_type.dart';
-import '../util/converter.dart';
 import 'loadable.dart';
+import '../database/model/type_entity.dart';
+import '../util/converter.dart';
 
 class Type extends Loadable {
   Type({
@@ -11,14 +11,14 @@ class Type extends Loadable {
 
   final String name;
 
-  factory Type.fromNetworkModel(
-    NetworkType type,
+  factory Type.fromEntity(
+    TypeEntity type,
     {
       bool fromDB = false
     }
   ) => Type(
     id: type.id,
-    name: getNameForLocale(type.names),
+    name: getNameForLocale2(type.names),
     fromDB: fromDB
   );
 

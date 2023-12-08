@@ -74,11 +74,11 @@ class PokemonRepository {
     Timber.i("PokemonRepository.getType(id = $id)");
     final cachedType = await _localDataSource.getType(id: id);
     if (cachedType != null) {
-      return Type.fromNetworkModel(cachedType, fromDB: true);
+      return Type.fromEntity(cachedType, fromDB: true);
     } else {
       final type = await _restClient.getType(id: id);
       await _localDataSource.saveType(type: type!);
-      return Type.fromNetworkModel(type);
+      return Type.fromEntity(type);
     }
   }
 

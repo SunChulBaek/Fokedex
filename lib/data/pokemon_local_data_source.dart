@@ -11,8 +11,8 @@ import 'model/network_named_api_resource.dart';
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
 import 'model/network_pokemon_form.dart';
-import 'model/network_type.dart';
 import '../database/model/species_entity.dart';
+import '../database/model/type_entity.dart';
 import '../model/evolution_chain.dart';
 import '../ui/model/ui_chain_entry.dart';
 import '../util/timber.dart';
@@ -117,7 +117,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
   }
 
   @override
-  Future<NetworkType?> getType({
+  Future<TypeEntity?> getType({
     required int id
   }) async {
     final db = await getDb();
@@ -127,10 +127,9 @@ class PokemonLocalDataSource implements PokemonDataSource {
       whereArgs: [id]
     );
     if (type.isNotEmpty) {
-      return NetworkType(
+      return TypeEntity(
         id: int.parse(type[0]["t_id"].toString()),
-        name: "",
-        names: TypeConverter.stringToNames(type[0]["names"].toString())
+        names: TypeConverter.stringToNames2(type[0]["names"].toString())
       );
     } else {
       return null;
@@ -138,11 +137,11 @@ class PokemonLocalDataSource implements PokemonDataSource {
   }
 
   @override
-  Future<void> saveType({required NetworkType type}) async {
+  Future<void> saveType({required TypeEntity type}) async {
     final db = await getDb();
     await db.insert("type", {
       "t_id": type.id,
-      "names": TypeConverter.namesToString(type.names)
+      "names": TypeConverter.namesToString2(type.names)
     });
   }
 
