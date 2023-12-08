@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/model/type.dart';
 import 'package:intl/intl.dart';
 
 import '../common/pokemon_progress_indicator.dart';
 import '../detail/pokemon_evolution_chain.dart';
 import '../detail/pokemon_varieties.dart';
+import '../../model/type.dart';
 import 'ui_chain_entry.dart';
 
 abstract class UiPokemonDetailItem {
@@ -243,7 +243,7 @@ class UiPokemonDetailVarieties extends UiPokemonDetailItem {
   });
 
   final int pId;
-  final List<int> varietyIds;
+  final List<int>? varietyIds;
 
   @override
   Widget itemContent({
@@ -264,14 +264,16 @@ class UiPokemonDetailVarieties extends UiPokemonDetailItem {
           alignment: Alignment.center,
           child: Text('Varieties', style: TextStyle(fontSize: 16, color: Colors.white))
         ),
-        const SizedBox(height: 10),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: PokemonVarieties(
-            pId: pId,
-            varietyIds: varietyIds,
-            onClick: onClick,
-          ))
+        if (varietyIds != null)
+          const SizedBox(height: 10),
+        if (varietyIds != null)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: PokemonVarieties(
+              pId: pId,
+              varietyIds: varietyIds!,
+              onClick: onClick,
+            ))
       ]
     )
   );

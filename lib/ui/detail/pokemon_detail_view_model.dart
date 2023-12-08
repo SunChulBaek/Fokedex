@@ -26,6 +26,7 @@ class UiPokemonDetailData with _$UiPokemonDetailData {
 
 @injectable
 class PokemonDetailViewModel with ChangeNotifier {
+  static const int _dummyId = 0;
   static const int _indexName = 1;
   static const int _indexStat = 2;
   static const int _indexFlavorText = 3;
@@ -55,7 +56,7 @@ class PokemonDetailViewModel with ChangeNotifier {
       final species = await getSpecies(pokemon, detail, setLocalizedName);
 
       // Evolution Chain
-      await getEvolutionChain(pokemon.id, species.ecId, detail, setEvolutionChain);
+      await getEvolutionChain(pokemon.id, species.ecId ?? _dummyId, detail, setEvolutionChain);
 
       // Form
       final fId = getIdFromUrl(pokemon.forms.first.url);
@@ -214,7 +215,7 @@ class PokemonDetailViewModel with ChangeNotifier {
       flavorText: species.flavorText)
     );
     // Varieties 보여주기
-    if (species.vIds.length > 1) {
+    if ((species.vIds?.length ?? 0) > 1) {
       items.add(UiPokemonDetailVarieties(
         pId: pokemon.id,
         varietyIds: species.vIds

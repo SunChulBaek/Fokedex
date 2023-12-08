@@ -5,8 +5,8 @@ import 'rest_client.dart';
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
 import 'model/network_pokemon_form.dart';
-import 'model/network_pokemon_species.dart';
 import 'model/network_type.dart';
+import '../database/model/species_entity.dart';
 import '../model/evolution_chain.dart';
 
 @Named("remote")
@@ -36,11 +36,13 @@ class PokemonRemoteDataSource implements PokemonDataSource {
     => _client.getPokemonList(limit: limit, offset: offset);
 
   @override
-  Future<NetworkPokemonSpecies?> getSpecies({required int id})
-    => _client.getSpecies(id: id);
+  Future<SpeciesEntity?> getSpecies({required int id}) async {
+    final species = await _client.getSpecies(id: id);
+    return SpeciesEntity.fromNetworkModel(species);
+  }
 
   @override
-  Future<void> saveSpecies({required NetworkPokemonSpecies species}) {
+  Future<void> saveSpecies({required SpeciesEntity species}) {
     throw UnimplementedError();
   }
 

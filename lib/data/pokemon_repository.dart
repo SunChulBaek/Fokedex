@@ -1,6 +1,7 @@
-import 'package:flutter_template/model/evolution_chain.dart';
 import 'package:injectable/injectable.dart';
 
+import '../database/model/species_entity.dart';
+import '../model/evolution_chain.dart';
 import 'pokemon_data_source.dart';
 import 'model/network_pokemon.dart';
 import '../model/form.dart';
@@ -43,13 +44,13 @@ class PokemonRepository {
     required int id
   }) async {
     Timber.i("PokemonRepository.getSpecies(id = $id)");
-    final cachedSpecies = await _localDataSource.getSpecies(id: id);
+    final SpeciesEntity? cachedSpecies = await _localDataSource.getSpecies(id: id);
     if (cachedSpecies != null) {
-      return Species.fromNetworkModel(cachedSpecies, fromDB: true);
+      return Species.fromEntity(cachedSpecies, fromDB: true);
     } else {
       final species = await _restClient.getSpecies(id: id);
       await _localDataSource.saveSpecies(species: species!);
-      return Species.fromNetworkModel(species);
+      return Species.fromEntity(species);
     }
   }
 

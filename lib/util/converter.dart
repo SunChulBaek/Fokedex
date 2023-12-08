@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../data/model/network_flavor_text.dart';
 import '../data/model/network_name.dart';
+import '../database/model/lang_value.dart';
+import '../database/model/lang_value_version.dart';
 import '../ui/model/ui_chain_entry.dart';
 
 num cosDeg(num degree) => cos(_degToRad(degree));
@@ -55,6 +57,24 @@ String getFlavorTextForLocale(List<NetworkFlavorText>? flavorTexts) {
     return "";
   }
 }
+
+String getNameForLocale2(List<LangValue> names) =>
+  names.firstWhere((name) =>
+    name.lang == "ko",
+    orElse: () => names.firstWhere((name) =>
+      name.lang == "en",
+      orElse: () => names.first
+    )
+  ).value;
+
+String getFlavorTextForLocale2(List<LangValueVersion> flavors) =>
+  flavors.firstWhere((flavor) =>
+    flavor.lang == "ko",
+    orElse: () => flavors.firstWhere((flavor) =>
+      flavor.lang == "en",
+      orElse: () => flavors.first
+    )
+  ).value.replaceAll("\n", " ");
 
 Color getColorFromId(int id) {
   switch (id) {

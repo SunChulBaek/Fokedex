@@ -7,16 +7,14 @@ import 'package:sqflite/sqflite.dart';
 
 import 'pokemon_data_source.dart';
 import 'type_converter.dart';
-import 'model/network_api_resource.dart';
 import 'model/network_named_api_resource.dart';
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
 import 'model/network_pokemon_form.dart';
-import 'model/network_pokemon_species.dart';
 import 'model/network_type.dart';
+import '../database/model/species_entity.dart';
 import '../model/evolution_chain.dart';
 import '../ui/model/ui_chain_entry.dart';
-import '../util/converter.dart';
 import '../util/timber.dart';
 
 @Named("local")
@@ -85,7 +83,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
   }
 
   @override
-  Future<NetworkPokemonSpecies?> getSpecies({
+  Future<SpeciesEntity?> getSpecies({
     required int id
   }) async {
     final db = await getDb();
@@ -94,12 +92,12 @@ class PokemonLocalDataSource implements PokemonDataSource {
       whereArgs: [id]
     );
     if (species.isNotEmpty) {
-      return NetworkPokemonSpecies(
+      return SpeciesEntity(
         id: int.parse(species[0]["s_id"].toString()),
-        names: TypeConverter.stringToNames(species[0]["names"].toString()),
-        flavorTextEntries: TypeConverter.stringToFlavors(species[0]["flavor_texts"].toString()),
-        evolutionChain: NetworkAPIResource(url: "https://pokeapi.co/api/v2/evolution-chain/${species[0]["ec_id"].toString()}/"),
-        varieties: TypeConverter.stringToVarieties(species[0]["v_ids"].toString())
+        names: TypeConverter.stringToNames2(species[0]["names"].toString()),
+        flavorTexts: TypeConverter.stringToFlavors2(species[0]["flavor_texts"].toString()),
+        ecId: species[0]["ec_id"] != null ? int.parse(species[0]["ec_id"].toString()) : 0,
+        vIds: TypeConverter.stringToVarieties2(species[0]["v_ids"].toString())
       );
     } else {
       return null;
@@ -107,14 +105,14 @@ class PokemonLocalDataSource implements PokemonDataSource {
   }
 
   @override
-  Future<void> saveSpecies({required NetworkPokemonSpecies species}) async {
+  Future<void> saveSpecies({required SpeciesEntity species}) async {
     final db = await getDb();
     await db.insert("species", {
       "s_id": species.id,
-      "names": TypeConverter.namesToString(species.names),
-      "flavor_texts": TypeConverter.flavorsToString(species.flavorTextEntries),
-      "ec_id": getIdFromUrl(species.evolutionChain.url),
-      "v_ids": TypeConverter.varietiesToString(species.varieties),
+      "names": TypeConverter.namesToString2(species.names),
+      "flavor_texts": TypeConverter.flavorsToString2(species.flavorTexts),
+      "ec_id": species.ecId,
+      "v_ids": TypeConverter.varietiesToString2(species.vIds),
     });
   }
 
