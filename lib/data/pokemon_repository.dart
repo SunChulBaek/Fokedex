@@ -1,9 +1,9 @@
 import 'package:injectable/injectable.dart';
 
-import '../database/model/species_entity.dart';
-import '../model/evolution_chain.dart';
 import 'pokemon_data_source.dart';
 import 'model/network_pokemon.dart';
+import '../database/model/species_entity.dart';
+import '../model/evolution_chain.dart';
 import '../model/form.dart';
 import '../model/pokemon.dart';
 import '../model/species.dart';
@@ -60,11 +60,11 @@ class PokemonRepository {
     Timber.i("PokemonRepository.getForm(id = $id)");
     final cachedForm = await _localDataSource.getForm(id: id);
     if (cachedForm != null) {
-      return Form.fromNetworkModel(cachedForm, fromDB: true);
+      return Form.fromEntity(cachedForm, fromDB: true);
     } else {
       final form = await _restClient.getForm(id: id);
       await _localDataSource.saveForm(form: form!);
-      return Form.fromNetworkModel(form);
+      return Form.fromEntity(form);
     }
   }
 
@@ -92,7 +92,7 @@ class PokemonRepository {
     } else {
       final chain = await _restClient.getEvolutionChain(id: id);
       await _localDataSource.saveEvolutionChain(chain: chain!);
-      return chain!;
+      return chain;
     }
   }
 }

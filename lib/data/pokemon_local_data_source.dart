@@ -10,7 +10,7 @@ import 'type_converter.dart';
 import 'model/network_named_api_resource.dart';
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
-import 'model/network_pokemon_form.dart';
+import '../database/model/form_entity.dart';
 import '../database/model/species_entity.dart';
 import '../database/model/type_entity.dart';
 import '../model/evolution_chain.dart';
@@ -46,7 +46,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
   }
 
   @override
-  Future<NetworkPokemonForm?> getForm({
+  Future<FormEntity?> getForm({
     required int id
   }) async {
     final db = await getDb();
@@ -55,9 +55,9 @@ class PokemonLocalDataSource implements PokemonDataSource {
       whereArgs: [id]
     );
     if (form.isNotEmpty) {
-      return NetworkPokemonForm(
+      return FormEntity(
         id: int.parse(form[0]["f_id"].toString()),
-        formNames: TypeConverter.stringToNames(form[0]["names"].toString())
+        names: TypeConverter.stringToNames2(form[0]["names"].toString())
       );
     } else {
       return null;
@@ -65,12 +65,12 @@ class PokemonLocalDataSource implements PokemonDataSource {
   }
 
   @override
-  Future<void> saveForm({required NetworkPokemonForm form}) async {
+  Future<void> saveForm({required FormEntity form}) async {
     Timber.i("Local.saveForm()");
     final db = await getDb();
     await db.insert("form", {
       "f_id": form.id,
-      "names": TypeConverter.namesToString(form.formNames)
+      "names": TypeConverter.namesToString2(form.names)
     });
   }
 

@@ -1,4 +1,4 @@
-import '../data/model/network_pokemon_form.dart';
+import '../database/model/form_entity.dart';
 import '../util/converter.dart';
 import 'loadable.dart';
 
@@ -11,14 +11,14 @@ class Form extends Loadable {
 
   final String name;
 
-  factory Form.fromNetworkModel(
-    NetworkPokemonForm form,
+  factory Form.fromEntity(
+    FormEntity form,
     {
       bool fromDB = false
     }
   ) => Form(
     id: form.id,
-    name: getNameForLocale(form.formNames),
+    name: getNameForLocale2(form.names),
     fromDB: fromDB
   );
 }

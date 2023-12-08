@@ -107,13 +107,13 @@ class TypeConverter {
 
   static String namesToString2(List<LangValue> names) {
     try {
-      Timber.i("TypeConverter.namesToString()");
+      Timber.i("TypeConverter.namesToString2()");
       return names.fold("", (acc, name) =>
         "$acc$_delimiter${name.lang}$_subDelimiter${name.value}"
       );
     } on Error catch (e) {
       Timber.e(e.stackTrace);
-      throw Exception("TypeConverter.namesToString()");
+      throw Exception("TypeConverter.namesToString2()");
     }
   }
 

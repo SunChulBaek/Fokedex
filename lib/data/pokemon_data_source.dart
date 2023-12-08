@@ -1,6 +1,6 @@
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
-import 'model/network_pokemon_form.dart';
+import '../database/model/form_entity.dart';
 import '../database/model/species_entity.dart';
 import '../database/model/type_entity.dart';
 import '../model/evolution_chain.dart';
@@ -24,12 +24,12 @@ abstract class PokemonDataSource {
     required SpeciesEntity species
   }) => throw Exception("Not Implemented yet.");
 
-  Future<NetworkPokemonForm?> getForm({
+  Future<FormEntity?> getForm({
     required int id
   }) => throw Exception("Not Implemented yet.");
 
   Future<void> saveForm({
-    required NetworkPokemonForm form
+    required FormEntity form
   }) => throw Exception("Not Implemented yet.");
 
   Future<TypeEntity?> getType({

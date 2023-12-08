@@ -1,12 +1,12 @@
 import 'package:injectable/injectable.dart';
 
-import '../database/model/type_entity.dart';
 import 'pokemon_data_source.dart';
 import 'rest_client.dart';
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
-import 'model/network_pokemon_form.dart';
+import '../database/model/form_entity.dart';
 import '../database/model/species_entity.dart';
+import '../database/model/type_entity.dart';
 import '../model/evolution_chain.dart';
 
 @Named("remote")
@@ -19,11 +19,13 @@ class PokemonRemoteDataSource implements PokemonDataSource {
   final RestClient _client;
 
   @override
-  Future<NetworkPokemonForm?> getForm({required int id})
-    => _client.getForm(id: id);
+  Future<FormEntity?> getForm({required int id}) async {
+    final form = await _client.getForm(id: id);
+    return FormEntity.fromNetworkModel(form);
+  }
 
   @override
-  Future<void> saveForm({required NetworkPokemonForm form}) {
+  Future<void> saveForm({required FormEntity form}) {
     throw UnimplementedError();
   }
 
