@@ -4,10 +4,10 @@ import 'pokemon_data_source.dart';
 import 'rest_client.dart';
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
+import '../database/model/evolution_chain_entity.dart';
 import '../database/model/form_entity.dart';
 import '../database/model/species_entity.dart';
 import '../database/model/type_entity.dart';
-import '../model/evolution_chain.dart';
 
 @Named("remote")
 @Injectable(as: PokemonDataSource)
@@ -60,13 +60,13 @@ class PokemonRemoteDataSource implements PokemonDataSource {
   }
 
   @override
-  Future<EvolutionChain> getEvolutionChain({required int id}) async {
+  Future<List<EvolutionChainEntity>> getEvolutionChain({required int id}) async {
     final chain = await _client.getEvolutionChain(id: id);
-    return EvolutionChain.fromNetworkModel(chain);
+    return EvolutionChainEntity.fromNetworkModel(chain);
   }
 
   @override
-  Future<void> saveEvolutionChain({required EvolutionChain chain}) {
+  Future<void> saveEvolutionChain({required EvolutionChainEntity chain}) {
     throw UnimplementedError();
   }
 }

@@ -1,9 +1,9 @@
 import 'model/network_named_api_resource_list.dart';
 import 'model/network_pokemon.dart';
+import '../database/model/evolution_chain_entity.dart';
 import '../database/model/form_entity.dart';
 import '../database/model/species_entity.dart';
 import '../database/model/type_entity.dart';
-import '../model/evolution_chain.dart';
 
 abstract class PokemonDataSource {
 
@@ -40,11 +40,11 @@ abstract class PokemonDataSource {
     required TypeEntity type
   }) => throw Exception("Not Implemented yet.");
 
-  Future<EvolutionChain?> getEvolutionChain({
+  Future<List<EvolutionChainEntity>> getEvolutionChain({
     required int id
   }) => throw Exception("Not Implemented yet.");
 
   Future<void> saveEvolutionChain({
-    required EvolutionChain chain
+    required EvolutionChainEntity chain
   }) => throw Exception("Not Implemented yet.");
 }

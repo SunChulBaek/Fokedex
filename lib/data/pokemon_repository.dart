@@ -86,13 +86,15 @@ class PokemonRepository {
     required int id
   }) async {
     Timber.i("PokemonRepository.getEvolutionChain(id = $id)");
-    final cachedChain = await _localDataSource.getEvolutionChain(id: id);
-    if (cachedChain != null) {
-      return cachedChain;
+    final cachedChains = await _localDataSource.getEvolutionChain(id: id);
+    if (cachedChains.isNotEmpty) {
+      return EvolutionChain.fromEntity(id, cachedChains);
     } else {
-      final chain = await _restClient.getEvolutionChain(id: id);
-      await _localDataSource.saveEvolutionChain(chain: chain!);
-      return chain;
+      final chains = await _restClient.getEvolutionChain(id: id);
+      for (var chain in chains) {
+        await _localDataSource.saveEvolutionChain(chain: chain);
+      }
+      return EvolutionChain.fromEntity(id, chains);
     }
   }
 }
