@@ -50,7 +50,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
     if (form.isNotEmpty) {
       return FormEntity(
         id: int.parse(form[0]["f_id"].toString()),
-        names: TypeConverter.stringToNames2(form[0]["names"].toString())
+        names: TypeConverter.stringToNames(form[0]["names"].toString())
       );
     } else {
       return null;
@@ -63,7 +63,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
     final db = await getDb();
     await db.insert("form", {
       "f_id": form.id,
-      "names": TypeConverter.namesToString2(form.names)
+      "names": TypeConverter.namesToString(form.names)
     });
   }
 
@@ -71,13 +71,46 @@ class PokemonLocalDataSource implements PokemonDataSource {
   Future<PokemonEntity?> getPokemon({
     required int id
   }) async {
-    // TODO: implement getPokemon
-    return null;
+    Timber.i("LocalDataSource.getPokemon($id)");
+    final db = await getDb();
+    final pokemon = await db.query("pokemon",
+      where: "p_id = ?",
+      whereArgs: [id]
+    );
+    if (pokemon.isNotEmpty) {
+      return PokemonEntity(
+        id: int.parse(pokemon[0]["p_id"].toString()),
+        sId: int.parse(pokemon[0]["s_id"].toString()),
+        fId: pokemon[0]["f_id"] != null ? int.parse(pokemon[0]["f_id"].toString()) : 0,
+        name: pokemon[0]["name"].toString(),
+        baseExp: int.parse(pokemon[0]["base_experience"].toString()),
+        height: int.parse(pokemon[0]["height"].toString()),
+        isDefault: int.parse(pokemon[0]["is_default"].toString()) == 1 ? true : false,
+        order: int.parse(pokemon[0]["order"].toString()),
+        weight: int.parse(pokemon[0]["weight"].toString()),
+        typeIds: TypeConverter.stringToIds(pokemon[0]["typeIds"].toString())
+      );
+    } else {
+      return null;
+    }
   }
 
   @override
   Future<void> savePokemon({required PokemonEntity pokemon}) async {
-    // TODO: implement savePokemon
+    Timber.i("LocalDataSource.savePokemon(${pokemon.id})");
+    final db = await getDb();
+    await db.insert("pokemon", {
+      "p_id": pokemon.id,
+      "s_id": pokemon.sId,
+      "f_id": pokemon.fId,
+      "name": pokemon.name,
+      "base_experience": pokemon.baseExp,
+      "height": pokemon.height,
+      "is_default": pokemon.isDefault ? 1 : 0,
+      "order": pokemon.order,
+      "weight": pokemon.weight,
+      "typeIds": TypeConverter.idsToString(pokemon.typeIds)
+    });
     return;
   }
 
@@ -94,10 +127,10 @@ class PokemonLocalDataSource implements PokemonDataSource {
     if (species.isNotEmpty) {
       return SpeciesEntity(
         id: int.parse(species[0]["s_id"].toString()),
-        names: TypeConverter.stringToNames2(species[0]["names"].toString()),
-        flavorTexts: TypeConverter.stringToFlavors2(species[0]["flavor_texts"].toString()),
+        names: TypeConverter.stringToNames(species[0]["names"].toString()),
+        flavorTexts: TypeConverter.stringToFlavors(species[0]["flavor_texts"].toString()),
         ecId: species[0]["ec_id"] != null ? int.parse(species[0]["ec_id"].toString()) : 0,
-        vIds: TypeConverter.stringToVarieties2(species[0]["v_ids"].toString())
+        vIds: TypeConverter.stringToIds(species[0]["v_ids"].toString())
       );
     } else {
       return null;
@@ -110,10 +143,10 @@ class PokemonLocalDataSource implements PokemonDataSource {
     final db = await getDb();
     await db.insert("species", {
       "s_id": species.id,
-      "names": TypeConverter.namesToString2(species.names),
-      "flavor_texts": TypeConverter.flavorsToString2(species.flavorTexts),
+      "names": TypeConverter.namesToString(species.names),
+      "flavor_texts": TypeConverter.flavorsToString(species.flavorTexts),
       "ec_id": species.ecId,
-      "v_ids": TypeConverter.varietiesToString2(species.vIds),
+      "v_ids": TypeConverter.idsToString(species.vIds),
     });
   }
 
@@ -131,7 +164,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
     if (type.isNotEmpty) {
       return TypeEntity(
         id: int.parse(type[0]["t_id"].toString()),
-        names: TypeConverter.stringToNames2(type[0]["names"].toString())
+        names: TypeConverter.stringToNames(type[0]["names"].toString())
       );
     } else {
       return null;
@@ -144,7 +177,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
     final db = await getDb();
     await db.insert("type", {
       "t_id": type.id,
-      "names": TypeConverter.namesToString2(type.names)
+      "names": TypeConverter.namesToString(type.names)
     });
   }
 
