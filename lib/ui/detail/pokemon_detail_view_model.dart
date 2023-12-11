@@ -5,8 +5,6 @@ import 'package:injectable/injectable.dart';
 import '../model/ui_chain_entry.dart';
 import '../model/ui_pokemon_detail_item.dart';
 import '../model/ui_state.dart';
-import '../../data/model/network_pokemon.dart';
-import '../../data/model/network_pokemon_type.dart';
 import '../../data/pokemon_repository.dart';
 import '../../model/pokemon_detail.dart';
 import '../../model/species.dart';
@@ -50,20 +48,22 @@ class PokemonDetailViewModel with ChangeNotifier {
       prepare(pId: id, name: name, onUpdate: simpleUpdate);
 
       // 상세
-      final pokemon = await getDetail(id, detail, simpleUpdate);
+      await getDetail(id, detail, simpleUpdate);
 
       // Species
-      final species = await getSpecies(pokemon, detail, setLocalizedName);
+      final species = await getSpecies(detail, setLocalizedName);
 
       // Evolution Chain
-      await getEvolutionChain(pokemon.id, species.ecId ?? _dummyId, detail, setEvolutionChain);
-
-      // Form
-      final fId = getIdFromUrl(pokemon.forms.first.url);
-      await getForm(pokemon.id, fId, detail, setLocalizedForm);
+      await getEvolutionChain(species.ecId ?? _dummyId, detail, setEvolutionChain);
 
       // Type
-      await getType(pokemon.types, detail, setLocalizedType);
+      await getType(detail, setLocalizedType);
+
+      // Form
+      final fId = detail.formId;
+      if (fId != null) {
+        await getForm(fId, detail, setLocalizedForm);
+      }
     } catch (e) {
       Timber.e(e);
       if (!_isDisposed) {
@@ -74,73 +74,73 @@ class PokemonDetailViewModel with ChangeNotifier {
   }
 
   void simpleUpdate(
-      PokemonDetail pokemon,
-      List<UiPokemonDetailItem> items
-      ) {
+    PokemonDetail pokemon,
+    List<UiPokemonDetailItem> items
+  ) {
     detail = pokemon;
     this.items.addAll(items);
     if (!_isDisposed) {
       _uiState = Success(data: UiPokemonDetailData(
-          pokemon: detail,
-          items: this.items
+        pokemon: detail,
+        items: this.items
       ));
       notifyListeners();
     }
   }
 
   void setLocalizedName(
-      String localizedName,
-      PokemonDetail pokemon,
-      List<UiPokemonDetailItem> items
-      ) {
+    String localizedName,
+    PokemonDetail pokemon,
+    List<UiPokemonDetailItem> items
+  ) {
     // 디폴트 이름에서 번역된 이름으로 교체
     final prevItem = this.items.removeAt(_indexName) as UiPokemonDetailName;
     this.items.insert(_indexName, UiPokemonDetailName(
-        id: prevItem.id,
-        defaultName: pokemon.name!,
-        name: localizedName
+      id: prevItem.id,
+      defaultName: pokemon.name!,
+      name: localizedName
     ));
     simpleUpdate(pokemon, items);
   }
 
   void setLocalizedForm(
-      PokemonDetail pokemon,
-      String form
-      ) {
+    PokemonDetail pokemon,
+    String form
+  ) {
     final prevItem = items.removeAt(_indexName);
     items.insert(_indexName, UiPokemonDetailName(
-        id: pokemon.id!,
-        defaultName: pokemon.name!,
-        name: (prevItem as UiPokemonDetailName).name,
-        form: form
+      id: pokemon.id!,
+      defaultName: pokemon.name!,
+      name: (prevItem as UiPokemonDetailName).name,
+      form: form
     ));
     simpleUpdate(pokemon, List.empty());
   }
 
   void setLocalizedType(
-      PokemonDetail pokemon,
-      int typeId,
-      String typeName
-      ) {
+    PokemonDetail pokemon,
+    int typeId,
+    String typeName
+  ) {
     final prevItem = items.removeAt(_indexStat);
     items.insert(_indexStat, UiPokemonDetailStat(
-        weight: (prevItem as UiPokemonDetailStat).weight,
-        height: (prevItem).height,
-        types: (prevItem).types
-          ..remove(prevItem.types.firstWhere((e) => e.id == typeId))
-          ..add(Type(id: typeId, name: typeName))
+      weight: (prevItem as UiPokemonDetailStat).weight,
+      height: (prevItem).height,
+      types: List.from((prevItem).types)
+        ..remove(prevItem.types.firstWhere((e) => e.id == typeId))
+        ..add(Type(id: typeId, name: typeName))
     ));
     simpleUpdate(pokemon, List.empty());
   }
 
   void setEvolutionChain(
-      PokemonDetail pokemon,
-      List<List<UiChainEntry>> chains
-      ) {
+    PokemonDetail pokemon,
+    List<List<UiChainEntry>> chains
+  ) {
     if (maxEvolutionChainLength(chains) > 1) {
       items.insert(_indexEvolutionChain, UiPokemonDetailEvolutionChains(
-          pId: pokemon.id!,
-          chains: chains
+        pId: pokemon.id!,
+        chains: chains
       ));
     }
     simpleUpdate(pokemon, List.empty());
@@ -151,9 +151,9 @@ class PokemonDetailViewModel with ChangeNotifier {
     required int pId,
     required String name,
     required void Function(
-        PokemonDetail pokemon,
-        List<UiPokemonDetailItem> items
-        ) onUpdate
+      PokemonDetail pokemon,
+      List<UiPokemonDetailItem> items
+    ) onUpdate
   }) async {
     final pokemon = PokemonDetail(id: pId, name: name);
     final List<UiPokemonDetailItem> items = List.of([]);
@@ -163,61 +163,58 @@ class PokemonDetailViewModel with ChangeNotifier {
   }
 
   // 상세
-  Future<NetworkPokemon> getDetail(
-      int pId,
-      PokemonDetail detail,
-      void Function(
-          PokemonDetail pokemon,
-          List<UiPokemonDetailItem> items
-          ) onUpdate
-      ) async {
-    final List<Type> types = List<Type>.of([]);
+  Future<void> getDetail(
+    int pId,
+    PokemonDetail detail,
+    void Function(
+      PokemonDetail pokemon,
+      List<UiPokemonDetailItem> items
+    ) onUpdate
+  ) async {
+    Timber.i("PokemonDetailViewModel.getDetail($pId)");
     final List<UiPokemonDetailItem> items = List.of([]);
 
     final pokemon = await _repository.getPokemon(id: pId);
-    for (var e in pokemon.types) {
-      types.add(Type(id: getIdFromUrl(e.type.url), name: ""));
-    }
     final newDetail = detail.copyWith(
-        weight: pokemon.weight,
-        height: pokemon.height,
-        types: types
+      speciesId: pokemon.speciesId,
+      weight: pokemon.weight,
+      height: pokemon.height,
+      formId: pokemon.formId,
+      types: pokemon.totalTypeIds?.map((e) => Type(id: e, name: "")).toList(),
+      totalTypeIds: pokemon.totalTypeIds,
     );
     items.add(UiPokemonDetailStat(
-        weight: pokemon.weight,
-        height: pokemon.height,
-        types: pokemon.types.map((e) =>
-            Type(id: getIdFromUrl(e.type.url), name: e.type.name)
-        ).toList()
+      weight: pokemon.weight ?? 0,
+      height: pokemon.height ?? 0,
+      types: newDetail.types ?? List.empty(),
     ));
     onUpdate(newDetail, items);
-    return pokemon;
+    return;
   }
 
   // species
   Future<Species> getSpecies(
-      NetworkPokemon pokemon,
-      PokemonDetail detail,
-      void Function(
-          String localizedName,
-          PokemonDetail pokemon,
-          List<UiPokemonDetailItem> items
-          ) onUpdate
-      ) async {
+    PokemonDetail detail,
+    void Function(
+      String localizedName,
+      PokemonDetail pokemon,
+      List<UiPokemonDetailItem> items
+    ) onUpdate
+  ) async {
+    Timber.i("PokemonDetailViewModel.getSpecies(${detail.speciesId})");
     final List<UiPokemonDetailItem> items = List.of([]);
-    final species = await _repository.getSpecies(id: getIdFromUrl(pokemon.species.url));
+    final species = await _repository.getSpecies(id: detail.speciesId!);
     final newDetail = detail.copyWith(
-      speciesId: getIdFromUrl(pokemon.species.url),
+      speciesId: detail.speciesId,
       species: species
     );
-
     items.add(UiPokemonDetailFlavorText(
       flavorText: species.flavorText)
     );
     // Varieties 보여주기
     if ((species.vIds?.length ?? 0) > 1) {
       items.add(UiPokemonDetailVarieties(
-        pId: pokemon.id,
+        pId: detail.id!,
         varietyIds: species.vIds
       ));
     }
@@ -227,14 +224,14 @@ class PokemonDetailViewModel with ChangeNotifier {
 
   // Evolution Chain
   Future<void> getEvolutionChain(
-      int pId,
-      int ecId,
-      PokemonDetail detail,
-      void Function(
-          PokemonDetail pokemon,
-          List<List<UiChainEntry>> chains
-          ) onUpdate
-      ) async {
+    int ecId,
+    PokemonDetail detail,
+    void Function(
+      PokemonDetail pokemon,
+      List<List<UiChainEntry>> chains
+    ) onUpdate
+  ) async {
+    Timber.i("PokemonDetailViewModel.getEvolutionChain($ecId)");
     if (ecId > 0) {
       await _repository.getEvolutionChain(id: ecId).then((evolutionChain) {
         final newDetail = detail.copyWith(
@@ -248,14 +245,14 @@ class PokemonDetailViewModel with ChangeNotifier {
 
   // Form
   Future<void> getForm(
-      int pId,
-      int fId,
-      PokemonDetail detail,
-      void Function(
-          PokemonDetail pokemon,
-          String form
-          ) onUpdate
-      ) async {
+    int fId,
+    PokemonDetail detail,
+    void Function(
+      PokemonDetail pokemon,
+      String form
+    ) onUpdate
+  ) async {
+    Timber.i("PokemonDetailViewModel.getForm($fId)");
     await _repository.getForm(id: fId).then((form) {
       final newDetail = detail.copyWith(
         formId: fId,
@@ -267,19 +264,17 @@ class PokemonDetailViewModel with ChangeNotifier {
 
   // Type
   Future<void> getType(
-      List<NetworkPokemonType> types,
-      PokemonDetail detail,
-      void Function(
-          PokemonDetail pokemon,
-          int typeId,
-          String typeName
-          ) onUpdate
-      ) async {
-    final newTypes = List<Type>.from(detail.types!);
-    for (var type in types) {
-      _repository.getType(
-          id: getIdFromUrl(type.type.url)
-      ).then((type) {
+    PokemonDetail detail,
+    void Function(
+      PokemonDetail pokemon,
+      int typeId,
+      String typeName
+    ) onUpdate
+  ) async {
+    Timber.i("PokemonDetailViewModel.getType(${detail.types})");
+    final newTypes = List<Type>.from(detail.types ?? List.empty());
+    for (var type in detail.totalTypeIds ?? List.empty()) {
+      _repository.getType(id: type).then((type) {
         newTypes
           ..remove(detail.types?.firstWhere((e) => e.id == type.id))
           ..add(type);

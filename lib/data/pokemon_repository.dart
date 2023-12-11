@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 
+import '../model/pokemon_detail.dart';
 import 'pokemon_data_source.dart';
-import 'model/network_pokemon.dart';
 import '../database/model/species_entity.dart';
 import '../model/evolution_chain.dart';
 import '../model/form.dart';
@@ -31,17 +31,24 @@ class PokemonRepository {
     )).toList();
   }
 
-  Future<NetworkPokemon> getPokemon({
+  Future<PokemonDetail> getPokemon({
     required int id
-  }) {
-    Timber.i("PokemonRepository.getPokemon(id = $id)");
-    return _restClient.getPokemon(id: id);
+  }) async {
+    Timber.i("PokemonRepository.getPokemon($id)");
+    final cachedPokemon = await _localDataSource.getPokemon(id: id);
+    if (cachedPokemon != null) {
+      return PokemonDetail.fromEntity(cachedPokemon);
+    } else {
+      final pokemon = await _restClient.getPokemon(id: id);
+      await _localDataSource.savePokemon(pokemon: pokemon!);
+      return PokemonDetail.fromEntity(pokemon);
+    }
   }
 
   Future<Species> getSpecies({
     required int id
   }) async {
-    Timber.i("PokemonRepository.getSpecies(id = $id)");
+    Timber.i("PokemonRepository.getSpecies($id)");
     final SpeciesEntity? cachedSpecies = await _localDataSource.getSpecies(id: id);
     if (cachedSpecies != null) {
       return Species.fromEntity(cachedSpecies, fromDB: true);
@@ -55,7 +62,7 @@ class PokemonRepository {
   Future<Form> getForm({
     required int id
   }) async {
-    Timber.i("PokemonRepository.getForm(id = $id)");
+    Timber.i("PokemonRepository.getForm($id)");
     final cachedForm = await _localDataSource.getForm(id: id);
     if (cachedForm != null) {
       return Form.fromEntity(cachedForm, fromDB: true);
@@ -69,7 +76,7 @@ class PokemonRepository {
   Future<Type> getType({
     required int id
   }) async {
-    Timber.i("PokemonRepository.getType(id = $id)");
+    Timber.i("PokemonRepository.getType($id)");
     final cachedType = await _localDataSource.getType(id: id);
     if (cachedType != null) {
       return Type.fromEntity(cachedType, fromDB: true);
@@ -83,7 +90,7 @@ class PokemonRepository {
   Future<EvolutionChain> getEvolutionChain({
     required int id
   }) async {
-    Timber.i("PokemonRepository.getEvolutionChain(id = $id)");
+    Timber.i("PokemonRepository.getEvolutionChain($id)");
     final cachedChains = await _localDataSource.getEvolutionChain(id: id);
     if (cachedChains.isNotEmpty) {
       return EvolutionChain.fromEntity(id, cachedChains);

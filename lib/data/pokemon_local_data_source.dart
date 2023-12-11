@@ -7,9 +7,9 @@ import 'package:sqflite/sqflite.dart';
 
 import 'pokemon_data_source.dart';
 import 'type_converter.dart';
-import 'model/network_pokemon.dart';
 import '../database/model/evolution_chain_entity.dart';
 import '../database/model/form_entity.dart';
+import '../database/model/pokemon_entity.dart';
 import '../database/model/pokemon_item_entity.dart';
 import '../database/model/species_entity.dart';
 import '../database/model/type_entity.dart';
@@ -41,6 +41,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
   Future<FormEntity?> getForm({
     required int id
   }) async {
+    Timber.i("LocalDataSource.getForm($id)");
     final db = await getDb();
     final form = await db.query("form",
       where: "f_id = ?",
@@ -58,7 +59,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
 
   @override
   Future<void> saveForm({required FormEntity form}) async {
-    Timber.i("Local.saveForm()");
+    Timber.i("LocalDataSource.getSpecies(${form.id})");
     final db = await getDb();
     await db.insert("form", {
       "f_id": form.id,
@@ -67,17 +68,24 @@ class PokemonLocalDataSource implements PokemonDataSource {
   }
 
   @override
-  Future<NetworkPokemon> getPokemon({
+  Future<PokemonEntity?> getPokemon({
     required int id
-  }) {
+  }) async {
     // TODO: implement getPokemon
-    throw UnimplementedError();
+    return null;
+  }
+
+  @override
+  Future<void> savePokemon({required PokemonEntity pokemon}) async {
+    // TODO: implement savePokemon
+    return;
   }
 
   @override
   Future<SpeciesEntity?> getSpecies({
     required int id
   }) async {
+    Timber.i("LocalDataSource.getSpecies($id)");
     final db = await getDb();
     final species = await db.query("species",
       where: "s_id = ?",
@@ -98,6 +106,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
 
   @override
   Future<void> saveSpecies({required SpeciesEntity species}) async {
+    Timber.i("LocalDataSource.saveSpecies(${species.id})");
     final db = await getDb();
     await db.insert("species", {
       "s_id": species.id,
@@ -112,6 +121,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
   Future<TypeEntity?> getType({
     required int id
   }) async {
+    Timber.i("LocalDataSource.getType($id)");
     final db = await getDb();
     final type = await db.query(
       "type",
@@ -130,6 +140,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
 
   @override
   Future<void> saveType({required TypeEntity type}) async {
+    Timber.i("LocalDataSource.saveType(${type.id})");
     final db = await getDb();
     await db.insert("type", {
       "t_id": type.id,
@@ -160,7 +171,7 @@ class PokemonLocalDataSource implements PokemonDataSource {
 
   @override
   Future<void> saveEvolutionChain({required EvolutionChainEntity chain}) async {
-    Timber.i("PokemonLocalDataSource.saveEvolutionChain(p_id=${chain.pId}, prev_id=${chain.prevId})");
+    Timber.i("PokemonLocalDataSource.saveEvolutionChain(p_id = ${chain.pId}, prev_id = ${chain.prevId})");
     final db = await getDb();
     await db.insert("evolution_chain", {
       "c_id": chain.cId,

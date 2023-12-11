@@ -1,4 +1,4 @@
-import 'model/network_pokemon.dart';
+import '../database/model/pokemon_entity.dart';
 import '../database/model/pokemon_item_entity.dart';
 import '../database/model/evolution_chain_entity.dart';
 import '../database/model/form_entity.dart';
@@ -12,9 +12,12 @@ abstract class PokemonDataSource {
     int offset = 0
   }) => throw Exception("Not Implemented yet.");
 
-  // TODO
-  Future<NetworkPokemon> getPokemon({
+  Future<PokemonEntity?> getPokemon({
     required int id
+  }) => throw Exception("Not Implemented yet.");
+
+  Future<void> savePokemon({
+    required PokemonEntity pokemon
   }) => throw Exception("Not Implemented yet.");
 
   Future<SpeciesEntity?> getSpecies({
