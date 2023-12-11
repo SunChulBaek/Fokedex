@@ -1,11 +1,11 @@
 import 'package:injectable/injectable.dart';
 
-import '../model/pokemon_detail.dart';
 import 'pokemon_data_source.dart';
 import '../database/model/species_entity.dart';
 import '../model/evolution_chain.dart';
 import '../model/form.dart';
 import '../model/pokemon.dart';
+import '../model/pokemon_detail.dart';
 import '../model/species.dart';
 import '../model/type.dart';
 import '../util/timber.dart';
@@ -93,7 +93,7 @@ class PokemonRepository {
     Timber.i("PokemonRepository.getEvolutionChain($id)");
     final cachedChains = await _localDataSource.getEvolutionChain(id: id);
     if (cachedChains.isNotEmpty) {
-      return EvolutionChain.fromEntity(id, cachedChains);
+      return EvolutionChain.fromEntity(id, cachedChains, fromDB: true);
     } else {
       final chains = await _restClient.getEvolutionChain(id: id);
       for (var chain in chains) {

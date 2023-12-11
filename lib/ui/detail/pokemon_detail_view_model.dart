@@ -53,17 +53,17 @@ class PokemonDetailViewModel with ChangeNotifier {
       // Species
       final species = await getSpecies(detail, setLocalizedName);
 
-      // Evolution Chain
-      await getEvolutionChain(species.ecId ?? _dummyId, detail, setEvolutionChain);
-
-      // Type
-      await getType(detail, setLocalizedType);
-
       // Form
       final fId = detail.formId;
       if (fId != null) {
         await getForm(fId, detail, setLocalizedForm);
       }
+
+      // Type
+      await getType(detail, setLocalizedType);
+
+      // Evolution Chain
+      await getEvolutionChain(species.ecId ?? _dummyId, detail, setEvolutionChain);
     } catch (e) {
       Timber.e(e);
       if (!_isDisposed) {
@@ -232,15 +232,13 @@ class PokemonDetailViewModel with ChangeNotifier {
     ) onUpdate
   ) async {
     Timber.i("PokemonDetailViewModel.getEvolutionChain($ecId)");
-    if (ecId > 0) {
-      await _repository.getEvolutionChain(id: ecId).then((evolutionChain) {
-        final newDetail = detail.copyWith(
-          evolutionChainId: ecId,
-          evolutionChain: evolutionChain
-        );
-        onUpdate(newDetail, evolutionChain.chains);
-      });
-    }
+    final evolutionChain = await _repository.getEvolutionChain(id: ecId);
+    final newDetail = detail.copyWith(
+      evolutionChainId: ecId,
+      evolutionChain: evolutionChain
+    );
+    onUpdate(newDetail, evolutionChain.chains);
+    return;
   }
 
   // Form
@@ -253,13 +251,13 @@ class PokemonDetailViewModel with ChangeNotifier {
     ) onUpdate
   ) async {
     Timber.i("PokemonDetailViewModel.getForm($fId)");
-    await _repository.getForm(id: fId).then((form) {
-      final newDetail = detail.copyWith(
-        formId: fId,
-        form: form
-      );
-      onUpdate(newDetail, form.name);
-    });
+    final form = await _repository.getForm(id: fId);
+    final newDetail = detail.copyWith(
+      formId: fId,
+      form: form
+    );
+    onUpdate(newDetail, form.name);
+    return;
   }
 
   // Type
@@ -273,18 +271,18 @@ class PokemonDetailViewModel with ChangeNotifier {
   ) async {
     Timber.i("PokemonDetailViewModel.getType(${detail.types})");
     final newTypes = List<Type>.from(detail.types ?? List.empty());
-    for (var type in detail.totalTypeIds ?? List.empty()) {
-      _repository.getType(id: type).then((type) {
-        newTypes
-          ..remove(detail.types?.firstWhere((e) => e.id == type.id))
-          ..add(type);
-        final newDetail = detail.copyWith(
-          totalTypeIds: detail.types?.map((e) => e.id).toList(),
-          types: newTypes
-        );
-        onUpdate(newDetail, type.id, type.name);
-      });
+    for (var tId in detail.totalTypeIds ?? List.empty()) {
+      final type = await _repository.getType(id: tId);
+      newTypes
+        ..remove(detail.types?.firstWhere((e) => e.id == type.id))
+        ..add(type);
+      final newDetail = detail.copyWith(
+        totalTypeIds: detail.types?.map((e) => e.id).toList(),
+        types: newTypes
+      );
+      onUpdate(newDetail, type.id, type.name);
     }
+    return;
   }
 
   bool _isDisposed = false;
