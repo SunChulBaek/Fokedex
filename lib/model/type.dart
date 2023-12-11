@@ -1,6 +1,4 @@
 import 'loadable.dart';
-import '../database/model/type_entity.dart';
-import '../util/converter.dart';
 
 class Type extends Loadable {
   Type({
@@ -10,17 +8,6 @@ class Type extends Loadable {
   }) : super(id, fromDB);
 
   final String name;
-
-  factory Type.fromEntity(
-    TypeEntity type,
-    {
-      bool fromDB = false
-    }
-  ) => Type(
-    id: type.id,
-    name: getNameForLocale2(type.names),
-    fromDB: fromDB
-  );
 
   // normal(Color(0xFF9E9E9E)),
   // fighting(Color(0xFF9E9E9E)),

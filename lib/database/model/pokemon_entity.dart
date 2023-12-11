@@ -1,4 +1,5 @@
 import '../../data/model/network_pokemon.dart';
+import '../../model/pokemon_detail.dart';
 import '../../util/converter.dart';
 
 class PokemonEntity {
@@ -40,5 +41,17 @@ class PokemonEntity {
     typeIds: pokemon.types.map((e) =>
       getIdFromUrl(e.type.url)
     ).toList()
+  );
+
+  PokemonDetail asExternalModel({
+    bool fromDB = false
+  }) => PokemonDetail(
+    id: id,
+    name: name,
+    weight: weight,
+    height: height,
+    formId: fId,
+    speciesId: sId,
+    totalTypeIds: typeIds,
   );
 }

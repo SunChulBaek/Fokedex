@@ -26,9 +26,7 @@ class PokemonRepository {
   }) async {
     Timber.i("PokemonRepository.getPokemonList(limit = $limit, offset = $offset)");
     final list = await _localDataSource.getPokemonList(limit: limit, offset: offset);
-    return list.map((e) =>
-      Pokemon.fromEntity(e, fromDB: true
-    )).toList();
+    return list.map((item) => item.asExternalModel(fromDB: true)).toList();
   }
 
   Future<PokemonDetail> getPokemon({
@@ -37,11 +35,11 @@ class PokemonRepository {
     Timber.i("PokemonRepository.getPokemon($id)");
     final cachedPokemon = await _localDataSource.getPokemon(id: id);
     if (cachedPokemon != null) {
-      return PokemonDetail.fromEntity(cachedPokemon);
+      return cachedPokemon.asExternalModel(fromDB: true);
     } else {
       final pokemon = await _restClient.getPokemon(id: id);
       await _localDataSource.savePokemon(pokemon: pokemon!);
-      return PokemonDetail.fromEntity(pokemon);
+      return pokemon.asExternalModel();
     }
   }
 
@@ -51,11 +49,11 @@ class PokemonRepository {
     Timber.i("PokemonRepository.getSpecies($id)");
     final SpeciesEntity? cachedSpecies = await _localDataSource.getSpecies(id: id);
     if (cachedSpecies != null) {
-      return Species.fromEntity(cachedSpecies, fromDB: true);
+      return cachedSpecies.asExternalModel(fromDB: true);
     } else {
       final species = await _restClient.getSpecies(id: id);
       await _localDataSource.saveSpecies(species: species!);
-      return Species.fromEntity(species);
+      return species.asExternalModel();
     }
   }
 
@@ -65,11 +63,11 @@ class PokemonRepository {
     Timber.i("PokemonRepository.getForm($id)");
     final cachedForm = await _localDataSource.getForm(id: id);
     if (cachedForm != null) {
-      return Form.fromEntity(cachedForm, fromDB: true);
+      return cachedForm.asExternalModel(fromDB: true);
     } else {
       final form = await _restClient.getForm(id: id);
       await _localDataSource.saveForm(form: form!);
-      return Form.fromEntity(form);
+      return form.asExternalModel();
     }
   }
 
@@ -79,11 +77,11 @@ class PokemonRepository {
     Timber.i("PokemonRepository.getType($id)");
     final cachedType = await _localDataSource.getType(id: id);
     if (cachedType != null) {
-      return Type.fromEntity(cachedType, fromDB: true);
+      return cachedType.asExternalModel(fromDB: true);
     } else {
       final type = await _restClient.getType(id: id);
       await _localDataSource.saveType(type: type!);
-      return Type.fromEntity(type);
+      return type.asExternalModel();
     }
   }
 

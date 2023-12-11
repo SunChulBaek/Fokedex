@@ -1,4 +1,5 @@
 import '../../data/model/network_named_api_resource.dart';
+import '../../model/pokemon.dart';
 import '../../util/converter.dart';
 
 class PokemonItemEntity {
@@ -18,5 +19,14 @@ class PokemonItemEntity {
     id: getIdFromUrl(item.url),
     index: index,
     name: item.name
+  );
+
+  Pokemon asExternalModel({
+    bool fromDB = false
+  }) => Pokemon(
+    id: id,
+    name: name,
+    imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png",
+    fromDB: fromDB
   );
 }

@@ -1,6 +1,7 @@
 import 'lang_value.dart';
 import 'lang_value_version.dart';
 import '../../data/model/network_pokemon_species.dart';
+import '../../model/species.dart';
 import '../../util/converter.dart';
 
 class SpeciesEntity {
@@ -33,5 +34,16 @@ class SpeciesEntity {
     )).toList(),
     ecId: getIdFromUrl(species.evolutionChain.url),
     vIds: species.varieties.map((e) => getIdFromUrl(e.pokemon.url)).toList()
+  );
+
+  Species asExternalModel({
+    bool fromDB = false
+  }) => Species(
+    id: id,
+    name: getNameForLocale2(names),
+    flavorText: getFlavorTextForLocale2(flavorTexts),
+    ecId: ecId,
+    vIds: vIds,
+    fromDB: fromDB
   );
 }
