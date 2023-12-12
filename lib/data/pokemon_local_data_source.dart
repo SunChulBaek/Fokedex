@@ -1,253 +1,74 @@
 import 'dart:async';
-import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sqflite/sqflite.dart';
 
 import 'pokemon_data_source.dart';
-import 'type_converter.dart';
+import '../database/dao/evolution_chain_dao.dart';
+import '../database/dao/form_dao.dart';
+import '../database/dao/pokemon_dao.dart';
+import '../database/dao/pokemon_item_dao.dart';
+import '../database/dao/species_dao.dart';
+import '../database/dao/type_dao.dart';
 import '../database/model/evolution_chain_entity.dart';
 import '../database/model/form_entity.dart';
 import '../database/model/pokemon_entity.dart';
 import '../database/model/pokemon_item_entity.dart';
 import '../database/model/species_entity.dart';
 import '../database/model/type_entity.dart';
-import '../util/timber.dart';
 
 @Named("local")
 @Injectable(as: PokemonDataSource)
 class PokemonLocalDataSource implements PokemonDataSource {
-  static const dbName = "cokedex-database.db";
 
-  Database? _db;
+  PokemonLocalDataSource(
+    this.ecDao,
+    this.formDao,
+    this.pokemonDao,
+    this.pokemonItemDao,
+    this.speciesDao,
+    this.typeDao
+  );
+
+  final EvolutionChainDao ecDao;
+  final FormDao formDao;
+  final PokemonDao pokemonDao;
+  final PokemonItemDao pokemonItemDao;
+  final SpeciesDao speciesDao;
+  final TypeDao typeDao;
 
   @override
   Future<List<PokemonItemEntity>> getPokemonList({
     int limit = 20,
     int offset = 0
-  }) async {
-    final db = await getDb();
-    final pokemonList = await db.query("pokemon_item");
-    Timber.i("LocalDataSource.getPokemonList(${pokemonList.length})");
-    return pokemonList.map((e) => PokemonItemEntity(
-      id: int.parse(e["id"].toString()),
-      index: int.parse(e["indexx"].toString()),
-      name: e["name"].toString()
-    )).toList();
-  }
+  }) => pokemonItemDao.get(limit: limit, offset: offset);
 
   @override
-  Future<FormEntity?> getForm({
-    required int id
-  }) async {
-    Timber.i("LocalDataSource.getForm($id)");
-    final db = await getDb();
-    final form = await db.query("form",
-      where: "f_id = ?",
-      whereArgs: [id]
-    );
-    if (form.isNotEmpty) {
-      return FormEntity(
-        id: int.parse(form[0]["f_id"].toString()),
-        names: TypeConverter.stringToNames(form[0]["names"].toString())
-      );
-    } else {
-      return null;
-    }
-  }
+  Future<FormEntity?> getForm(int id) => formDao.findById(id: id);
 
   @override
-  Future<void> saveForm({required FormEntity form}) async {
-    Timber.i("LocalDataSource.getSpecies(${form.id})");
-    final db = await getDb();
-    await db.insert("form", {
-      "f_id": form.id,
-      "names": TypeConverter.namesToString(form.names)
-    });
-  }
+  Future<void> insertForm(FormEntity form) => formDao.insert(form: form);
 
   @override
-  Future<PokemonEntity?> getPokemon({
-    required int id
-  }) async {
-    Timber.i("LocalDataSource.getPokemon($id)");
-    final db = await getDb();
-    final pokemon = await db.query("pokemon",
-      where: "p_id = ?",
-      whereArgs: [id]
-    );
-    if (pokemon.isNotEmpty) {
-      return PokemonEntity(
-        id: int.parse(pokemon[0]["p_id"].toString()),
-        sId: int.parse(pokemon[0]["s_id"].toString()),
-        fId: pokemon[0]["f_id"] != null ? int.parse(pokemon[0]["f_id"].toString()) : 0,
-        name: pokemon[0]["name"].toString(),
-        baseExp: int.parse(pokemon[0]["base_experience"].toString()),
-        height: int.parse(pokemon[0]["height"].toString()),
-        isDefault: int.parse(pokemon[0]["is_default"].toString()) == 1 ? true : false,
-        order: int.parse(pokemon[0]["order"].toString()),
-        weight: int.parse(pokemon[0]["weight"].toString()),
-        typeIds: TypeConverter.stringToIds(pokemon[0]["typeIds"].toString())
-      );
-    } else {
-      return null;
-    }
-  }
+  Future<PokemonEntity?> getPokemon(int id)  => pokemonDao.findById(id: id);
 
   @override
-  Future<void> savePokemon({required PokemonEntity pokemon}) async {
-    Timber.i("LocalDataSource.savePokemon(${pokemon.id})");
-    final db = await getDb();
-    await db.insert("pokemon", {
-      "p_id": pokemon.id,
-      "s_id": pokemon.sId,
-      "f_id": pokemon.fId,
-      "name": pokemon.name,
-      "base_experience": pokemon.baseExp,
-      "height": pokemon.height,
-      "is_default": pokemon.isDefault ? 1 : 0,
-      "order": pokemon.order,
-      "weight": pokemon.weight,
-      "typeIds": TypeConverter.idsToString(pokemon.typeIds)
-    });
-    return;
-  }
+  Future<void> insertPokemon(PokemonEntity pokemon) => pokemonDao.insert(pokemon);
 
   @override
-  Future<SpeciesEntity?> getSpecies({
-    required int id
-  }) async {
-    Timber.i("LocalDataSource.getSpecies($id)");
-    final db = await getDb();
-    final species = await db.query("species",
-      where: "s_id = ?",
-      whereArgs: [id]
-    );
-    if (species.isNotEmpty) {
-      return SpeciesEntity(
-        id: int.parse(species[0]["s_id"].toString()),
-        names: TypeConverter.stringToNames(species[0]["names"].toString()),
-        flavorTexts: TypeConverter.stringToFlavors(species[0]["flavor_texts"].toString()),
-        ecId: species[0]["ec_id"] != null ? int.parse(species[0]["ec_id"].toString()) : 0,
-        vIds: TypeConverter.stringToIds(species[0]["v_ids"].toString())
-      );
-    } else {
-      return null;
-    }
-  }
+  Future<SpeciesEntity?> getSpecies(int id) => speciesDao.findById(id: id);
 
   @override
-  Future<void> saveSpecies({required SpeciesEntity species}) async {
-    Timber.i("LocalDataSource.saveSpecies(${species.id})");
-    final db = await getDb();
-    await db.insert("species", {
-      "s_id": species.id,
-      "names": TypeConverter.namesToString(species.names),
-      "flavor_texts": TypeConverter.flavorsToString(species.flavorTexts),
-      "ec_id": species.ecId,
-      "v_ids": TypeConverter.idsToString(species.vIds),
-    });
-  }
+  Future<void> insertSpecies(SpeciesEntity species) => speciesDao.insert(species: species);
 
   @override
-  Future<TypeEntity?> getType({
-    required int id
-  }) async {
-    Timber.i("LocalDataSource.getType($id)");
-    final db = await getDb();
-    final type = await db.query(
-      "type",
-      where: "t_id = ?",
-      whereArgs: [id]
-    );
-    if (type.isNotEmpty) {
-      return TypeEntity(
-        id: int.parse(type[0]["t_id"].toString()),
-        names: TypeConverter.stringToNames(type[0]["names"].toString())
-      );
-    } else {
-      return null;
-    }
-  }
+  Future<TypeEntity?> getType(int id) => typeDao.findById(id);
 
   @override
-  Future<void> saveType({required TypeEntity type}) async {
-    Timber.i("LocalDataSource.saveType(${type.id})");
-    final db = await getDb();
-    await db.insert("type", {
-      "t_id": type.id,
-      "names": TypeConverter.namesToString(type.names)
-    });
-  }
+  Future<void> insertType(TypeEntity type) => typeDao.insert(type);
 
   @override
-  Future<List<EvolutionChainEntity>> getEvolutionChain({
-    required int id
-  }) async {
-    Timber.i("PokemonLocalDataSource.getEvolutionChain($id)");
-    final db = await getDb();
-    final chains = await db.query("evolution_chain",
-      where: "c_id = ?",
-      whereArgs: [id]
-    );
-    return chains.map((leaf) =>
-      EvolutionChainEntity(
-        cId: id,
-        pId: leaf["p_id"] as int,
-        prevId: (leaf["prev_id"] as int?) ?? 0,
-        trigger: leaf["trigger"] as String,
-        isLeaf: (leaf["is_leaf"] as int) == 1 ? true : false
-      )
-    ).toList();
-  }
+  Future<List<EvolutionChainEntity>> getEvolutionChain(int id) => ecDao.findById(id);
 
   @override
-  Future<void> saveEvolutionChain({required EvolutionChainEntity chain}) async {
-    Timber.i("PokemonLocalDataSource.saveEvolutionChain(p_id = ${chain.pId}, prev_id = ${chain.prevId})");
-    final db = await getDb();
-    await db.insert("evolution_chain", {
-      "c_id": chain.cId,
-      "p_id": chain.pId,
-      "trigger": chain.trigger,
-      "prev_id": chain.prevId,
-      "is_leaf": chain.isLeaf ? 1 : 0
-    });
-  }
-
-  Future<Database> getDb() async {
-    if (_db != null) {
-      return _db!;
-    } else {
-      _db = await initDb();
-      return _db!;
-    }
-  }
-
-  Future<Database> initDb() async {
-    Timber.i("LocalDataSource.initDb()");
-    final databasePath = await getDatabasesPath();
-    final path = "$databasePath/$dbName";
-    final exists = await databaseExists(path);
-
-    if (!exists) {
-      // Should happen only the first time you launch your application
-      Timber.i("Creating new copy from asset");
-      // Make sure the parent directory exists
-      try {
-        await Directory(path.substring(0, path.lastIndexOf("/"))).create(recursive: true);
-      } catch (_) { }
-
-      // Copy from asset
-      ByteData data = await rootBundle.load("assets/$dbName");
-      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-
-      // Write and flush the bytes written
-      await File(path).writeAsBytes(bytes, flush: true);
-    } else {
-      Timber.i("Opening existing database");
-    }
-
-    return await openDatabase(path, version: 1);
-  }
+  Future<void> insertEvolutionChain(EvolutionChainEntity chain) => ecDao.insert(chain);
 }

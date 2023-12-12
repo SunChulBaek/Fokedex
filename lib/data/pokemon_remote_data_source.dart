@@ -20,26 +20,26 @@ class PokemonRemoteDataSource implements PokemonDataSource {
   final RestClient _client;
 
   @override
-  Future<FormEntity?> getForm({required int id}) async {
+  Future<FormEntity?> getForm(int id) async {
     Timber.i("RemoteDataSource.getForm($id)");
     final form = await _client.getForm(id: id);
     return FormEntity.fromNetworkModel(form);
   }
 
   @override
-  Future<void> saveForm({required FormEntity form}) {
+  Future<void> insertForm(FormEntity form) {
     throw UnimplementedError();
   }
 
   @override
-  Future<PokemonEntity?> getPokemon({required int id}) async {
+  Future<PokemonEntity?> getPokemon(int id) async {
     Timber.i("RemoteDataSource.getPokemon($id)");
     final pokemon = await _client.getPokemon(id: id);
     return PokemonEntity.fromNetworkModel(pokemon);
   }
 
   @override
-  Future<void> savePokemon({required PokemonEntity pokemon}) {
+  Future<void> insertPokemon(PokemonEntity pokemon) {
     Timber.i("RemoteDataSource.savePokemon(${pokemon.id})");
     throw UnimplementedError();
   }
@@ -54,38 +54,38 @@ class PokemonRemoteDataSource implements PokemonDataSource {
   }
 
   @override
-  Future<SpeciesEntity?> getSpecies({required int id}) async {
+  Future<SpeciesEntity?> getSpecies(int id) async {
     Timber.i("RemoteDataSource.getSpecies($id)");
     final species = await _client.getSpecies(id: id);
     return SpeciesEntity.fromNetworkModel(species);
   }
 
   @override
-  Future<void> saveSpecies({required SpeciesEntity species}) {
+  Future<void> insertSpecies(SpeciesEntity species) {
     throw UnimplementedError();
   }
 
   @override
-  Future<TypeEntity?> getType({required int id}) async {
+  Future<TypeEntity?> getType(int id) async {
     Timber.i("RemoteDataSource.getType($id)");
     final type = await _client.getType(id: id);
     return TypeEntity.fromNetworkModel(type);
   }
 
   @override
-  Future<void> saveType({required TypeEntity type}) {
+  Future<void> insertType(TypeEntity type) {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<EvolutionChainEntity>> getEvolutionChain({required int id}) async {
+  Future<List<EvolutionChainEntity>> getEvolutionChain(int id) async {
     Timber.i("RemoteDataSource.getEvolutionChain($id)");
     final chain = await _client.getEvolutionChain(id: id);
     return EvolutionChainEntity.fromNetworkModel(chain);
   }
 
   @override
-  Future<void> saveEvolutionChain({required EvolutionChainEntity chain}) {
+  Future<void> insertEvolutionChain(EvolutionChainEntity chain) {
     throw UnimplementedError();
   }
 }

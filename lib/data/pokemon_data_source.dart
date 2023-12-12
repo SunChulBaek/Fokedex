@@ -12,43 +12,33 @@ abstract class PokemonDataSource {
     int offset = 0
   }) => throw Exception("Not Implemented yet.");
 
-  Future<PokemonEntity?> getPokemon({
-    required int id
-  }) => throw Exception("Not Implemented yet.");
+  Future<PokemonEntity?> getPokemon(int id)
+    => throw Exception("Not Implemented yet.");
 
-  Future<void> savePokemon({
-    required PokemonEntity pokemon
-  }) => throw Exception("Not Implemented yet.");
+  Future<void> insertPokemon(PokemonEntity pokemon)
+    => throw Exception("Not Implemented yet.");
 
-  Future<SpeciesEntity?> getSpecies({
-    required int id
-  }) => throw Exception("Not Implemented yet.");
+  Future<SpeciesEntity?> getSpecies(int id)
+    => throw Exception("Not Implemented yet.");
 
-  Future<void> saveSpecies({
-    required SpeciesEntity species
-  }) => throw Exception("Not Implemented yet.");
+  Future<void> insertSpecies(SpeciesEntity species)
+    => throw Exception("Not Implemented yet.");
 
-  Future<FormEntity?> getForm({
-    required int id
-  }) => throw Exception("Not Implemented yet.");
+  Future<FormEntity?> getForm(int id)
+    => throw Exception("Not Implemented yet.");
 
-  Future<void> saveForm({
-    required FormEntity form
-  }) => throw Exception("Not Implemented yet.");
+  Future<void> insertForm(FormEntity form)
+    => throw Exception("Not Implemented yet.");
 
-  Future<TypeEntity?> getType({
-    required int id
-  }) => throw Exception("Not Implemented yet.");
+  Future<TypeEntity?> getType(int id)
+    => throw Exception("Not Implemented yet.");
 
-  Future<void> saveType({
-    required TypeEntity type
-  }) => throw Exception("Not Implemented yet.");
+  Future<void> insertType(TypeEntity type)
+    => throw Exception("Not Implemented yet.");
 
-  Future<List<EvolutionChainEntity>> getEvolutionChain({
-    required int id
-  }) => throw Exception("Not Implemented yet.");
+  Future<List<EvolutionChainEntity>> getEvolutionChain(int id)
+    => throw Exception("Not Implemented yet.");
 
-  Future<void> saveEvolutionChain({
-    required EvolutionChainEntity chain
-  }) => throw Exception("Not Implemented yet.");
+  Future<void> insertEvolutionChain(EvolutionChainEntity chain)
+    => throw Exception("Not Implemented yet.");
 }
