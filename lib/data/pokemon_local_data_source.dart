@@ -43,22 +43,22 @@ class PokemonLocalDataSource implements PokemonDataSource {
   }) => pokemonItemDao.get(limit: limit, offset: offset);
 
   @override
-  Future<FormEntity?> getForm(int id) => formDao.findById(id: id);
+  Future<FormEntity?> getForm(int id) => formDao.findById(id);
 
   @override
-  Future<void> insertForm(FormEntity form) => formDao.insert(form: form);
+  Future<void> insertForm(FormEntity form) => formDao.insert(form);
 
   @override
-  Future<PokemonEntity?> getPokemon(int id)  => pokemonDao.findById(id: id);
+  Future<PokemonEntity?> getPokemon(int id)  => pokemonDao.findById(id);
 
   @override
   Future<void> insertPokemon(PokemonEntity pokemon) => pokemonDao.insert(pokemon);
 
   @override
-  Future<SpeciesEntity?> getSpecies(int id) => speciesDao.findById(id: id);
+  Future<SpeciesEntity?> getSpecies(int id) => speciesDao.findById(id);
 
   @override
-  Future<void> insertSpecies(SpeciesEntity species) => speciesDao.insert(species: species);
+  Future<void> insertSpecies(SpeciesEntity species) => speciesDao.insert(species);
 
   @override
   Future<TypeEntity?> getType(int id) => typeDao.findById(id);

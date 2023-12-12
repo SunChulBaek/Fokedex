@@ -18,7 +18,7 @@ class PokemonDao {
   static const String _columnOrder = "order";
   static const String _columnTypeIds = "typeIds";
 
-  Future<PokemonEntity?> findById({required int id}) async {
+  Future<PokemonEntity?> findById(int id) async {
     final db = await FokedexDatabase.getInstance();
     final pokemon = await db.query(_tableName,
         where: "$_columnPId = ?",

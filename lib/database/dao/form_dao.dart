@@ -10,9 +10,7 @@ class FormDao {
   static const String _columnFId = "f_id";
   static const String _columnNames = "names";
 
-  Future<FormEntity?> findById({
-    required int id
-  }) async {
+  Future<FormEntity?> findById(int id) async {
     final db = await FokedexDatabase.getInstance();
     final form = await db.query(_tableName,
       where: "$_columnFId = ?",
@@ -28,9 +26,7 @@ class FormDao {
     }
   }
 
-  Future<void> insert({
-    required FormEntity form
-  }) async {
+  Future<void> insert(FormEntity form) async {
     final db = await FokedexDatabase.getInstance();
     await db.insert(_tableName, {
       _columnFId: form.id,

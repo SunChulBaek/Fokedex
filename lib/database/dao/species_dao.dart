@@ -13,9 +13,7 @@ class SpeciesDao {
   static const String _columnEcId = "ec_id";
   static const String _columnVIds = "v_ids";
 
-  Future<SpeciesEntity?> findById({
-    required int id
-  }) async {
+  Future<SpeciesEntity?> findById(int id) async {
     final db = await FokedexDatabase.getInstance();
     final species = await db.query(_tableName,
         where: "$_columnSId = ?",
@@ -34,9 +32,7 @@ class SpeciesDao {
     }
   }
 
-  Future<void> insert({
-    required SpeciesEntity species
-  }) async {
+  Future<void> insert(SpeciesEntity species) async {
     final db = await FokedexDatabase.getInstance();
     await db.insert(_tableName, {
       _columnSId: species.id,
