@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/util/converter.dart';
+
+import 'package:fokedex/util/converter.dart';
 
 class CancelButton extends StatefulWidget {
   const CancelButton({

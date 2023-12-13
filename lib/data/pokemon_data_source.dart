@@ -12,6 +12,9 @@ abstract class PokemonDataSource {
     int offset = 0
   }) => throw Exception("Not Implemented yet.");
 
+  Future<void> insertPokemonList(List<PokemonItemEntity> pokemonList)
+    => throw Exception("Not Implemented yet.");
+
   Future<PokemonEntity?> getPokemon(int id)
     => throw Exception("Not Implemented yet.");
 

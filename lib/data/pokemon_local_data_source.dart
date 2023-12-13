@@ -40,7 +40,17 @@ class PokemonLocalDataSource implements PokemonDataSource {
   Future<List<PokemonItemEntity>> getPokemonList({
     int limit = 20,
     int offset = 0
-  }) => pokemonItemDao.get(limit: limit, offset: offset);
+  }) async {
+    final indexx = List<int>.empty(growable: true);
+    for (int i = offset; i < limit; i++) {
+      indexx.add(i);
+    }
+    return await pokemonItemDao.findByIndex(indexx: indexx);
+  }
+
+  @override
+  Future<void> insertPokemonList(List<PokemonItemEntity> pokemonList)
+    => pokemonItemDao.insert(pokemonList);
 
   @override
   Future<FormEntity?> getForm(int id) => formDao.findById(id);

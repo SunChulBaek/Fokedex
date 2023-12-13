@@ -13,32 +13,42 @@ import '../util/timber.dart';
 @injectable
 class PokemonRepository {
   PokemonRepository(
-    @Named("remote") this._restClient,
-    @Named("local") this._localDataSource,
+    @Named("remote") this._remote,
+    @Named("local") this._local,
   );
 
-  final PokemonDataSource _restClient;
-  final PokemonDataSource _localDataSource;
+  final PokemonDataSource _remote;
+  final PokemonDataSource _local;
 
   Future<List<Pokemon>> getPokemonList({
     int limit = 20,
     int offset = 0
   }) async {
     Timber.i("PokemonRepository.getPokemonList(limit = $limit, offset = $offset)");
-    final list = await _localDataSource.getPokemonList(limit: limit, offset: offset);
-    return list.map((item) => item.asExternalModel(fromDB: true)).toList();
+    final cachedPokemonList = await _local.getPokemonList(limit: limit, offset: offset);
+    if (cachedPokemonList.isNotEmpty) {
+      return cachedPokemonList.map((item) =>
+        item.asExternalModel(fromDB: true)
+      ).toList();
+    } else {
+      final pokemonList = await _remote.getPokemonList(limit: limit, offset: offset);
+      await _local.insertPokemonList(pokemonList);
+      return pokemonList.map((item) =>
+        item.asExternalModel()
+      ).toList();
+    }
   }
 
   Future<PokemonDetail> getPokemon({
     required int id
   }) async {
     Timber.i("PokemonRepository.getPokemon($id)");
-    final cachedPokemon = await _localDataSource.getPokemon(id);
+    final cachedPokemon = await _local.getPokemon(id);
     if (cachedPokemon != null) {
       return cachedPokemon.asExternalModel(fromDB: true);
     } else {
-      final pokemon = await _restClient.getPokemon(id);
-      await _localDataSource.insertPokemon(pokemon!);
+      final pokemon = await _remote.getPokemon(id);
+      await _local.insertPokemon(pokemon!);
       return pokemon.asExternalModel();
     }
   }
@@ -47,12 +57,12 @@ class PokemonRepository {
     required int id
   }) async {
     Timber.i("PokemonRepository.getSpecies($id)");
-    final SpeciesEntity? cachedSpecies = await _localDataSource.getSpecies(id);
+    final SpeciesEntity? cachedSpecies = await _local.getSpecies(id);
     if (cachedSpecies != null) {
       return cachedSpecies.asExternalModel(fromDB: true);
     } else {
-      final species = await _restClient.getSpecies(id);
-      await _localDataSource.insertSpecies(species!);
+      final species = await _remote.getSpecies(id);
+      await _local.insertSpecies(species!);
       return species.asExternalModel();
     }
   }
@@ -61,12 +71,12 @@ class PokemonRepository {
     required int id
   }) async {
     Timber.i("PokemonRepository.getForm($id)");
-    final cachedForm = await _localDataSource.getForm(id);
+    final cachedForm = await _local.getForm(id);
     if (cachedForm != null) {
       return cachedForm.asExternalModel(fromDB: true);
     } else {
-      final form = await _restClient.getForm(id);
-      await _localDataSource.insertForm(form!);
+      final form = await _remote.getForm(id);
+      await _local.insertForm(form!);
       return form.asExternalModel();
     }
   }
@@ -75,12 +85,12 @@ class PokemonRepository {
     required int id
   }) async {
     Timber.i("PokemonRepository.getType($id)");
-    final cachedType = await _localDataSource.getType(id);
+    final cachedType = await _local.getType(id);
     if (cachedType != null) {
       return cachedType.asExternalModel(fromDB: true);
     } else {
-      final type = await _restClient.getType(id);
-      await _localDataSource.insertType(type!);
+      final type = await _remote.getType(id);
+      await _local.insertType(type!);
       return type.asExternalModel();
     }
   }
@@ -89,13 +99,13 @@ class PokemonRepository {
     required int id
   }) async {
     Timber.i("PokemonRepository.getEvolutionChain($id)");
-    final cachedChains = await _localDataSource.getEvolutionChain(id);
+    final cachedChains = await _local.getEvolutionChain(id);
     if (cachedChains.isNotEmpty) {
       return EvolutionChain.fromEntity(id, cachedChains, fromDB: true);
     } else {
-      final chains = await _restClient.getEvolutionChain(id);
+      final chains = await _remote.getEvolutionChain(id);
       for (var chain in chains) {
-        await _localDataSource.insertEvolutionChain(chain);
+        await _local.insertEvolutionChain(chain);
       }
       return EvolutionChain.fromEntity(id, chains);
     }

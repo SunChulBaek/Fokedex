@@ -20,6 +20,20 @@ class PokemonRemoteDataSource implements PokemonDataSource {
   final RestClient _client;
 
   @override
+  Future<List<PokemonItemEntity>> getPokemonList({int limit = 20, int offset = 0}) async {
+    final list = await _client.getPokemonList(limit: limit, offset: offset);
+    var index = offset;
+    return list.results.map((e) =>
+      PokemonItemEntity.fromNetworkModel(index++, e)
+    ).toList();
+  }
+
+  @override
+  Future<void> insertPokemonList(List<PokemonItemEntity> pokemonList) {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<FormEntity?> getForm(int id) async {
     Timber.i("RemoteDataSource.getForm($id)");
     final form = await _client.getForm(id: id);
@@ -40,17 +54,7 @@ class PokemonRemoteDataSource implements PokemonDataSource {
 
   @override
   Future<void> insertPokemon(PokemonEntity pokemon) {
-    Timber.i("RemoteDataSource.savePokemon(${pokemon.id})");
     throw UnimplementedError();
-  }
-
-  @override
-  Future<List<PokemonItemEntity>> getPokemonList({int limit = 20, int offset = 0}) async {
-    final list = await _client.getPokemonList(limit: limit, offset: offset);
-    var index = 0;
-    return list.results.map((e) =>
-      PokemonItemEntity.fromNetworkModel(index++, e)
-    ).toList();
   }
 
   @override
