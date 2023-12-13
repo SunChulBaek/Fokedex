@@ -20,8 +20,11 @@ class PokemonRemoteDataSource implements PokemonDataSource {
   final RestClient _client;
 
   @override
-  Future<List<PokemonItemEntity>> getPokemonList({int limit = 20, int offset = 0}) async {
-    final list = await _client.getPokemonList(limit: limit, offset: offset);
+  Future<List<PokemonItemEntity>> getPokemonList({
+    int? limit,
+    int? offset
+  }) async {
+    final list = await _client.getPokemonList(limit: limit!, offset: offset!);
     var index = offset;
     return list.results.map((e) =>
       PokemonItemEntity.fromNetworkModel(index++, e)

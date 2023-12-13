@@ -11,6 +11,16 @@ class PokemonItemDao {
   static const String _columnIndexx = "indexx";
   static const String _columnName = "name";
 
+  Future<List<PokemonItemEntity>> selectAll() async {
+    final db = await FokedexDatabase.getInstance();
+    final pokemonList = await db.query(_tableName);
+    return pokemonList.map((e) => PokemonItemEntity(
+      id: int.parse(e[_columnId].toString()),
+      index: int.parse(e[_columnIndexx].toString()),
+      name: e[_columnName].toString()
+    )).toList();
+  }
+
   Future<List<PokemonItemEntity>> findByIndex({
     required List<int> indexx,
   }) async {

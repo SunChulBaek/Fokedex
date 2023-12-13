@@ -95,7 +95,7 @@ class _HomeState extends State<_HomeContent> {
                     child: NotificationListener<ScrollNotification>(
                       onNotification: (ScrollNotification scrollInfo) {
                         if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
-                          _viewModel.init(offset: pokemonList.length);
+                          _viewModel.init(offset: pokemonList.length, limit: 60);
                         }
                         return true;
                       },

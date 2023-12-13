@@ -38,11 +38,14 @@ class PokemonLocalDataSource implements PokemonDataSource {
 
   @override
   Future<List<PokemonItemEntity>> getPokemonList({
-    int limit = 20,
-    int offset = 0
+    int? limit,
+    int? offset
   }) async {
+    if (limit == null && offset == null) {
+      return await pokemonItemDao.selectAll();
+    }
     final indexx = List<int>.empty(growable: true);
-    for (int i = offset; i < limit; i++) {
+    for (int i = offset!; i < offset + limit!; i++) {
       indexx.add(i);
     }
     return await pokemonItemDao.findByIndex(indexx: indexx);

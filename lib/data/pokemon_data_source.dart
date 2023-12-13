@@ -7,10 +7,8 @@ import '../database/model/type_entity.dart';
 
 abstract class PokemonDataSource {
 
-  Future<List<PokemonItemEntity>> getPokemonList({
-    int limit = 20,
-    int offset = 0
-  }) => throw Exception("Not Implemented yet.");
+  Future<List<PokemonItemEntity>> getPokemonList({int? limit, int? offset})
+    => throw Exception("Not Implemented yet.");
 
   Future<void> insertPokemonList(List<PokemonItemEntity> pokemonList)
     => throw Exception("Not Implemented yet.");

@@ -1,3 +1,4 @@
+import 'package:fokedex/database/model/pokemon_item_entity.dart';
 import 'package:injectable/injectable.dart';
 
 import 'pokemon_data_source.dart';
@@ -21,11 +22,21 @@ class PokemonRepository {
   final PokemonDataSource _local;
 
   Future<List<Pokemon>> getPokemonList({
-    int limit = 20,
-    int offset = 0
+    int? limit,
+    int? offset
   }) async {
     Timber.i("PokemonRepository.getPokemonList(limit = $limit, offset = $offset)");
-    final cachedPokemonList = await _local.getPokemonList(limit: limit, offset: offset);
+    List<PokemonItemEntity> cachedPokemonList;
+    if (limit == null && offset == null) {
+      //  최초 로딩
+      cachedPokemonList = await _local.getPokemonList();
+      if (cachedPokemonList.isNotEmpty) {
+        return cachedPokemonList.map((item) =>
+          item.asExternalModel(fromDB: true)
+        ).toList();
+      }
+    }
+    cachedPokemonList = await _local.getPokemonList(limit: limit!, offset: offset!);
     if (cachedPokemonList.isNotEmpty) {
       return cachedPokemonList.map((item) =>
         item.asExternalModel(fromDB: true)
