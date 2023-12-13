@@ -25,23 +25,23 @@ class FokedexDatabase {
     final path = "$databasePath/$dbName";
     final exists = await databaseExists(path);
 
-    // if (!exists) {
-    //   // Should happen only the first time you launch your application
-    //   Timber.i("Creating new copy from asset");
-    //   // Make sure the parent directory exists
-    //   try {
-    //     await Directory(path.substring(0, path.lastIndexOf("/"))).create(recursive: true);
-    //   } catch (_) { }
-    //
-    //   // Copy from asset
-    //   ByteData data = await rootBundle.load("assets/$dbName");
-    //   List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-    //
-    //   // Write and flush the bytes written
-    //   await File(path).writeAsBytes(bytes, flush: true);
-    // } else {
-    //   Timber.i("Opening existing database");
-    // }
+    if (!exists) {
+      // Should happen only the first time you launch your application
+      Timber.i("Creating new copy from asset");
+      // Make sure the parent directory exists
+      try {
+        await Directory(path.substring(0, path.lastIndexOf("/"))).create(recursive: true);
+      } catch (_) { }
+
+      // Copy from asset
+      ByteData data = await rootBundle.load("assets/$dbName");
+      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+
+      // Write and flush the bytes written
+      await File(path).writeAsBytes(bytes, flush: true);
+    } else {
+      Timber.i("Opening existing database");
+    }
 
     return await openDatabase(
       path,

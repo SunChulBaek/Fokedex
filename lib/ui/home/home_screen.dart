@@ -43,6 +43,9 @@ class _HomeContent extends StatefulWidget {
 }
 
 class _HomeState extends State<_HomeContent> {
+  static const colorFromInternet = Color(0xFF4caf50);
+  static const colorFromDB = Color(0xFF3f51b5);
+
   late HomeViewModel _viewModel;
   DateTime? currentBackPressTime;
   final ScrollController _scrollController = ScrollController();
@@ -118,6 +121,41 @@ class _HomeState extends State<_HomeContent> {
                     )
                   )
                 )
+              ),
+              SizedBox(
+                height: 10,
+                child: Row(
+                  children: [
+                    if ((pokemonList?.where((e) => e.fromDB).length ?? 0) > 0)
+                      Expanded(
+                        flex: pokemonList?.where((e) => e.fromDB).length ?? 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: colorFromDB,
+                            border: Border.all(width: 1)
+                          ),
+                          child: Text(
+                            "fromDB(${pokemonList?.where((e) => e.fromDB).length})",
+                            style: const TextStyle(fontSize: 7)
+                          )
+                        )
+                      ),
+                    if ((pokemonList?.where((e) => !e.fromDB).length ?? 0) > 0)
+                      Expanded(
+                        flex: pokemonList?.where((e) => !e.fromDB).length ?? 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: colorFromInternet,
+                            border: Border.all(width: 1)
+                          ),
+                          child: Text(
+                            "fromAPI(${pokemonList?.where((e) => !e.fromDB).length})",
+                            style: const TextStyle(fontSize: 7)
+                          )
+                        )
+                      )
+                  ],
+                ),
               )
             ]
           )
