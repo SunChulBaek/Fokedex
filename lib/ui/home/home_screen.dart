@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
+import '../common/s_dialog.dart';
 import 'bottom_loader.dart';
 import 'home_view_model.dart';
 import 'pokemon_list_item.dart';
@@ -49,11 +51,17 @@ class _HomeState extends State<_HomeContent> {
   late HomeViewModel _viewModel;
   DateTime? currentBackPressTime;
   final ScrollController _scrollController = ScrollController();
+  late final PackageInfo _packageInfo;
 
   @override
   void initState() {
     super.initState();
     _viewModel = context.read<HomeViewModel>();
+    initFuture();
+  }
+
+  Future<void> initFuture() async {
+    _packageInfo = await PackageInfo.fromPlatform();
   }
 
   @override
@@ -79,6 +87,27 @@ class _HomeState extends State<_HomeContent> {
           title: Text(widget.title),
           backgroundColor: Theme.of(context).primaryColor,
           foregroundColor: Colors.white,
+          actions: [
+            IconButton(
+              onPressed: () {
+                SDialog(
+                  title: "Pokedex with Flutter",
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("v${_packageInfo.version}(${_packageInfo.buildNumber})"),
+                      const Text("https://github.com/SunChulBaek/Fokedex")
+                    ]
+                  ),
+                  positiveButton: "확인",
+                ).show(context);
+              },
+              icon: const Icon(
+                Icons.info,
+                color: Colors.white
+              )
+            )
+          ],
         ),
         body: SafeArea(
           child: Column(
