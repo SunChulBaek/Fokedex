@@ -1,5 +1,5 @@
-name: flutter_template
-description: A new Flutter project.
+name: fokedex
+description: Pokedex of flutter version
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -20,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.2 <3.0.0'
+  sdk: '>=3.2.3 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -29,26 +29,26 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  bloc: ^8.1.2
   cached_network_image: ^3.2.3
   dio: ^5.2.1+1
   equatable: ^2.0.5
   event_bus: ^2.0.0
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.3
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.7
   freezed_annotation: ^2.2.0
   get_it: ^7.6.0
-  go_router: ^8.0.5
+  go_router: ^12.1.1
   injectable: ^2.1.2
   intl: ^0.18.0
   json_annotation: ^4.8.1
-  logger: ^1.4.0
+  logger: any
   lottie: ^2.4.0
+  package_info_plus: ^5.0.1
   pretty_dio_logger: ^1.3.1
+  provider: ^6.1.1
   retrofit: '>=4.0.0 <5.0.0'
   sqflite: ^2.2.8+4
   webview_flutter: ^4.2.2
@@ -63,15 +63,15 @@ dev_dependencies:
     sdk: flutter
   freezed: ^2.3.5
   injectable_generator: ^2.1.6
-  json_serializable: ^6.6.1
-  retrofit_generator: ^7.0.1
+  json_serializable: ^6.6.2
+  retrofit_generator: '>=7.0.0 <8.0.0'
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.1
+  flutter_lints: ^3.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -86,6 +86,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/
     - assets/images/
     - assets/lottie/
   #   - images/a_dot_burr.jpeg

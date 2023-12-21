@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/ui/detail/pokemon_thumb.dart';
-import 'package:flutter_template/ui/model/ui_chain_entry.dart';
 
+import 'pokemon_thumb.dart';
+import '../model/ui_chain_entry.dart';
 import '../../util/converter.dart';
 
 class PokemonEvolutionChain extends StatelessWidget {

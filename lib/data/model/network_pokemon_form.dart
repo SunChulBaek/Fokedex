@@ -1,7 +1,7 @@
-import 'package:flutter_template/data/model/network_name.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../util/timber.dart';
+import 'network_name.dart';
 
 part 'network_pokemon_form.freezed.dart';
 part 'network_pokemon_form.g.dart';

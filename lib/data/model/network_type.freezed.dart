@@ -150,7 +150,7 @@ class _$NetworkTypeImpl implements _NetworkType {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NetworkTypeImpl &&

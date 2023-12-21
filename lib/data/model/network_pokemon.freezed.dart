@@ -19,8 +19,9 @@ mixin _$NetworkPokemon {
   @JsonKey(name: 'id')
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'name')
-  String get name =>
-      throw _privateConstructorUsedError; // @JsonKey(name: 'base_experience') required int baseExp,
+  String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'base_experience')
+  int get baseExp => throw _privateConstructorUsedError;
   @JsonKey(name: 'height')
   int get height => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_default')
@@ -52,6 +53,7 @@ abstract class $NetworkPokemonCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'id') int id,
       @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'base_experience') int baseExp,
       @JsonKey(name: 'height') int height,
       @JsonKey(name: 'is_default') bool isDefault,
       @JsonKey(name: 'order') int order,
@@ -79,6 +81,7 @@ class _$NetworkPokemonCopyWithImpl<$Res, $Val extends NetworkPokemon>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? baseExp = null,
     Object? height = null,
     Object? isDefault = null,
     Object? order = null,
@@ -97,6 +100,10 @@ class _$NetworkPokemonCopyWithImpl<$Res, $Val extends NetworkPokemon>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      baseExp: null == baseExp
+          ? _value.baseExp
+          : baseExp // ignore: cast_nullable_to_non_nullable
+              as int,
       height: null == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
@@ -152,6 +159,7 @@ abstract class _$$NetworkPokemonImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'id') int id,
       @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'base_experience') int baseExp,
       @JsonKey(name: 'height') int height,
       @JsonKey(name: 'is_default') bool isDefault,
       @JsonKey(name: 'order') int order,
@@ -178,6 +186,7 @@ class __$$NetworkPokemonImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? baseExp = null,
     Object? height = null,
     Object? isDefault = null,
     Object? order = null,
@@ -196,6 +205,10 @@ class __$$NetworkPokemonImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      baseExp: null == baseExp
+          ? _value.baseExp
+          : baseExp // ignore: cast_nullable_to_non_nullable
+              as int,
       height: null == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
@@ -238,6 +251,7 @@ class _$NetworkPokemonImpl implements _NetworkPokemon {
   _$NetworkPokemonImpl(
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'name') required this.name,
+      @JsonKey(name: 'base_experience') required this.baseExp,
       @JsonKey(name: 'height') required this.height,
       @JsonKey(name: 'is_default') required this.isDefault,
       @JsonKey(name: 'order') required this.order,
@@ -257,7 +271,9 @@ class _$NetworkPokemonImpl implements _NetworkPokemon {
   @override
   @JsonKey(name: 'name')
   final String name;
-// @JsonKey(name: 'base_experience') required int baseExp,
+  @override
+  @JsonKey(name: 'base_experience')
+  final int baseExp;
   @override
   @JsonKey(name: 'height')
   final int height;
@@ -303,16 +319,17 @@ class _$NetworkPokemonImpl implements _NetworkPokemon {
 
   @override
   String toString() {
-    return 'NetworkPokemon(id: $id, name: $name, height: $height, isDefault: $isDefault, order: $order, weight: $weight, forms: $forms, types: $types, stats: $stats, species: $species)';
+    return 'NetworkPokemon(id: $id, name: $name, baseExp: $baseExp, height: $height, isDefault: $isDefault, order: $order, weight: $weight, forms: $forms, types: $types, stats: $stats, species: $species)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NetworkPokemonImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.baseExp, baseExp) || other.baseExp == baseExp) &&
             (identical(other.height, height) || other.height == height) &&
             (identical(other.isDefault, isDefault) ||
                 other.isDefault == isDefault) &&
@@ -329,6 +346,7 @@ class _$NetworkPokemonImpl implements _NetworkPokemon {
       runtimeType,
       id,
       name,
+      baseExp,
       height,
       isDefault,
       order,
@@ -350,6 +368,7 @@ abstract class _NetworkPokemon implements NetworkPokemon {
   factory _NetworkPokemon(
       {@JsonKey(name: 'id') required final int id,
       @JsonKey(name: 'name') required final String name,
+      @JsonKey(name: 'base_experience') required final int baseExp,
       @JsonKey(name: 'height') required final int height,
       @JsonKey(name: 'is_default') required final bool isDefault,
       @JsonKey(name: 'order') required final int order,
@@ -367,7 +386,10 @@ abstract class _NetworkPokemon implements NetworkPokemon {
   @override
   @JsonKey(name: 'name')
   String get name;
-  @override // @JsonKey(name: 'base_experience') required int baseExp,
+  @override
+  @JsonKey(name: 'base_experience')
+  int get baseExp;
+  @override
   @JsonKey(name: 'height')
   int get height;
   @override

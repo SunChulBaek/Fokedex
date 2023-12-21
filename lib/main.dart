@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'injectable.dart';
-import 'ui/detail/pokemon.dart';
+import 'ui/detail/pokemon_detail_screen.dart';
 import 'ui/detail/webview.dart';
 import 'ui/home/home_screen.dart';
 
@@ -49,17 +49,17 @@ class MyApp extends StatelessWidget {
             builder: (context, state) => HomeScreen(
               title: 'Fokedex',
               onClickMon: (context, param) {
-                context.pushNamed(PokemonScreen.routeName, extra: param as PokemonParam);
+                context.pushNamed(PokemonDetailScreen.routeName, extra: param as PokemonDetailParam);
               },
             )
           ),
           GoRoute(
             path: '/product',
-            name: PokemonScreen.routeName,
-            builder: (context, state) => PokemonScreen(
-              param: state.extra as PokemonParam,
+            name: PokemonDetailScreen.routeName,
+            builder: (context, state) => PokemonDetailScreen(
+              param: state.extra as PokemonDetailParam,
               onClick: (context, param) {
-                context.pushNamed(PokemonScreen.routeName, extra: param as PokemonParam);
+                context.pushNamed(PokemonDetailScreen.routeName, extra: param as PokemonDetailParam);
               },
               onBack: () {
                 context.pop();

@@ -61,7 +61,7 @@ class _WebViewState extends State<WebViewScreen> {
       body: Stack(
         children: <Widget>[
           WebViewWidget(controller: controller),
-          isLoading ? const Center(child: PokemonProgressIndicator(size: 30)) : Stack()
+          isLoading ? const Center(child: PokemonProgressIndicator(size: 30)) : const Stack()
         ]
       )
     );

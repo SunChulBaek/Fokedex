@@ -14,7 +14,7 @@ class NetworkPokemon with _$NetworkPokemon {
   factory NetworkPokemon({
     @JsonKey(name: 'id') required int id,
     @JsonKey(name: 'name') required String name,
-    // @JsonKey(name: 'base_experience') required int baseExp,
+    @JsonKey(name: 'base_experience') required int baseExp,
     @JsonKey(name: 'height') required int height,
     @JsonKey(name: 'is_default') required bool isDefault,
     @JsonKey(name: 'order') required int order,

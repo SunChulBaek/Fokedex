@@ -20,32 +20,38 @@ abstract class RestClient {
   @factoryMethod
   factory RestClient.from(Dio dio) => RestClient(dio);
 
+  @override
   @GET('pokemon')
   Future<NetworkNamedAPIResourceList> getPokemonList({
     @Query("limit") int limit = 20,
     @Query("offset") int offset = 0,
   });
 
+  @override
   @GET('pokemon/{id}')
   Future<NetworkPokemon> getPokemon({
     @Path('id') required int id
   });
 
+  @override
   @GET('pokemon-species/{id}')
   Future<NetworkPokemonSpecies> getSpecies({
     @Path('id') required int id
   });
 
+  @override
   @GET('pokemon-form/{id}')
   Future<NetworkPokemonForm> getForm({
     @Path('id') required int id
   });
 
+  @override
   @GET('type/{id}')
   Future<NetworkType> getType({
     @Path('id') required int id
   });
 
+  @override
   @GET('evolution-chain/{id}')
   Future<NetworkEvolutionChain> getEvolutionChain({
     @Path('id') required int id

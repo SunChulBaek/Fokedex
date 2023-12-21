@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../data/model/network_flavor_text.dart';
 import '../data/model/network_name.dart';
+import '../database/model/lang_value.dart';
+import '../database/model/lang_value_version.dart';
 import '../ui/model/ui_chain_entry.dart';
 
 num cosDeg(num degree) => cos(_degToRad(degree));
@@ -30,11 +32,11 @@ int getIdFromUrl(String url) => int.parse(url.split('/').elementAt(6));
 
 String getNameForLocale(List<NetworkName>? names) {
   if (names != null && names.isNotEmpty) {
-    return names.firstWhere(
-      (name) => name.language.name == 'ko'
-      , orElse: () => names.firstWhere(
-        (name) => name.language.name == 'en'
-        , orElse: () => names.first
+    return names.firstWhere((name) =>
+      name.language.name == 'ko',
+      orElse: () => names.firstWhere((name) =>
+        name.language.name == 'en',
+        orElse: () => names.first
       )
     ).name;
   } else {
@@ -44,13 +46,43 @@ String getNameForLocale(List<NetworkName>? names) {
 
 String getFlavorTextForLocale(List<NetworkFlavorText>? flavorTexts) {
   if (flavorTexts != null && flavorTexts.isNotEmpty) {
-    return flavorTexts.firstWhere(
-      (flavorText) => flavorText.language.name == 'ko'
-      , orElse: () => flavorTexts.firstWhere(
-        (flavorText) => flavorText.language.name == 'en'
-        , orElse: () => flavorTexts.first
+    return flavorTexts.firstWhere((flavorText) =>
+      flavorText.language.name == 'ko',
+      orElse: () => flavorTexts.firstWhere((flavorText) =>
+        flavorText.language.name == 'en',
+        orElse: () => flavorTexts.first
       )
     ).flavorText.replaceAll("\n", " ");
+  } else {
+    return "";
+  }
+}
+
+String getNameForLocale2(List<LangValue> names) {
+  if (names.isNotEmpty) {
+    return names.firstWhere((name) =>
+      name.lang == "ko",
+        orElse: () =>
+          names.firstWhere((name) =>
+          name.lang == "en",
+            orElse: () => names.first
+          )
+      ).value;
+  } else {
+    return "";
+  }
+}
+
+String getFlavorTextForLocale2(List<LangValueVersion> flavors) {
+  if (flavors.isNotEmpty) {
+    return flavors.firstWhere((flavor) =>
+      flavor.lang == "ko",
+        orElse: () =>
+          flavors.firstWhere((flavor) =>
+          flavor.lang == "en",
+            orElse: () => flavors.first
+          )
+      ).value.replaceAll("\n", " ");
   } else {
     return "";
   }
@@ -76,5 +108,5 @@ Color getColorFromId(int id) {
       return const Color(0xFF9C27B0);
     default:
       return const Color(0xFF9E9E9E);
-  };
+  }
 }

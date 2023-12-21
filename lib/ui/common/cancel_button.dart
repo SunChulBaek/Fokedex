@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/util/converter.dart';
-import 'package:flutter_template/util/timber.dart';
+
+import 'package:fokedex/util/converter.dart';
 
 class CancelButton extends StatefulWidget {
   const CancelButton({
@@ -74,7 +74,7 @@ class _CancelButtonState extends State<CancelButton> with TickerProviderStateMix
           _outerRippleController.forward();
           _opacityController.forward();
         });
-        Future.delayed(Duration(milliseconds: timeUnit)).then((value) {
+        Future.delayed(const Duration(milliseconds: timeUnit)).then((value) {
           widget.onClick();
         });
       },

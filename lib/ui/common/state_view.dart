@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../bloc/model/ui_state.dart';
+import '../model/ui_state.dart';
 import 'error.dart';
 import 'loading.dart';
 

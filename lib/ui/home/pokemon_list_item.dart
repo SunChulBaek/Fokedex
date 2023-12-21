@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/pokemon.dart';
 import '../common/pokemon_progress_indicator.dart';
-import '../detail/pokemon.dart';
-import '../model/ui_pokemon.dart';
+import '../detail/pokemon_detail_screen.dart';
 
 class PokemonGridItem extends StatelessWidget {
   const PokemonGridItem({
@@ -12,7 +12,7 @@ class PokemonGridItem extends StatelessWidget {
     required this.onClick
   });
 
-  final UiPokemon pokemon;
+  final Pokemon pokemon;
   final void Function(BuildContext context, Object param) onClick;
 
   @override
@@ -71,7 +71,7 @@ class PokemonGridItem extends StatelessWidget {
       ),
       onTap: () => onClick.call(
         context,
-        PokemonParam(
+        PokemonDetailParam(
           id: pokemon.id,
           title: pokemon.name,
           url: pokemon.imageUrl,
