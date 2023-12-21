@@ -68,6 +68,11 @@ class PokemonRemoteDataSource implements PokemonDataSource {
   }
 
   @override
+  Future<List<SpeciesEntity>> getAllSpecies() {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<void> insertSpecies(SpeciesEntity species) {
     throw UnimplementedError();
   }

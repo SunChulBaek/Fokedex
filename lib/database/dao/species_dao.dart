@@ -32,6 +32,20 @@ class SpeciesDao {
     }
   }
 
+  Future<List<SpeciesEntity>> selectAll() async {
+    final db = await FokedexDatabase.getInstance();
+    final species = await db.query(_tableName);
+    return species.map((e) =>
+      SpeciesEntity(
+        id: int.parse(e[_columnSId].toString()),
+        names: TypeConverter.stringToNames(e[_columnNames].toString()),
+        flavorTexts: TypeConverter.stringToFlavors(e[_columnFlavorTexts].toString()),
+        ecId: e[_columnEcId] != null ? int.parse(e[_columnEcId].toString()) : 0,
+        vIds: TypeConverter.stringToIds(e[_columnVIds].toString())
+      )
+    ).toList();
+  }
+
   Future<void> insert(SpeciesEntity species) async {
     final db = await FokedexDatabase.getInstance();
     await db.insert(_tableName, {

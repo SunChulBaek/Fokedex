@@ -15,8 +15,8 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i10;
 
 import 'data/pokemon_data_source.dart' as _i15;
-import 'data/pokemon_local_data_source.dart' as _i16;
-import 'data/pokemon_remote_data_source.dart' as _i17;
+import 'data/pokemon_local_data_source.dart' as _i17;
+import 'data/pokemon_remote_data_source.dart' as _i16;
 import 'data/pokemon_repository.dart' as _i18;
 import 'data/rest_client.dart' as _i11;
 import 'database/dao/evolution_chain_dao.dart' as _i5;
@@ -59,7 +59,11 @@ _i1.GetIt $initGetIt(
   gh.factory<_i13.TypeDao>(() => _i13.TypeDao());
   gh.factory<_i14.UiState>(() => _i14.UiState.from());
   gh.factory<_i15.PokemonDataSource>(
-    () => _i16.PokemonLocalDataSource(
+    () => _i16.PokemonRemoteDataSource(gh<_i11.RestClient>()),
+    instanceName: 'remote',
+  );
+  gh.factory<_i15.PokemonDataSource>(
+    () => _i17.PokemonLocalDataSource(
       gh<_i5.EvolutionChainDao>(),
       gh<_i6.FormDao>(),
       gh<_i7.PokemonDao>(),
@@ -68,10 +72,6 @@ _i1.GetIt $initGetIt(
       gh<_i13.TypeDao>(),
     ),
     instanceName: 'local',
-  );
-  gh.factory<_i15.PokemonDataSource>(
-    () => _i17.PokemonRemoteDataSource(gh<_i11.RestClient>()),
-    instanceName: 'remote',
   );
   gh.factory<_i18.PokemonRepository>(() => _i18.PokemonRepository(
         gh<_i15.PokemonDataSource>(instanceName: 'remote'),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fokedex/util/timber.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
@@ -51,6 +52,10 @@ class _HomeState extends State<_HomeContent> {
   late HomeViewModel _viewModel;
   DateTime? currentBackPressTime;
   final ScrollController _scrollController = ScrollController();
+
+  final TextEditingController _editingController = TextEditingController();
+  String? search;
+
   late final PackageInfo _packageInfo;
 
   @override
@@ -119,36 +124,69 @@ class _HomeState extends State<_HomeContent> {
               Expanded(
                 child: StateView(
                   state: state,
-                  child: (pokemonList?.isEmpty ?? true)
-                    ? const Center(child: Text('No pokemon!'))
-                    : Scrollbar(
-                    thumbVisibility: true,
-                    controller: _scrollController,
-                    child: NotificationListener<ScrollNotification>(
-                      onNotification: (ScrollNotification scrollInfo) {
-                        if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
-                          _viewModel.init(offset: pokemonList.length, limit: 60);
-                        }
-                        return true;
-                      },
-                      child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 5
-                        ),
-                        controller: _scrollController,
-                        padding: const EdgeInsets.only(left: 0.0, right: 0.0),
-                        itemBuilder: (BuildContext context, int index) {
-                          return index >= pokemonList.length
-                            ? const BottomLoader()
-                            : PokemonGridItem(
-                            pokemon: pokemonList[index],
-                            onClick: widget.onClickMon
-                          );
-                        },
-                        itemCount: pokemonList!.length,
+                  child: Column(
+                    children: [
+                      // TODO : 검색 동작
+                      Container(
+                        color: Colors.white,
+                        child: TextField(
+                          controller: _editingController,
+                          decoration: InputDecoration(
+                            hintText: "Search (Name or Number)",
+                            suffixIcon: search?.isNotEmpty == true ? IconButton(
+                              onPressed: () {
+                                _editingController.clear();
+                                setState(() {
+                                  search = null;
+                                  _viewModel.init();
+                                });
+                              },
+                              icon: const Icon(Icons.close)
+                            ) : null
+                          ),
+                          onChanged: (text) {
+                            setState(() {
+                              search = text;
+                              _viewModel.init(search: text);
+                            });
+                          },
+                        )
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: (pokemonList?.isEmpty ?? true)
+                            ? const Center(child: Text('No pokemon!'))
+                            : Scrollbar(
+                                thumbVisibility: true,
+                                controller: _scrollController,
+                                child: NotificationListener<ScrollNotification>(
+                                  onNotification: (ScrollNotification scrollInfo) {
+                                    if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+                                      _viewModel.init(offset: pokemonList.length, limit: 60);
+                                    }
+                                    return true;
+                                  },
+                                  child: GridView.builder(
+                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 5
+                                    ),
+                                    controller: _scrollController,
+                                    padding: const EdgeInsets.only(left: 0.0, right: 0.0),
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return index >= pokemonList.length
+                                        ? const BottomLoader()
+                                        : PokemonGridItem(
+                                        pokemon: pokemonList[index],
+                                        onClick: widget.onClickMon
+                                      );
+                                    },
+                                    itemCount: pokemonList!.length,
+                                  )
+                                )
+                              )
                       )
-                    )
-                  )
+                    ]
+                )
                 )
               ),
               SizedBox(

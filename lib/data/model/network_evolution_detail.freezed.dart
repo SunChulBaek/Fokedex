@@ -126,7 +126,7 @@ class _$NetworkEvolutionDetailImpl implements _NetworkEvolutionDetail {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NetworkEvolutionDetailImpl &&

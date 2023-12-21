@@ -6,7 +6,7 @@ import 'package:sqflite/sqflite.dart';
 import '../util/timber.dart';
 
 class FokedexDatabase {
-  static const dbName = "cokedex-database.db";
+  static const dbName = "fokedex-database.db";
 
   static Database? _db;
 

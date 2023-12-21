@@ -22,6 +22,9 @@ abstract class PokemonDataSource {
   Future<SpeciesEntity?> getSpecies(int id)
     => throw Exception("Not Implemented yet.");
 
+  Future<List<SpeciesEntity>> getAllSpecies()
+    => throw Exception("Not Implemented yet.");
+
   Future<void> insertSpecies(SpeciesEntity species)
     => throw Exception("Not Implemented yet.");
 

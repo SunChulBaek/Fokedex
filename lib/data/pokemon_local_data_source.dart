@@ -71,6 +71,9 @@ class PokemonLocalDataSource implements PokemonDataSource {
   Future<SpeciesEntity?> getSpecies(int id) => speciesDao.findById(id);
 
   @override
+  Future<List<SpeciesEntity>> getAllSpecies() => speciesDao.selectAll();
+
+  @override
   Future<void> insertSpecies(SpeciesEntity species) => speciesDao.insert(species);
 
   @override

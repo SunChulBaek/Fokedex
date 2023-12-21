@@ -31,14 +31,16 @@ class HomeViewModel with ChangeNotifier {
 
   UiState get uiState => _uiState;
 
-  void init({ int? limit, int? offset }) async {
+  void init({ int? limit, int? offset, String? search }) async {
     try {
-      final pokemonList = await _repository.getPokemonList(limit: limit, offset: offset);
+      final pokemonList = await _repository.getPokemonList(
+        limit: limit, offset: offset, search: search);
+      list.clear();
       list.addAll(pokemonList.where((e) =>
-        !list.map((x) => x.id).contains(e.id)
+       !list.map((x) => x.id).contains(e.id)
       ));
       _uiState = Success(
-          data: PokemonListData(pokemonList: list.toList())
+        data: PokemonListData(pokemonList: list.toList())
       );
       notifyListeners();
     } catch (e) {

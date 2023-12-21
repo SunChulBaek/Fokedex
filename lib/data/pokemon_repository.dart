@@ -23,11 +23,12 @@ class PokemonRepository {
 
   Future<List<Pokemon>> getPokemonList({
     int? limit,
-    int? offset
+    int? offset,
+    String? search
   }) async {
     Timber.i("PokemonRepository.getPokemonList(limit = $limit, offset = $offset)");
     List<PokemonItemEntity> cachedPokemonList;
-    if (limit == null && offset == null) {
+    if (limit == null && offset == null && (search == null || search.trim().isEmpty)) {
       //  최초 로딩
       cachedPokemonList = await _local.getPokemonList();
       if (cachedPokemonList.isNotEmpty) {
@@ -35,6 +36,23 @@ class PokemonRepository {
           item.asExternalModel(fromDB: true)
         ).toList();
       }
+    } else if (limit == null && offset == null && !(search == null || search.trim().isEmpty)) {
+      // 검색
+      final searchList = (await _local.getAllSpecies()).where((species) =>
+        species.names.map((name) =>
+          name.value.toLowerCase()
+        ).any((e) =>
+          e.contains(search.toLowerCase())
+        ) || species.id.toString().contains(search)
+      );
+      return searchList.map((item) =>
+        Pokemon(
+          id: item.id,
+          name: "name",
+          imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${item.id}.png",
+          fromDB: true
+        )
+      ).toList();
     }
     cachedPokemonList = await _local.getPokemonList(limit: limit!, offset: offset!);
     if (cachedPokemonList.isNotEmpty) {
