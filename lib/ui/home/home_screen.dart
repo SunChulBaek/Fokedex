@@ -177,7 +177,8 @@ class _HomeState extends State<_HomeContent> {
                                 child: NotificationListener<ScrollNotification>(
                                   onNotification: (ScrollNotification scrollInfo) {
                                     if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
-                                      _viewModel.init(offset: pokemonList.length, limit: 60);
+                                      // TODO : 끝까지 스크롤 했을때 오류 (DB 사용 시에는 문제가 되지 않아 우선 막음)
+                                      //_viewModel.init(offset: pokemonList.length, limit: 60);
                                     }
                                     return true;
                                   },
