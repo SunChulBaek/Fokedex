@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
-import '../common/s_dialog.dart';
 import 'bottom_loader.dart';
 import 'home_view_model.dart';
 import 'pokemon_list_item.dart';
 import '../common/state_view.dart';
+import '../common/s_dialog.dart';
 import '../model/ui_state.dart';
 import '../../data/pokemon_repository.dart';
 import '../../injectable.dart';
+import '../../util/timber.dart';
 
 // 참고 : https://dopble2k.tistory.com/9
 class HomeScreen extends StatelessWidget {
@@ -45,10 +46,12 @@ class _HomeContent extends StatefulWidget {
 }
 
 class _HomeState extends State<_HomeContent> {
+  static const canPopDuration = 2;
   static const colorFromInternet = Color(0xFF4caf50);
   static const colorFromDB = Color(0xFF3f51b5);
 
   late HomeViewModel _viewModel;
+  bool canPop = false;
   DateTime? currentBackPressTime;
   final ScrollController _scrollController = ScrollController();
 
@@ -72,18 +75,31 @@ class _HomeState extends State<_HomeContent> {
   Widget build(BuildContext context) {
     final state = context.watch<HomeViewModel>().uiState;
     final pokemonList = state is Success ? (state as Success<PokemonListData>).data.pokemonList : null;
-    return WillPopScope(
-      onWillPop: () {
+    return PopScope(
+      canPop: canPop,
+      onPopInvoked: (didPop) {
+        Timber.i("onPopInvoked($didPop)");
         DateTime now = DateTime.now();
         if (currentBackPressTime == null ||
-            now.difference(currentBackPressTime!) > const Duration(seconds: 2)) {
+            now.difference(currentBackPressTime!) > const Duration(seconds: canPopDuration)) {
           currentBackPressTime = now;
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('\'뒤로\' 버튼 한번 더 누르시면 종료됩니다.'))
+            const SnackBar(
+              content: Text('\'뒤로\' 버튼 한번 더 누르시면 종료됩니다.'),
+              duration: Duration(seconds: canPopDuration)
+            )
           );
-          return Future.value(false);
+          setState(() {
+            canPop = true;
+          });
+          Future.delayed(const Duration(seconds: canPopDuration), () {
+            Timber.i("canPop = false");
+            currentBackPressTime = null;
+            setState(() {
+              canPop = false;
+            });
+          });
         }
-        return Future.value(true);
       },
       child: Scaffold(
         backgroundColor: Colors.lightBlue.shade50, // 50
