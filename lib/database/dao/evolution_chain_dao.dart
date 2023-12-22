@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../fokedex_database.dart';
 import '../model/evolution_chain_entity.dart';
@@ -37,6 +38,6 @@ class EvolutionChainDao {
       _columnTrigger: chain.trigger,
       _columnPrevId: chain.prevId,
       _columnIsLeaf: chain.isLeaf ? 1 : 0
-    });
+    }, conflictAlgorithm: ConflictAlgorithm.ignore);
   }
 }

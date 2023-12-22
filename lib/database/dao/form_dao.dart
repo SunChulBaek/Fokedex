@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../fokedex_database.dart';
 import '../model/form_entity.dart';
@@ -31,6 +32,6 @@ class FormDao {
     await db.insert(_tableName, {
       _columnFId: form.id,
       _columnNames: TypeConverter.namesToString(form.names)
-    });
+    }, conflictAlgorithm: ConflictAlgorithm.ignore);
   }
 }

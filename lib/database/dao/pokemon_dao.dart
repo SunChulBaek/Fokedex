@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../fokedex_database.dart';
 import '../model/pokemon_entity.dart';
@@ -55,7 +56,7 @@ class PokemonDao {
       _columnOrder: pokemon.order,
       _columnWeight: pokemon.weight,
       _columnTypeIds: TypeConverter.idsToString(pokemon.typeIds)
-    });
+    }, conflictAlgorithm: ConflictAlgorithm.ignore);
     return;
   }
 }

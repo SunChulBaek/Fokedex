@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../fokedex_database.dart';
 import '../model/species_entity.dart';
@@ -54,6 +55,6 @@ class SpeciesDao {
       _columnFlavorTexts: TypeConverter.flavorsToString(species.flavorTexts),
       _columnEcId: species.ecId,
       _columnVIds: TypeConverter.idsToString(species.vIds),
-    });
+    }, conflictAlgorithm: ConflictAlgorithm.ignore);
   }
 }

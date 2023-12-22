@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../fokedex_database.dart';
 import '../model/type_entity.dart';
@@ -31,6 +32,6 @@ class TypeDao {
     await db.insert(_tableName, {
       _columnTId: type.id,
       _columnNames: TypeConverter.namesToString(type.names)
-    });
+    }, conflictAlgorithm: ConflictAlgorithm.ignore);
   }
 }
