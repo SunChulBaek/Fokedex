@@ -10,11 +10,11 @@ NetworkPokemon _$NetworkPokemonFromJson(Map<String, dynamic> json) =>
     NetworkPokemon(
       id: json['id'] as int,
       name: json['name'] as String,
-      baseExp: json['base_experience'] as int,
-      height: json['height'] as int,
+      baseExp: json['base_experience'] as int?,
+      height: json['height'] as int?,
       isDefault: json['is_default'] as bool,
-      order: json['order'] as int,
-      weight: json['weight'] as int,
+      order: json['order'] as int?,
+      weight: json['weight'] as int?,
       forms: (json['forms'] as List<dynamic>)
           .map((e) =>
               NetworkNamedAPIResource.fromJson(e as Map<String, dynamic>))

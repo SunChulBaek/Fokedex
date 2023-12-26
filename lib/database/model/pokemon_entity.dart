@@ -33,11 +33,11 @@ class PokemonEntity {
     sId: getIdFromUrl(pokemon.species.url),
     fId: getIdFromUrl(pokemon.forms.first.url),
     name: pokemon.name,
-    baseExp: pokemon.baseExp,
-    height: pokemon.height,
+    baseExp: pokemon.baseExp ?? 0,
+    height: pokemon.height ?? 0,
     isDefault: pokemon.isDefault,
-    order: pokemon.order,
-    weight: pokemon.weight,
+    order: pokemon.order ?? 0,
+    weight: pokemon.weight ?? 0,
     typeIds: pokemon.types.map((e) =>
       getIdFromUrl(e.type.url)
     ).toList()

@@ -21,15 +21,15 @@ mixin _$NetworkPokemon {
   @JsonKey(name: 'name')
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'base_experience')
-  int get baseExp => throw _privateConstructorUsedError;
+  int? get baseExp => throw _privateConstructorUsedError;
   @JsonKey(name: 'height')
-  int get height => throw _privateConstructorUsedError;
+  int? get height => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_default')
   bool get isDefault => throw _privateConstructorUsedError;
   @JsonKey(name: 'order')
-  int get order => throw _privateConstructorUsedError;
+  int? get order => throw _privateConstructorUsedError;
   @JsonKey(name: 'weight')
-  int get weight => throw _privateConstructorUsedError;
+  int? get weight => throw _privateConstructorUsedError;
   @JsonKey(name: 'forms')
   List<NetworkNamedAPIResource> get forms => throw _privateConstructorUsedError;
   @JsonKey(name: 'types')
@@ -53,11 +53,11 @@ abstract class $NetworkPokemonCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'id') int id,
       @JsonKey(name: 'name') String name,
-      @JsonKey(name: 'base_experience') int baseExp,
-      @JsonKey(name: 'height') int height,
+      @JsonKey(name: 'base_experience') int? baseExp,
+      @JsonKey(name: 'height') int? height,
       @JsonKey(name: 'is_default') bool isDefault,
-      @JsonKey(name: 'order') int order,
-      @JsonKey(name: 'weight') int weight,
+      @JsonKey(name: 'order') int? order,
+      @JsonKey(name: 'weight') int? weight,
       @JsonKey(name: 'forms') List<NetworkNamedAPIResource> forms,
       @JsonKey(name: 'types') List<NetworkPokemonType> types,
       @JsonKey(name: 'stats') List<NetworkPokemonStat> stats,
@@ -81,11 +81,11 @@ class _$NetworkPokemonCopyWithImpl<$Res, $Val extends NetworkPokemon>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? baseExp = null,
-    Object? height = null,
+    Object? baseExp = freezed,
+    Object? height = freezed,
     Object? isDefault = null,
-    Object? order = null,
-    Object? weight = null,
+    Object? order = freezed,
+    Object? weight = freezed,
     Object? forms = null,
     Object? types = null,
     Object? stats = null,
@@ -100,26 +100,26 @@ class _$NetworkPokemonCopyWithImpl<$Res, $Val extends NetworkPokemon>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      baseExp: null == baseExp
+      baseExp: freezed == baseExp
           ? _value.baseExp
           : baseExp // ignore: cast_nullable_to_non_nullable
-              as int,
-      height: null == height
+              as int?,
+      height: freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       isDefault: null == isDefault
           ? _value.isDefault
           : isDefault // ignore: cast_nullable_to_non_nullable
               as bool,
-      order: null == order
+      order: freezed == order
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
-              as int,
-      weight: null == weight
+              as int?,
+      weight: freezed == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       forms: null == forms
           ? _value.forms
           : forms // ignore: cast_nullable_to_non_nullable
@@ -159,11 +159,11 @@ abstract class _$$NetworkPokemonImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'id') int id,
       @JsonKey(name: 'name') String name,
-      @JsonKey(name: 'base_experience') int baseExp,
-      @JsonKey(name: 'height') int height,
+      @JsonKey(name: 'base_experience') int? baseExp,
+      @JsonKey(name: 'height') int? height,
       @JsonKey(name: 'is_default') bool isDefault,
-      @JsonKey(name: 'order') int order,
-      @JsonKey(name: 'weight') int weight,
+      @JsonKey(name: 'order') int? order,
+      @JsonKey(name: 'weight') int? weight,
       @JsonKey(name: 'forms') List<NetworkNamedAPIResource> forms,
       @JsonKey(name: 'types') List<NetworkPokemonType> types,
       @JsonKey(name: 'stats') List<NetworkPokemonStat> stats,
@@ -186,11 +186,11 @@ class __$$NetworkPokemonImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? baseExp = null,
-    Object? height = null,
+    Object? baseExp = freezed,
+    Object? height = freezed,
     Object? isDefault = null,
-    Object? order = null,
-    Object? weight = null,
+    Object? order = freezed,
+    Object? weight = freezed,
     Object? forms = null,
     Object? types = null,
     Object? stats = null,
@@ -205,26 +205,26 @@ class __$$NetworkPokemonImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      baseExp: null == baseExp
+      baseExp: freezed == baseExp
           ? _value.baseExp
           : baseExp // ignore: cast_nullable_to_non_nullable
-              as int,
-      height: null == height
+              as int?,
+      height: freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       isDefault: null == isDefault
           ? _value.isDefault
           : isDefault // ignore: cast_nullable_to_non_nullable
               as bool,
-      order: null == order
+      order: freezed == order
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
-              as int,
-      weight: null == weight
+              as int?,
+      weight: freezed == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       forms: null == forms
           ? _value._forms
           : forms // ignore: cast_nullable_to_non_nullable
@@ -273,19 +273,19 @@ class _$NetworkPokemonImpl implements _NetworkPokemon {
   final String name;
   @override
   @JsonKey(name: 'base_experience')
-  final int baseExp;
+  final int? baseExp;
   @override
   @JsonKey(name: 'height')
-  final int height;
+  final int? height;
   @override
   @JsonKey(name: 'is_default')
   final bool isDefault;
   @override
   @JsonKey(name: 'order')
-  final int order;
+  final int? order;
   @override
   @JsonKey(name: 'weight')
-  final int weight;
+  final int? weight;
   final List<NetworkNamedAPIResource> _forms;
   @override
   @JsonKey(name: 'forms')
@@ -368,11 +368,11 @@ abstract class _NetworkPokemon implements NetworkPokemon {
   factory _NetworkPokemon(
       {@JsonKey(name: 'id') required final int id,
       @JsonKey(name: 'name') required final String name,
-      @JsonKey(name: 'base_experience') required final int baseExp,
-      @JsonKey(name: 'height') required final int height,
+      @JsonKey(name: 'base_experience') required final int? baseExp,
+      @JsonKey(name: 'height') required final int? height,
       @JsonKey(name: 'is_default') required final bool isDefault,
-      @JsonKey(name: 'order') required final int order,
-      @JsonKey(name: 'weight') required final int weight,
+      @JsonKey(name: 'order') required final int? order,
+      @JsonKey(name: 'weight') required final int? weight,
       @JsonKey(name: 'forms')
       required final List<NetworkNamedAPIResource> forms,
       @JsonKey(name: 'types') required final List<NetworkPokemonType> types,
@@ -388,19 +388,19 @@ abstract class _NetworkPokemon implements NetworkPokemon {
   String get name;
   @override
   @JsonKey(name: 'base_experience')
-  int get baseExp;
+  int? get baseExp;
   @override
   @JsonKey(name: 'height')
-  int get height;
+  int? get height;
   @override
   @JsonKey(name: 'is_default')
   bool get isDefault;
   @override
   @JsonKey(name: 'order')
-  int get order;
+  int? get order;
   @override
   @JsonKey(name: 'weight')
-  int get weight;
+  int? get weight;
   @override
   @JsonKey(name: 'forms')
   List<NetworkNamedAPIResource> get forms;
