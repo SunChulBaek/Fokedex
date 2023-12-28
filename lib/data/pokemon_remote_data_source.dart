@@ -1,5 +1,3 @@
-import 'package:injectable/injectable.dart';
-
 import 'pokemon_data_source.dart';
 import 'rest_client.dart';
 import '../database/model/evolution_chain_entity.dart';
@@ -10,8 +8,6 @@ import '../database/model/species_entity.dart';
 import '../database/model/type_entity.dart';
 import '../util/timber.dart';
 
-@Named("remote")
-@Injectable(as: PokemonDataSource)
 class PokemonRemoteDataSource implements PokemonDataSource {
   PokemonRemoteDataSource(
     this._client

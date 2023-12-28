@@ -1,11 +1,9 @@
-import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../fokedex_database.dart';
 import '../model/form_entity.dart';
 import '../../data/type_converter.dart';
 
-@injectable
 class FormDao {
   static const String _tableName = "form";
   static const String _columnFId = "f_id";

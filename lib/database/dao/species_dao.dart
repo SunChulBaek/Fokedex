@@ -1,11 +1,9 @@
-import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../fokedex_database.dart';
 import '../model/species_entity.dart';
 import '../../data/type_converter.dart';
 
-@injectable
 class SpeciesDao {
   static const String _tableName = "species";
   static const String _columnSId = "s_id";

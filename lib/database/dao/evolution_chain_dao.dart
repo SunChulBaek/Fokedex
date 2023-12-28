@@ -1,10 +1,8 @@
-import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../fokedex_database.dart';
 import '../model/evolution_chain_entity.dart';
 
-@injectable
 class EvolutionChainDao {
   static const String _tableName = "evolution_chain";
   static const String _columnCId = "c_id";

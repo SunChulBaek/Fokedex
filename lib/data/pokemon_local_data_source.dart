@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:injectable/injectable.dart';
-
 import 'pokemon_data_source.dart';
 import '../database/dao/evolution_chain_dao.dart';
 import '../database/dao/form_dao.dart';
@@ -16,8 +14,6 @@ import '../database/model/pokemon_item_entity.dart';
 import '../database/model/species_entity.dart';
 import '../database/model/type_entity.dart';
 
-@Named("local")
-@Injectable(as: PokemonDataSource)
 class PokemonLocalDataSource implements PokemonDataSource {
 
   PokemonLocalDataSource(

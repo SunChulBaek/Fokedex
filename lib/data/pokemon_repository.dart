@@ -1,7 +1,5 @@
-import 'package:fokedex/database/model/pokemon_item_entity.dart';
-import 'package:injectable/injectable.dart';
-
 import 'pokemon_data_source.dart';
+import '../database/model/pokemon_item_entity.dart';
 import '../database/model/species_entity.dart';
 import '../model/evolution_chain.dart';
 import '../model/form.dart';
@@ -11,11 +9,10 @@ import '../model/species.dart';
 import '../model/type.dart';
 import '../util/timber.dart';
 
-@injectable
 class PokemonRepository {
   PokemonRepository(
-    @Named("remote") this._remote,
-    @Named("local") this._local,
+    this._remote,
+    this._local,
   );
 
   final PokemonDataSource _remote;

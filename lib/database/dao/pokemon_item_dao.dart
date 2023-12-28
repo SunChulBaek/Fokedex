@@ -1,10 +1,8 @@
-import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../fokedex_database.dart';
 import '../model/pokemon_item_entity.dart';
 
-@injectable
 class PokemonItemDao {
   static const String _tableName = "pokemon_item";
   static const String _columnId = "id";
