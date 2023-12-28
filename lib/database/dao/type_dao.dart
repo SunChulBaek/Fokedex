@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 
-import '../fokedex_database.dart';
 import '../model/type_entity.dart';
 import '../../data/type_converter.dart';
 
@@ -9,9 +8,12 @@ class TypeDao {
   static const String _columnTId = "t_id";
   static const String _columnNames = "names";
 
+  TypeDao(this._db);
+
+  final Database _db;
+
   Future<TypeEntity?> findById(int id) async {
-    final db = await FokedexDatabase.getInstance();
-    final type = await db.query(_tableName,
+    final type = await _db.query(_tableName,
       where: "$_columnTId = ?",
       whereArgs: [id]
     );
@@ -26,10 +28,13 @@ class TypeDao {
   }
 
   Future<void> insert(TypeEntity type) async {
-    final db = await FokedexDatabase.getInstance();
-    await db.insert(_tableName, {
-      _columnTId: type.id,
-      _columnNames: TypeConverter.namesToString(type.names)
-    }, conflictAlgorithm: ConflictAlgorithm.ignore);
+    await _db.insert(
+      _tableName,
+      {
+        _columnTId: type.id,
+        _columnNames: TypeConverter.namesToString(type.names)
+      },
+      conflictAlgorithm: ConflictAlgorithm.ignore
+    );
   }
 }

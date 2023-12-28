@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 
-import '../fokedex_database.dart';
 import '../model/species_entity.dart';
 import '../../data/type_converter.dart';
 
@@ -12,9 +11,12 @@ class SpeciesDao {
   static const String _columnEcId = "ec_id";
   static const String _columnVIds = "v_ids";
 
+  SpeciesDao(this._db);
+
+  final Database _db;
+
   Future<SpeciesEntity?> findById(int id) async {
-    final db = await FokedexDatabase.getInstance();
-    final species = await db.query(_tableName,
+    final species = await _db.query(_tableName,
         where: "$_columnSId = ?",
         whereArgs: [id]
     );
@@ -32,8 +34,7 @@ class SpeciesDao {
   }
 
   Future<List<SpeciesEntity>> selectAll() async {
-    final db = await FokedexDatabase.getInstance();
-    final species = await db.query(_tableName);
+    final species = await _db.query(_tableName);
     return species.map((e) =>
       SpeciesEntity(
         id: int.parse(e[_columnSId].toString()),
@@ -46,13 +47,16 @@ class SpeciesDao {
   }
 
   Future<void> insert(SpeciesEntity species) async {
-    final db = await FokedexDatabase.getInstance();
-    await db.insert(_tableName, {
-      _columnSId: species.id,
-      _columnNames: TypeConverter.namesToString(species.names),
-      _columnFlavorTexts: TypeConverter.flavorsToString(species.flavorTexts),
-      _columnEcId: species.ecId,
-      _columnVIds: TypeConverter.idsToString(species.vIds),
-    }, conflictAlgorithm: ConflictAlgorithm.ignore);
+    await _db.insert(
+      _tableName,
+      {
+        _columnSId: species.id,
+        _columnNames: TypeConverter.namesToString(species.names),
+        _columnFlavorTexts: TypeConverter.flavorsToString(species.flavorTexts),
+        _columnEcId: species.ecId,
+        _columnVIds: TypeConverter.idsToString(species.vIds),
+      },
+      conflictAlgorithm: ConflictAlgorithm.ignore
+    );
   }
 }

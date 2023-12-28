@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 
-import '../fokedex_database.dart';
 import '../model/evolution_chain_entity.dart';
 
 class EvolutionChainDao {
@@ -11,9 +10,12 @@ class EvolutionChainDao {
   static const String _columnTrigger = "trigger";
   static const String _columnIsLeaf = "is_leaf";
 
+  EvolutionChainDao(this._db);
+
+  final Database _db;
+
   Future<List<EvolutionChainEntity>> findById(int id) async {
-    final db = await FokedexDatabase.getInstance();
-    final chains = await db.query(_tableName,
+    final chains = await _db.query(_tableName,
       where: "$_columnCId = ?",
       whereArgs: [id]
     );
@@ -29,13 +31,16 @@ class EvolutionChainDao {
   }
 
   Future<void> insert(EvolutionChainEntity chain) async {
-    final db = await FokedexDatabase.getInstance();
-    await db.insert(_tableName, {
-      _columnCId: chain.cId,
-      _columnPId: chain.pId,
-      _columnTrigger: chain.trigger,
-      _columnPrevId: chain.prevId,
-      _columnIsLeaf: chain.isLeaf ? 1 : 0
-    }, conflictAlgorithm: ConflictAlgorithm.ignore);
+    await _db.insert(
+      _tableName,
+      {
+        _columnCId: chain.cId,
+        _columnPId: chain.pId,
+        _columnTrigger: chain.trigger,
+        _columnPrevId: chain.prevId,
+        _columnIsLeaf: chain.isLeaf ? 1 : 0
+      },
+      conflictAlgorithm: ConflictAlgorithm.ignore
+    );
   }
 }

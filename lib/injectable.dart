@@ -9,6 +9,4 @@ final getIt = GetIt.instance;
   preferRelativeImports: true,
   asExtension: false
 )
-void configureDependencies() {
-  $initGetIt(getIt);
-}
+Future<void> configureDependencies() async => $initGetIt(getIt);

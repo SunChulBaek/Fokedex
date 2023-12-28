@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 
-import '../fokedex_database.dart';
 import '../model/pokemon_entity.dart';
 import '../../data/type_converter.dart';
 
@@ -17,9 +16,12 @@ class PokemonDao {
   static const String _columnOrder = "order";
   static const String _columnTypeIds = "typeIds";
 
+  PokemonDao(this._db);
+
+  final Database _db;
+
   Future<PokemonEntity?> findById(int id) async {
-    final db = await FokedexDatabase.getInstance();
-    final pokemon = await db.query(_tableName,
+    final pokemon = await _db.query(_tableName,
         where: "$_columnPId = ?",
         whereArgs: [id]
     );
@@ -42,19 +44,22 @@ class PokemonDao {
   }
 
   Future<void> insert(PokemonEntity pokemon) async {
-    final db = await FokedexDatabase.getInstance();
-    await db.insert(_tableName, {
-      _columnPId: pokemon.id,
-      _columnSId: pokemon.sId,
-      _columnFId: pokemon.fId,
-      _columnName: pokemon.name,
-      _columnBaseExp: pokemon.baseExp,
-      _columnHeight: pokemon.height,
-      _columnIsDefault: pokemon.isDefault ? 1 : 0,
-      _columnOrder: pokemon.order,
-      _columnWeight: pokemon.weight,
-      _columnTypeIds: TypeConverter.idsToString(pokemon.typeIds)
-    }, conflictAlgorithm: ConflictAlgorithm.ignore);
+    await _db.insert(
+      _tableName,
+      {
+        _columnPId: pokemon.id,
+        _columnSId: pokemon.sId,
+        _columnFId: pokemon.fId,
+        _columnName: pokemon.name,
+        _columnBaseExp: pokemon.baseExp,
+        _columnHeight: pokemon.height,
+        _columnIsDefault: pokemon.isDefault ? 1 : 0,
+        _columnOrder: pokemon.order,
+        _columnWeight: pokemon.weight,
+        _columnTypeIds: TypeConverter.idsToString(pokemon.typeIds)
+      },
+      conflictAlgorithm: ConflictAlgorithm.ignore
+    );
     return;
   }
 }
