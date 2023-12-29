@@ -51,7 +51,7 @@ class PokemonRepository {
         )
       ).toList();
     }
-    cachedPokemonList = await _local.getPokemonList(limit: limit!, offset: offset!);
+    cachedPokemonList = await _local.getPokemonList(limit: limit ?? 0, offset: offset ?? 0);
     if (cachedPokemonList.isNotEmpty) {
       return cachedPokemonList.map((item) =>
         item.asExternalModel(fromDB: true)

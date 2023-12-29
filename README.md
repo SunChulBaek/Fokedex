@@ -13,6 +13,8 @@
     * [retrofit_generator](https://pub.dev/packages/retrofit_generator)
     * [json_annotation](https://pub.dev/packages/json_annotation)
     * [json_serializable](https://pub.dev/packages/json_serializable)
+  * Database
+    * [floor](https://pub.dev/packages/floor)
   * Widget
     * [cached_network_image](https://pub.dev/packages/cached_network_image)
     * [flutter_svg](https://pub.dev/packages/flutter_svg)

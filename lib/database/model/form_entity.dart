@@ -1,16 +1,22 @@
+import 'package:floor/floor.dart';
+
 import 'lang_value.dart';
 import '../../model/form.dart';
 import '../../util/converter.dart';
 import '../../data/model/network_pokemon_form.dart';
 
+@Entity(
+  tableName: "form",
+  primaryKeys: [ "f_id" ]
+)
 class FormEntity {
   FormEntity({
     required this.id,
     required this.names
   });
 
-  final int id;
-  final List<LangValue> names;
+  @ColumnInfo(name: "f_id") final int id;
+  @ColumnInfo(name: "names") final List<LangValue> names;
 
   factory FormEntity.fromNetworkModel(
     NetworkPokemonForm form

@@ -1,16 +1,22 @@
+import 'package:floor/floor.dart';
+
 import 'lang_value.dart';
 import '../../data/model/network_type.dart';
 import '../../model/type.dart';
 import '../../util/converter.dart';
 
+@Entity(
+  tableName: "type",
+  primaryKeys: [ "t_id" ]
+)
 class TypeEntity {
   TypeEntity({
     required this.id,
     required this.names
   });
 
-  final int id;
-  final List<LangValue> names;
+  @ColumnInfo(name: "t_id") final int id;
+  @ColumnInfo(name: "names") final List<LangValue> names;
 
   factory TypeEntity.fromNetworkModel(
     NetworkType type

@@ -20,8 +20,8 @@ class PokemonRemoteDataSource implements PokemonDataSource {
     int? limit,
     int? offset
   }) async {
-    final list = await _client.getPokemonList(limit: limit!, offset: offset!);
-    var index = offset;
+    final list = await _client.getPokemonList(limit: limit ?? 60, offset: offset ?? 0);
+    var index = offset ?? 0;
     return list.results.map((e) =>
       PokemonItemEntity.fromNetworkModel(index++, e)
     ).toList();

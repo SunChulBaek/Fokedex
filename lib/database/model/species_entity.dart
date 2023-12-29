@@ -1,9 +1,15 @@
+import 'package:floor/floor.dart';
+
 import 'lang_value.dart';
 import 'lang_value_version.dart';
 import '../../data/model/network_pokemon_species.dart';
 import '../../model/species.dart';
 import '../../util/converter.dart';
 
+@Entity(
+  tableName: "species",
+  primaryKeys: [ "s_id" ]
+)
 class SpeciesEntity {
   SpeciesEntity({
     required this.id,
@@ -13,11 +19,11 @@ class SpeciesEntity {
     this.vIds,
   });
 
-  final int id;
-  final List<LangValue> names;
-  final List<LangValueVersion> flavorTexts;
-  final int? ecId;
-  final List<int>? vIds;
+  @ColumnInfo(name: "s_id") final int id;
+  @ColumnInfo(name: "names") final List<LangValue> names;
+  @ColumnInfo(name: "flavor_texts") final List<LangValueVersion> flavorTexts;
+  @ColumnInfo(name: "ec_id") final int? ecId;
+  @ColumnInfo(name: "v_ids") final List<int>? vIds;
 
   factory SpeciesEntity.fromNetworkModel(
     NetworkPokemonSpecies species

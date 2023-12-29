@@ -1,7 +1,13 @@
+import 'package:floor/floor.dart';
+
 import '../../data/model/network_pokemon.dart';
 import '../../model/pokemon_detail.dart';
 import '../../util/converter.dart';
 
+@Entity(
+  tableName: "pokemon",
+  primaryKeys: [ "p_id" ]
+)
 class PokemonEntity {
   PokemonEntity({
     required this.id,
@@ -15,16 +21,16 @@ class PokemonEntity {
     required this.weight,
     required this.typeIds,
   });
-  final int id;
-  final int sId;
-  final int fId;
-  final String name;
-  final int baseExp;
-  final int height;
-  final bool isDefault;
-  final int order;
-  final int weight;
-  final List<int> typeIds;
+  @ColumnInfo(name: "p_id")  final int id;
+  @ColumnInfo(name: "s_id") final int sId;
+  @ColumnInfo(name: "f_id") final int fId;
+  @ColumnInfo(name: "name") final String name;
+  @ColumnInfo(name: "base_experience") final int baseExp;
+  @ColumnInfo(name: "height") final int height;
+  @ColumnInfo(name: "is_default") final bool isDefault;
+  @ColumnInfo(name: "order") final int order;
+  @ColumnInfo(name: "weight") final int weight;
+  @ColumnInfo(name: "typeIds") final List<int> typeIds;
 
   factory PokemonEntity.fromNetworkModel(
     NetworkPokemon pokemon

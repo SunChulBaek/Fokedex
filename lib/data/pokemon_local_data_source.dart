@@ -44,24 +44,24 @@ class PokemonLocalDataSource implements PokemonDataSource {
     for (int i = offset!; i < offset + limit!; i++) {
       indexx.add(i);
     }
-    return await pokemonItemDao.findByIndex(indexx: indexx);
+    return await pokemonItemDao.findByIndex(indexx);
   }
 
   @override
   Future<void> insertPokemonList(List<PokemonItemEntity> pokemonList)
-    => pokemonItemDao.insert(pokemonList);
+    => pokemonItemDao.insertPokemonItem(pokemonList);
 
   @override
   Future<FormEntity?> getForm(int id) => formDao.findById(id);
 
   @override
-  Future<void> insertForm(FormEntity form) => formDao.insert(form);
+  Future<void> insertForm(FormEntity form) => formDao.insertForm(form);
 
   @override
   Future<PokemonEntity?> getPokemon(int id)  => pokemonDao.findById(id);
 
   @override
-  Future<void> insertPokemon(PokemonEntity pokemon) => pokemonDao.insert(pokemon);
+  Future<void> insertPokemon(PokemonEntity pokemon) => pokemonDao.insertPokemon(pokemon);
 
   @override
   Future<SpeciesEntity?> getSpecies(int id) => speciesDao.findById(id);
@@ -70,17 +70,17 @@ class PokemonLocalDataSource implements PokemonDataSource {
   Future<List<SpeciesEntity>> getAllSpecies() => speciesDao.selectAll();
 
   @override
-  Future<void> insertSpecies(SpeciesEntity species) => speciesDao.insert(species);
+  Future<void> insertSpecies(SpeciesEntity species) => speciesDao.insertSpecies(species);
 
   @override
   Future<TypeEntity?> getType(int id) => typeDao.findById(id);
 
   @override
-  Future<void> insertType(TypeEntity type) => typeDao.insert(type);
+  Future<void> insertType(TypeEntity type) => typeDao.insertType(type);
 
   @override
   Future<List<EvolutionChainEntity>> getEvolutionChain(int id) => ecDao.findById(id);
 
   @override
-  Future<void> insertEvolutionChain(EvolutionChainEntity chain) => ecDao.insert(chain);
+  Future<void> insertEvolutionChain(EvolutionChainEntity chain) => ecDao.insertEvolutionChain(chain);
 }

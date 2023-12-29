@@ -1,10 +1,16 @@
 import 'dart:collection';
 
+import 'package:floor/floor.dart';
+
 import '../../data/model/network_chain_link.dart';
 import '../../data/model/network_evolution_chain.dart';
 import '../../util/converter.dart';
 import '../../util/triple.dart';
 
+@Entity(
+  tableName: "evolution_chain",
+  primaryKeys: [ "c_id", "p_id" ]
+)
 class EvolutionChainEntity {
   EvolutionChainEntity({
     required this.cId,
@@ -14,11 +20,11 @@ class EvolutionChainEntity {
     required this.isLeaf
   });
 
-  final int cId;
-  final int pId;
-  final String trigger;
-  final int? prevId;
-  final bool isLeaf;
+  @ColumnInfo(name: "c_id") final int cId;
+  @ColumnInfo(name: "p_id") final int pId;
+  @ColumnInfo(name: "trigger") final String trigger;
+  @ColumnInfo(name: "prev_id") final int? prevId;
+  @ColumnInfo(name: "is_leaf") final bool isLeaf;
 
   static List<EvolutionChainEntity> fromNetworkModel(NetworkEvolutionChain chain) {
     final map = HashMap<int, Triple<int?, String, bool>>();

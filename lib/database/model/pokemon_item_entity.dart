@@ -1,16 +1,22 @@
+import 'package:floor/floor.dart';
+
 import '../../data/model/network_named_api_resource.dart';
 import '../../model/pokemon.dart';
 import '../../util/converter.dart';
 
+@Entity(
+  tableName: "pokemon_item",
+  primaryKeys: [ "id" ]
+)
 class PokemonItemEntity {
   PokemonItemEntity({
     required this.id,
     required this.index,
     required this.name
   });
-  final int id;
-  final int index;
-  final String name;
+  @ColumnInfo(name: "id") final int id;
+  @ColumnInfo(name: "indexx") final int index;
+  @ColumnInfo(name: "name") final String name;
 
   factory PokemonItemEntity.fromNetworkModel(
     int index,

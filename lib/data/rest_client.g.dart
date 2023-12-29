@@ -22,7 +22,7 @@ class _RestClient implements RestClient {
 
   @override
   Future<NetworkNamedAPIResourceList<dynamic>> getPokemonList({
-    int limit = 20,
+    int limit = 60,
     int offset = 0,
   }) async {
     const _extra = <String, dynamic>{};
