@@ -24,10 +24,8 @@ import 'database/dao/pokemon_item_dao.dart' as _i9;
 import 'database/dao/species_dao.dart' as _i11;
 import 'database/dao/type_dao.dart' as _i12;
 import 'di/app_module.dart' as _i19;
-import 'di/dao_module.dart' as _i20;
-import 'di/data_module.dart' as _i22;
+import 'di/data_module.dart' as _i20;
 import 'di/database_module.dart' as _i18;
-import 'di/network_module.dart' as _i21;
 import 'ui/detail/pokemon_detail_view_model.dart' as _i17;
 import 'ui/home/home_view_model.dart' as _i10;
 import 'ui/model/ui_state.dart' as _i13;
@@ -45,31 +43,32 @@ Future<_i1.GetIt> $initGetIt(
   );
   final databaseModule = _$DatabaseModule();
   final appModule = _$AppModule();
-  final daoModule = _$DaoModule();
-  final networkModule = _$NetworkModule();
   final dataModule = _$DataModule();
   await gh.factoryAsync<_i3.Database>(
     () => databaseModule.database,
     preResolve: true,
   );
   gh.singleton<_i4.EventBus>(appModule.eventBus);
-  gh.factory<_i5.EvolutionChainDao>(() => daoModule.ecDao(gh<_i3.Database>()));
-  gh.factory<_i6.FormDao>(() => daoModule.formDao(gh<_i3.Database>()));
+  gh.factory<_i5.EvolutionChainDao>(
+      () => databaseModule.ecDao(gh<_i3.Database>()));
+  gh.factory<_i6.FormDao>(() => databaseModule.formDao(gh<_i3.Database>()));
   gh.factory<_i7.Interceptor>(
-    () => networkModule.logger,
+    () => dataModule.logger,
     instanceName: 'logger',
   );
-  gh.factory<Map<String, dynamic>>(() => networkModule.headers);
-  gh.factory<_i8.PokemonDao>(() => daoModule.pokemonDao(gh<_i3.Database>()));
+  gh.factory<Map<String, dynamic>>(() => dataModule.headers);
+  gh.factory<_i8.PokemonDao>(
+      () => databaseModule.pokemonDao(gh<_i3.Database>()));
   gh.factory<_i9.PokemonItemDao>(
-      () => daoModule.pokemonItemDao(gh<_i3.Database>()));
+      () => databaseModule.pokemonItemDao(gh<_i3.Database>()));
   gh.factory<_i10.PokemonListData>(() => _i10.PokemonListData.from());
-  gh.factory<_i11.SpeciesDao>(() => daoModule.speciesDao(gh<_i3.Database>()));
-  gh.factory<_i12.TypeDao>(() => daoModule.typeDao(gh<_i3.Database>()));
+  gh.factory<_i11.SpeciesDao>(
+      () => databaseModule.speciesDao(gh<_i3.Database>()));
+  gh.factory<_i12.TypeDao>(() => databaseModule.typeDao(gh<_i3.Database>()));
   gh.factory<_i13.UiState>(() => _i13.UiState.from());
   gh.factory<_i7.BaseOptions>(
-      () => networkModule.options(gh<Map<String, dynamic>>()));
-  gh.factory<_i7.Dio>(() => networkModule.dio(
+      () => dataModule.options(gh<Map<String, dynamic>>()));
+  gh.factory<_i7.Dio>(() => dataModule.dio(
         gh<_i7.BaseOptions>(),
         gh<_i7.Interceptor>(instanceName: 'logger'),
       ));
@@ -102,8 +101,4 @@ class _$DatabaseModule extends _i18.DatabaseModule {}
 
 class _$AppModule extends _i19.AppModule {}
 
-class _$DaoModule extends _i20.DaoModule {}
-
-class _$NetworkModule extends _i21.NetworkModule {}
-
-class _$DataModule extends _i22.DataModule {}
+class _$DataModule extends _i20.DataModule {}
