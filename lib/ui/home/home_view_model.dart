@@ -35,7 +35,7 @@ class HomeViewModel with ChangeNotifier {
     try {
       final pokemonList = await _repository.getPokemonList(
         limit: limit, offset: offset, search: search);
-      // list.clear();
+      list.clear();
       list.addAll(pokemonList.where((e) =>
        !list.map((x) => x.id).contains(e.id)
       ));
