@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-    create: (_) => HomeViewModel(getIt<PokemonRepository>())..init(limit: HomeViewModel.pagingSize, offset: 0),
+    create: (_) => HomeViewModel(getIt<PokemonRepository>())..load(limit: HomeViewModel.pagingSize, offset: 0),
     child: _HomeContent(title: title, onClickMon: onClickMon)
   );
 }
@@ -68,7 +68,7 @@ class _HomeState extends State<_HomeContent> {
     super.initState();
     _viewModel = context.read<HomeViewModel>();
     _pagingController.addPageRequestListener((pageKey) async {
-      _viewModel.init(limit: HomeViewModel.pagingSize, offset: pageKey);
+      _viewModel.load(limit: HomeViewModel.pagingSize, offset: pageKey);
     });
     initFuture();
   }

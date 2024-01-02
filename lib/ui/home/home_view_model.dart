@@ -37,7 +37,7 @@ class HomeViewModel with ChangeNotifier {
 
   UiState get uiState => _uiState;
 
-  void init({ int? limit, int? offset, String? search }) async {
+  void load({ int? limit, int? offset, String? search }) async {
     try {
       final pokemonList = await _repository.getPokemonList(
         limit: limit, offset: offset, search: search);
