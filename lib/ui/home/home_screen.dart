@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
-import 'bottom_loader.dart';
 import 'home_view_model.dart';
 import 'pokemon_list_item.dart';
 import '../common/state_view.dart';
 import '../common/s_dialog.dart';
 import '../model/ui_state.dart';
+import '../../model/pokemon.dart';
 import '../../data/pokemon_repository.dart';
 import '../../injectable.dart';
 import '../../util/timber.dart';
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-    create: (_) => HomeViewModel(getIt<PokemonRepository>())..init(),
+    create: (_) => HomeViewModel(getIt<PokemonRepository>())..init(limit: HomeViewModel.pagingSize, offset: 0),
     child: _HomeContent(title: title, onClickMon: onClickMon)
   );
 }
@@ -54,6 +55,8 @@ class _HomeState extends State<_HomeContent> {
   bool canPop = false;
   DateTime? currentBackPressTime;
   final ScrollController _scrollController = ScrollController();
+  final PagingController<int, Pokemon> _pagingController
+    = PagingController(firstPageKey: 0);
 
   final TextEditingController _editingController = TextEditingController();
   String? search;
@@ -64,7 +67,16 @@ class _HomeState extends State<_HomeContent> {
   void initState() {
     super.initState();
     _viewModel = context.read<HomeViewModel>();
+    _pagingController.addPageRequestListener((pageKey) async {
+      _viewModel.init(limit: HomeViewModel.pagingSize, offset: pageKey);
+    });
     initFuture();
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
   }
 
   Future<void> initFuture() async {
@@ -74,7 +86,13 @@ class _HomeState extends State<_HomeContent> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<HomeViewModel>().uiState;
-    final pokemonList = state is Success ? (state as Success<PokemonListData>).data.pokemonList : null;
+    final pokemonList = state is Success ? (state as Success<PokemonListData>).data.pokemonList : List<Pokemon>.empty();
+    final nextKey = state is Success ? (state as Success<PokemonListData>).data.nextKey : null;
+    if (nextKey == null) {
+      _pagingController.appendLastPage(pokemonList);
+    } else {
+      _pagingController.appendPage(pokemonList, nextKey);
+    }
     return PopScope(
       canPop: canPop,
       onPopInvoked: (didPop) {
@@ -142,97 +160,82 @@ class _HomeState extends State<_HomeContent> {
                   child: Column(
                     children: [
                       // TODO : 검색 동작
-                      Container(
-                        color: Colors.white,
-                        child: TextField(
-                          controller: _editingController,
-                          decoration: InputDecoration(
-                            hintText: "Search (Name or Number)",
-                            suffixIcon: search?.isNotEmpty == true ? IconButton(
-                              onPressed: () {
-                                _editingController.clear();
-                                setState(() {
-                                  search = null;
-                                  _viewModel.init();
-                                });
-                              },
-                              icon: const Icon(Icons.close)
-                            ) : null
-                          ),
-                          onChanged: (text) {
-                            setState(() {
-                              search = text;
-                              _viewModel.init(search: text);
-                            });
-                          },
-                        )
-                      ),
+                      // Container(
+                      //   color: Colors.white,
+                      //   child: TextField(
+                      //     controller: _editingController,
+                      //     decoration: InputDecoration(
+                      //       hintText: "Search (Name or Number)",
+                      //       suffixIcon: search?.isNotEmpty == true ? IconButton(
+                      //         onPressed: () {
+                      //           _editingController.clear();
+                      //           setState(() {
+                      //             search = null;
+                      //             _viewModel.init();
+                      //           });
+                      //         },
+                      //         icon: const Icon(Icons.close)
+                      //       ) : null
+                      //     ),
+                      //     onChanged: (text) {
+                      //       setState(() {
+                      //         search = text;
+                      //         _viewModel.init(search: text);
+                      //       });
+                      //     },
+                      //   )
+                      // ),
                       Expanded(
                         flex: 1,
-                        child: (pokemonList?.isEmpty ?? true)
-                            ? const Center(child: Text('No pokemon!'))
-                            : Scrollbar(
-                                thumbVisibility: true,
-                                controller: _scrollController,
-                                child: NotificationListener<ScrollNotification>(
-                                  onNotification: (ScrollNotification scrollInfo) {
-                                    if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
-                                      // TODO : 끝까지 스크롤 했을때 오류 (DB 사용 시에는 문제가 되지 않아 우선 막음)
-                                      _viewModel.init(offset: pokemonList.length, limit: 60);
-                                    }
-                                    return true;
-                                  },
-                                  child: GridView.builder(
-                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 5
-                                    ),
-                                    controller: _scrollController,
-                                    padding: const EdgeInsets.only(left: 0.0, right: 0.0),
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return index >= pokemonList.length
-                                        ? const BottomLoader()
-                                        : PokemonGridItem(
-                                        pokemon: pokemonList[index],
-                                        onClick: widget.onClickMon
-                                      );
-                                    },
-                                    itemCount: pokemonList!.length,
-                                  )
-                                )
+                        child: Scrollbar(
+                          thumbVisibility: true,
+                          controller: _scrollController,
+                          child: PagedGridView<int, Pokemon>(
+                            pagingController: _pagingController,
+                            builderDelegate: PagedChildBuilderDelegate(
+                              itemBuilder: (context, item, index) => PokemonGridItem(
+                                pokemon: item,
+                                onClick: widget.onClickMon
                               )
+                            ),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 5
+                            )
+                          )
+                        )
                       )
                     ]
-                )
+                  )
                 )
               ),
               SizedBox(
                 height: 10,
                 child: Row(
                   children: [
-                    if ((pokemonList?.where((e) => e.fromDB).length ?? 0) > 0)
+                    if ((_pagingController.itemList?.where((e) => e.fromDB).length ?? 0) > 0)
                       Expanded(
-                        flex: pokemonList?.where((e) => e.fromDB).length ?? 0,
+                        flex: _pagingController.itemList?.where((e) => e.fromDB).length ?? 0,
                         child: Container(
                           decoration: BoxDecoration(
                             color: colorFromDB,
                             border: Border.all(width: 1)
                           ),
                           child: Text(
-                            "fromDB(${pokemonList?.where((e) => e.fromDB).length})",
+                            "fromDB(${_pagingController.itemList?.where((e) => e.fromDB).length})",
                             style: const TextStyle(fontSize: 7)
                           )
                         )
                       ),
-                    if ((pokemonList?.where((e) => !e.fromDB).length ?? 0) > 0)
+                    if ((_pagingController.itemList?.where((e) => !e.fromDB).length ?? 0) > 0)
                       Expanded(
-                        flex: pokemonList?.where((e) => !e.fromDB).length ?? 0,
+                        flex: _pagingController.itemList?.where((e) => !e.fromDB).length ?? 0,
                         child: Container(
                           decoration: BoxDecoration(
                             color: colorFromInternet,
                             border: Border.all(width: 1)
                           ),
                           child: Text(
-                            "fromAPI(${pokemonList?.where((e) => !e.fromDB).length})",
+                            "fromAPI(${_pagingController.itemList?.where((e) => !e.fromDB).length})",
                             style: const TextStyle(fontSize: 7)
                           )
                         )

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../model/pokemon.dart';
 import '../model/ui_state.dart';
 import '../../data/pokemon_repository.dart';
+import '../../model/pokemon.dart';
 import '../../util/timber.dart';
 
 part 'home_view_model.freezed.dart';
@@ -13,14 +13,20 @@ part 'home_view_model.freezed.dart';
 @injectable
 class PokemonListData with _$PokemonListData {
   factory PokemonListData({
-    required List<Pokemon> pokemonList
+    required List<Pokemon> pokemonList,
+    required int? nextKey,
   }) = _PokemonListData;
 
   @factoryMethod
-  factory PokemonListData.from() => PokemonListData(pokemonList: List.of([]));
+  factory PokemonListData.from() => PokemonListData(
+    pokemonList: List.of([]),
+    nextKey: null
+  );
 }
 
 class HomeViewModel with ChangeNotifier {
+  static const pagingSize = 20;
+
   HomeViewModel(this._repository);
 
   final PokemonRepository _repository;
@@ -35,12 +41,11 @@ class HomeViewModel with ChangeNotifier {
     try {
       final pokemonList = await _repository.getPokemonList(
         limit: limit, offset: offset, search: search);
-      list.clear();
-      list.addAll(pokemonList.where((e) =>
-       !list.map((x) => x.id).contains(e.id)
-      ));
       _uiState = Success(
-        data: PokemonListData(pokemonList: list.toList())
+        data: PokemonListData(
+          pokemonList: pokemonList,
+          nextKey: pokemonList.length < pagingSize ? null : (offset ?? 0) + pagingSize
+        ),
       );
       notifyListeners();
     } catch (e) {

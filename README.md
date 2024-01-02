@@ -18,6 +18,7 @@
   * Widget
     * [cached_network_image](https://pub.dev/packages/cached_network_image)
     * [flutter_svg](https://pub.dev/packages/flutter_svg)
+    * [infinite_scroll_pagination](https://pub.dev/packages/infinite_scroll_pagination)
     * [lottie](https://pub.dev/packages/lottie)
     * [smooth_page_indicator](https://pub.dev/packages/smooth_page_indicator)
     * [webview_flutter](https://pub.dev/packages/webview_flutter)

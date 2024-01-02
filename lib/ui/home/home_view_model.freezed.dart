@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PokemonListData {
   List<Pokemon> get pokemonList => throw _privateConstructorUsedError;
+  int? get nextKey => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PokemonListDataCopyWith<PokemonListData> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $PokemonListDataCopyWith<$Res> {
           PokemonListData value, $Res Function(PokemonListData) then) =
       _$PokemonListDataCopyWithImpl<$Res, PokemonListData>;
   @useResult
-  $Res call({List<Pokemon> pokemonList});
+  $Res call({List<Pokemon> pokemonList, int? nextKey});
 }
 
 /// @nodoc
@@ -46,12 +47,17 @@ class _$PokemonListDataCopyWithImpl<$Res, $Val extends PokemonListData>
   @override
   $Res call({
     Object? pokemonList = null,
+    Object? nextKey = freezed,
   }) {
     return _then(_value.copyWith(
       pokemonList: null == pokemonList
           ? _value.pokemonList
           : pokemonList // ignore: cast_nullable_to_non_nullable
               as List<Pokemon>,
+      nextKey: freezed == nextKey
+          ? _value.nextKey
+          : nextKey // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -64,7 +70,7 @@ abstract class _$$PokemonListDataImplCopyWith<$Res>
       __$$PokemonListDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Pokemon> pokemonList});
+  $Res call({List<Pokemon> pokemonList, int? nextKey});
 }
 
 /// @nodoc
@@ -79,12 +85,17 @@ class __$$PokemonListDataImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? pokemonList = null,
+    Object? nextKey = freezed,
   }) {
     return _then(_$PokemonListDataImpl(
       pokemonList: null == pokemonList
           ? _value._pokemonList
           : pokemonList // ignore: cast_nullable_to_non_nullable
               as List<Pokemon>,
+      nextKey: freezed == nextKey
+          ? _value.nextKey
+          : nextKey // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -92,7 +103,8 @@ class __$$PokemonListDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$PokemonListDataImpl implements _PokemonListData {
-  _$PokemonListDataImpl({required final List<Pokemon> pokemonList})
+  _$PokemonListDataImpl(
+      {required final List<Pokemon> pokemonList, required this.nextKey})
       : _pokemonList = pokemonList;
 
   final List<Pokemon> _pokemonList;
@@ -104,8 +116,11 @@ class _$PokemonListDataImpl implements _PokemonListData {
   }
 
   @override
+  final int? nextKey;
+
+  @override
   String toString() {
-    return 'PokemonListData(pokemonList: $pokemonList)';
+    return 'PokemonListData(pokemonList: $pokemonList, nextKey: $nextKey)';
   }
 
   @override
@@ -114,12 +129,13 @@ class _$PokemonListDataImpl implements _PokemonListData {
         (other.runtimeType == runtimeType &&
             other is _$PokemonListDataImpl &&
             const DeepCollectionEquality()
-                .equals(other._pokemonList, _pokemonList));
+                .equals(other._pokemonList, _pokemonList) &&
+            (identical(other.nextKey, nextKey) || other.nextKey == nextKey));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_pokemonList));
+      runtimeType, const DeepCollectionEquality().hash(_pokemonList), nextKey);
 
   @JsonKey(ignore: true)
   @override
@@ -130,11 +146,14 @@ class _$PokemonListDataImpl implements _PokemonListData {
 }
 
 abstract class _PokemonListData implements PokemonListData {
-  factory _PokemonListData({required final List<Pokemon> pokemonList}) =
-      _$PokemonListDataImpl;
+  factory _PokemonListData(
+      {required final List<Pokemon> pokemonList,
+      required final int? nextKey}) = _$PokemonListDataImpl;
 
   @override
   List<Pokemon> get pokemonList;
+  @override
+  int? get nextKey;
   @override
   @JsonKey(ignore: true)
   _$$PokemonListDataImplCopyWith<_$PokemonListDataImpl> get copyWith =>
