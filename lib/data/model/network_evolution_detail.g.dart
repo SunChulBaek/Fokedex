@@ -6,17 +6,17 @@ part of 'network_evolution_detail.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NetworkEvolutionDetail _$NetworkEvolutionDetailFromJson(
+_$NetworkEvolutionDetailImpl _$$NetworkEvolutionDetailImplFromJson(
         Map<String, dynamic> json) =>
-    NetworkEvolutionDetail(
+    _$NetworkEvolutionDetailImpl(
       item: json['item'] == null
           ? null
           : NetworkNamedAPIResource.fromJson(
               json['item'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$NetworkEvolutionDetailToJson(
-        NetworkEvolutionDetail instance) =>
+Map<String, dynamic> _$$NetworkEvolutionDetailImplToJson(
+        _$NetworkEvolutionDetailImpl instance) =>
     <String, dynamic>{
       'item': instance.item,
     };

@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+NetworkName _$NetworkNameFromJson(Map<String, dynamic> json) {
+  return _NetworkName.fromJson(json);
+}
+
 /// @nodoc
 mixin _$NetworkName {
   @JsonKey(name: 'name')
@@ -21,6 +25,7 @@ mixin _$NetworkName {
   @JsonKey(name: 'language')
   NetworkNamedAPIResource get language => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NetworkNameCopyWith<NetworkName> get copyWith =>
       throw _privateConstructorUsedError;
@@ -120,11 +125,14 @@ class __$$NetworkNameImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$NetworkNameImpl implements _NetworkName {
   _$NetworkNameImpl(
       {@JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'language') required this.language});
+
+  factory _$NetworkNameImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NetworkNameImplFromJson(json);
 
   @override
   @JsonKey(name: 'name')
@@ -148,6 +156,7 @@ class _$NetworkNameImpl implements _NetworkName {
                 other.language == language));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, language);
 
@@ -156,6 +165,13 @@ class _$NetworkNameImpl implements _NetworkName {
   @pragma('vm:prefer-inline')
   _$$NetworkNameImplCopyWith<_$NetworkNameImpl> get copyWith =>
       __$$NetworkNameImplCopyWithImpl<_$NetworkNameImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NetworkNameImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _NetworkName implements NetworkName {
@@ -163,6 +179,9 @@ abstract class _NetworkName implements NetworkName {
       {@JsonKey(name: 'name') required final String name,
       @JsonKey(name: 'language')
       required final NetworkNamedAPIResource language}) = _$NetworkNameImpl;
+
+  factory _NetworkName.fromJson(Map<String, dynamic> json) =
+      _$NetworkNameImpl.fromJson;
 
   @override
   @JsonKey(name: 'name')

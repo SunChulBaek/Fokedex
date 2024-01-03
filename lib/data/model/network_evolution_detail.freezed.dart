@@ -14,11 +14,17 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+NetworkEvolutionDetail _$NetworkEvolutionDetailFromJson(
+    Map<String, dynamic> json) {
+  return _NetworkEvolutionDetail.fromJson(json);
+}
+
 /// @nodoc
 mixin _$NetworkEvolutionDetail {
   @JsonKey(name: 'item')
   NetworkNamedAPIResource? get item => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NetworkEvolutionDetailCopyWith<NetworkEvolutionDetail> get copyWith =>
       throw _privateConstructorUsedError;
@@ -112,9 +118,12 @@ class __$$NetworkEvolutionDetailImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$NetworkEvolutionDetailImpl implements _NetworkEvolutionDetail {
   _$NetworkEvolutionDetailImpl({@JsonKey(name: 'item') required this.item});
+
+  factory _$NetworkEvolutionDetailImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NetworkEvolutionDetailImplFromJson(json);
 
   @override
   @JsonKey(name: 'item')
@@ -133,6 +142,7 @@ class _$NetworkEvolutionDetailImpl implements _NetworkEvolutionDetail {
             (identical(other.item, item) || other.item == item));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, item);
 
@@ -142,6 +152,13 @@ class _$NetworkEvolutionDetailImpl implements _NetworkEvolutionDetail {
   _$$NetworkEvolutionDetailImplCopyWith<_$NetworkEvolutionDetailImpl>
       get copyWith => __$$NetworkEvolutionDetailImplCopyWithImpl<
           _$NetworkEvolutionDetailImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NetworkEvolutionDetailImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _NetworkEvolutionDetail implements NetworkEvolutionDetail {
@@ -149,6 +166,9 @@ abstract class _NetworkEvolutionDetail implements NetworkEvolutionDetail {
           {@JsonKey(name: 'item')
           required final NetworkNamedAPIResource? item}) =
       _$NetworkEvolutionDetailImpl;
+
+  factory _NetworkEvolutionDetail.fromJson(Map<String, dynamic> json) =
+      _$NetworkEvolutionDetailImpl.fromJson;
 
   @override
   @JsonKey(name: 'item')

@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+NetworkChainLink _$NetworkChainLinkFromJson(Map<String, dynamic> json) {
+  return _NetworkChainLink.fromJson(json);
+}
+
 /// @nodoc
 mixin _$NetworkChainLink {
   @JsonKey(name: 'is_baby')
@@ -26,6 +30,7 @@ mixin _$NetworkChainLink {
   @JsonKey(name: 'evolves_to')
   List<NetworkChainLink> get evolvesTo => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NetworkChainLinkCopyWith<NetworkChainLink> get copyWith =>
       throw _privateConstructorUsedError;
@@ -151,7 +156,7 @@ class __$$NetworkChainLinkImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$NetworkChainLinkImpl implements _NetworkChainLink {
   _$NetworkChainLinkImpl(
       {@JsonKey(name: 'is_baby') required this.isBaby,
@@ -162,6 +167,9 @@ class _$NetworkChainLinkImpl implements _NetworkChainLink {
       required final List<NetworkChainLink> evolvesTo})
       : _evolutionDetails = evolutionDetails,
         _evolvesTo = evolvesTo;
+
+  factory _$NetworkChainLinkImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NetworkChainLinkImplFromJson(json);
 
   @override
   @JsonKey(name: 'is_baby')
@@ -206,6 +214,7 @@ class _$NetworkChainLinkImpl implements _NetworkChainLink {
                 .equals(other._evolvesTo, _evolvesTo));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -220,6 +229,13 @@ class _$NetworkChainLinkImpl implements _NetworkChainLink {
   _$$NetworkChainLinkImplCopyWith<_$NetworkChainLinkImpl> get copyWith =>
       __$$NetworkChainLinkImplCopyWithImpl<_$NetworkChainLinkImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NetworkChainLinkImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _NetworkChainLink implements NetworkChainLink {
@@ -231,6 +247,9 @@ abstract class _NetworkChainLink implements NetworkChainLink {
       @JsonKey(name: 'evolves_to')
       required final List<NetworkChainLink>
           evolvesTo}) = _$NetworkChainLinkImpl;
+
+  factory _NetworkChainLink.fromJson(Map<String, dynamic> json) =
+      _$NetworkChainLinkImpl.fromJson;
 
   @override
   @JsonKey(name: 'is_baby')

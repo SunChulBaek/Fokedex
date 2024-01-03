@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../util/timber.dart';
 import 'network_named_api_resource.dart';
 import 'network_pokemon_stat.dart';
 import 'network_pokemon_type.dart';
@@ -9,7 +8,6 @@ part 'network_pokemon.freezed.dart';
 part 'network_pokemon.g.dart';
 
 @freezed
-@JsonSerializable()
 class NetworkPokemon with _$NetworkPokemon {
   factory NetworkPokemon({
     @JsonKey(name: 'id') required int id,
@@ -25,12 +23,6 @@ class NetworkPokemon with _$NetworkPokemon {
     @JsonKey(name: 'species') required NetworkNamedAPIResource species,
   }) = _NetworkPokemon;
 
-  factory NetworkPokemon.fromJson(Map<String, dynamic> json) {
-    try {
-      return _$NetworkPokemonFromJson(json);
-    } catch (e) {
-      Timber.e(e);
-    }
-    throw Exception('NetworkPokemon.fromJson()');
-  }
+  factory NetworkPokemon.fromJson(Map<String, dynamic> json)
+    => _$NetworkPokemonFromJson(json);
 }

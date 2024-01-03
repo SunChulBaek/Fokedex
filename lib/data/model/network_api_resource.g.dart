@@ -6,12 +6,14 @@ part of 'network_api_resource.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NetworkAPIResource _$NetworkAPIResourceFromJson(Map<String, dynamic> json) =>
-    NetworkAPIResource(
+_$NetworkAPIResourceImpl _$$NetworkAPIResourceImplFromJson(
+        Map<String, dynamic> json) =>
+    _$NetworkAPIResourceImpl(
       url: json['url'] as String,
     );
 
-Map<String, dynamic> _$NetworkAPIResourceToJson(NetworkAPIResource instance) =>
+Map<String, dynamic> _$$NetworkAPIResourceImplToJson(
+        _$NetworkAPIResourceImpl instance) =>
     <String, dynamic>{
       'url': instance.url,
     };

@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+NetworkFlavorText _$NetworkFlavorTextFromJson(Map<String, dynamic> json) {
+  return _NetworkFlavorText.fromJson(json);
+}
+
 /// @nodoc
 mixin _$NetworkFlavorText {
   @JsonKey(name: 'flavor_text')
@@ -23,6 +27,7 @@ mixin _$NetworkFlavorText {
   @JsonKey(name: 'version')
   NetworkNamedAPIResource get version => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NetworkFlavorTextCopyWith<NetworkFlavorText> get copyWith =>
       throw _privateConstructorUsedError;
@@ -145,12 +150,15 @@ class __$$NetworkFlavorTextImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$NetworkFlavorTextImpl implements _NetworkFlavorText {
   _$NetworkFlavorTextImpl(
       {@JsonKey(name: 'flavor_text') required this.flavorText,
       @JsonKey(name: 'language') required this.language,
       @JsonKey(name: 'version') required this.version});
+
+  factory _$NetworkFlavorTextImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NetworkFlavorTextImplFromJson(json);
 
   @override
   @JsonKey(name: 'flavor_text')
@@ -179,6 +187,7 @@ class _$NetworkFlavorTextImpl implements _NetworkFlavorText {
             (identical(other.version, version) || other.version == version));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, flavorText, language, version);
 
@@ -188,6 +197,13 @@ class _$NetworkFlavorTextImpl implements _NetworkFlavorText {
   _$$NetworkFlavorTextImplCopyWith<_$NetworkFlavorTextImpl> get copyWith =>
       __$$NetworkFlavorTextImplCopyWithImpl<_$NetworkFlavorTextImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NetworkFlavorTextImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _NetworkFlavorText implements NetworkFlavorText {
@@ -198,6 +214,9 @@ abstract class _NetworkFlavorText implements NetworkFlavorText {
           @JsonKey(name: 'version')
           required final NetworkNamedAPIResource version}) =
       _$NetworkFlavorTextImpl;
+
+  factory _NetworkFlavorText.fromJson(Map<String, dynamic> json) =
+      _$NetworkFlavorTextImpl.fromJson;
 
   @override
   @JsonKey(name: 'flavor_text')

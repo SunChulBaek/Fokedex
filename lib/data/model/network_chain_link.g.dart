@@ -6,8 +6,9 @@ part of 'network_chain_link.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NetworkChainLink _$NetworkChainLinkFromJson(Map<String, dynamic> json) =>
-    NetworkChainLink(
+_$NetworkChainLinkImpl _$$NetworkChainLinkImplFromJson(
+        Map<String, dynamic> json) =>
+    _$NetworkChainLinkImpl(
       isBaby: json['is_baby'] as bool,
       species: NetworkNamedAPIResource.fromJson(
           json['species'] as Map<String, dynamic>),
@@ -20,7 +21,8 @@ NetworkChainLink _$NetworkChainLinkFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$NetworkChainLinkToJson(NetworkChainLink instance) =>
+Map<String, dynamic> _$$NetworkChainLinkImplToJson(
+        _$NetworkChainLinkImpl instance) =>
     <String, dynamic>{
       'is_baby': instance.isBaby,
       'species': instance.species,

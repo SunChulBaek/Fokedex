@@ -14,6 +14,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+NetworkPokemonSpeciesVariety _$NetworkPokemonSpeciesVarietyFromJson(
+    Map<String, dynamic> json) {
+  return _NetworkPokemonSpeciesVariety.fromJson(json);
+}
+
 /// @nodoc
 mixin _$NetworkPokemonSpeciesVariety {
   @JsonKey(name: 'is_default')
@@ -21,6 +26,7 @@ mixin _$NetworkPokemonSpeciesVariety {
   @JsonKey(name: 'pokemon')
   NetworkNamedAPIResource get pokemon => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NetworkPokemonSpeciesVarietyCopyWith<NetworkPokemonSpeciesVariety>
       get copyWith => throw _privateConstructorUsedError;
@@ -126,12 +132,16 @@ class __$$NetworkPokemonSpeciesVarietyImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$NetworkPokemonSpeciesVarietyImpl
     implements _NetworkPokemonSpeciesVariety {
   _$NetworkPokemonSpeciesVarietyImpl(
       {@JsonKey(name: 'is_default') required this.isDefault,
       @JsonKey(name: 'pokemon') required this.pokemon});
+
+  factory _$NetworkPokemonSpeciesVarietyImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$NetworkPokemonSpeciesVarietyImplFromJson(json);
 
   @override
   @JsonKey(name: 'is_default')
@@ -155,6 +165,7 @@ class _$NetworkPokemonSpeciesVarietyImpl
             (identical(other.pokemon, pokemon) || other.pokemon == pokemon));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, isDefault, pokemon);
 
@@ -165,6 +176,13 @@ class _$NetworkPokemonSpeciesVarietyImpl
           _$NetworkPokemonSpeciesVarietyImpl>
       get copyWith => __$$NetworkPokemonSpeciesVarietyImplCopyWithImpl<
           _$NetworkPokemonSpeciesVarietyImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NetworkPokemonSpeciesVarietyImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _NetworkPokemonSpeciesVariety
@@ -174,6 +192,9 @@ abstract class _NetworkPokemonSpeciesVariety
           @JsonKey(name: 'pokemon')
           required final NetworkNamedAPIResource pokemon}) =
       _$NetworkPokemonSpeciesVarietyImpl;
+
+  factory _NetworkPokemonSpeciesVariety.fromJson(Map<String, dynamic> json) =
+      _$NetworkPokemonSpeciesVarietyImpl.fromJson;
 
   @override
   @JsonKey(name: 'is_default')

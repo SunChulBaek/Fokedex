@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+NetworkPokemonStat _$NetworkPokemonStatFromJson(Map<String, dynamic> json) {
+  return _NetworkPokemonStat.fromJson(json);
+}
+
 /// @nodoc
 mixin _$NetworkPokemonStat {
   @JsonKey(name: 'base_stat')
@@ -23,6 +27,7 @@ mixin _$NetworkPokemonStat {
   @JsonKey(name: 'stat')
   NetworkNamedAPIResource get stat => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NetworkPokemonStatCopyWith<NetworkPokemonStat> get copyWith =>
       throw _privateConstructorUsedError;
@@ -134,12 +139,15 @@ class __$$NetworkPokemonStatImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$NetworkPokemonStatImpl implements _NetworkPokemonStat {
   _$NetworkPokemonStatImpl(
       {@JsonKey(name: 'base_stat') required this.baseStat,
       @JsonKey(name: 'effort') required this.effort,
       @JsonKey(name: 'stat') required this.stat});
+
+  factory _$NetworkPokemonStatImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NetworkPokemonStatImplFromJson(json);
 
   @override
   @JsonKey(name: 'base_stat')
@@ -167,6 +175,7 @@ class _$NetworkPokemonStatImpl implements _NetworkPokemonStat {
             (identical(other.stat, stat) || other.stat == stat));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, baseStat, effort, stat);
 
@@ -176,6 +185,13 @@ class _$NetworkPokemonStatImpl implements _NetworkPokemonStat {
   _$$NetworkPokemonStatImplCopyWith<_$NetworkPokemonStatImpl> get copyWith =>
       __$$NetworkPokemonStatImplCopyWithImpl<_$NetworkPokemonStatImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NetworkPokemonStatImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _NetworkPokemonStat implements NetworkPokemonStat {
@@ -184,6 +200,9 @@ abstract class _NetworkPokemonStat implements NetworkPokemonStat {
           @JsonKey(name: 'effort') required final int effort,
           @JsonKey(name: 'stat') required final NetworkNamedAPIResource stat}) =
       _$NetworkPokemonStatImpl;
+
+  factory _NetworkPokemonStat.fromJson(Map<String, dynamic> json) =
+      _$NetworkPokemonStatImpl.fromJson;
 
   @override
   @JsonKey(name: 'base_stat')

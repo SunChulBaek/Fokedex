@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+NetworkPokemon _$NetworkPokemonFromJson(Map<String, dynamic> json) {
+  return _NetworkPokemon.fromJson(json);
+}
+
 /// @nodoc
 mixin _$NetworkPokemon {
   @JsonKey(name: 'id')
@@ -39,6 +43,7 @@ mixin _$NetworkPokemon {
   @JsonKey(name: 'species')
   NetworkNamedAPIResource get species => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NetworkPokemonCopyWith<NetworkPokemon> get copyWith =>
       throw _privateConstructorUsedError;
@@ -246,7 +251,7 @@ class __$$NetworkPokemonImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$NetworkPokemonImpl implements _NetworkPokemon {
   _$NetworkPokemonImpl(
       {@JsonKey(name: 'id') required this.id,
@@ -264,6 +269,9 @@ class _$NetworkPokemonImpl implements _NetworkPokemon {
       : _forms = forms,
         _types = types,
         _stats = stats;
+
+  factory _$NetworkPokemonImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NetworkPokemonImplFromJson(json);
 
   @override
   @JsonKey(name: 'id')
@@ -341,6 +349,7 @@ class _$NetworkPokemonImpl implements _NetworkPokemon {
             (identical(other.species, species) || other.species == species));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -362,6 +371,13 @@ class _$NetworkPokemonImpl implements _NetworkPokemon {
   _$$NetworkPokemonImplCopyWith<_$NetworkPokemonImpl> get copyWith =>
       __$$NetworkPokemonImplCopyWithImpl<_$NetworkPokemonImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NetworkPokemonImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _NetworkPokemon implements NetworkPokemon {
@@ -379,6 +395,9 @@ abstract class _NetworkPokemon implements NetworkPokemon {
       @JsonKey(name: 'stats') required final List<NetworkPokemonStat> stats,
       @JsonKey(name: 'species')
       required final NetworkNamedAPIResource species}) = _$NetworkPokemonImpl;
+
+  factory _NetworkPokemon.fromJson(Map<String, dynamic> json) =
+      _$NetworkPokemonImpl.fromJson;
 
   @override
   @JsonKey(name: 'id')

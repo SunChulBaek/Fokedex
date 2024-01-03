@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+NetworkPokemonForm _$NetworkPokemonFormFromJson(Map<String, dynamic> json) {
+  return _NetworkPokemonForm.fromJson(json);
+}
+
 /// @nodoc
 mixin _$NetworkPokemonForm {
   @JsonKey(name: 'id')
@@ -21,6 +25,7 @@ mixin _$NetworkPokemonForm {
   @JsonKey(name: 'form_names')
   List<NetworkName> get formNames => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NetworkPokemonFormCopyWith<NetworkPokemonForm> get copyWith =>
       throw _privateConstructorUsedError;
@@ -107,12 +112,15 @@ class __$$NetworkPokemonFormImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$NetworkPokemonFormImpl implements _NetworkPokemonForm {
   _$NetworkPokemonFormImpl(
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'form_names') required final List<NetworkName> formNames})
       : _formNames = formNames;
+
+  factory _$NetworkPokemonFormImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NetworkPokemonFormImplFromJson(json);
 
   @override
   @JsonKey(name: 'id')
@@ -141,6 +149,7 @@ class _$NetworkPokemonFormImpl implements _NetworkPokemonForm {
                 .equals(other._formNames, _formNames));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, const DeepCollectionEquality().hash(_formNames));
@@ -151,6 +160,13 @@ class _$NetworkPokemonFormImpl implements _NetworkPokemonForm {
   _$$NetworkPokemonFormImplCopyWith<_$NetworkPokemonFormImpl> get copyWith =>
       __$$NetworkPokemonFormImplCopyWithImpl<_$NetworkPokemonFormImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NetworkPokemonFormImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _NetworkPokemonForm implements NetworkPokemonForm {
@@ -158,6 +174,9 @@ abstract class _NetworkPokemonForm implements NetworkPokemonForm {
       {@JsonKey(name: 'id') required final int id,
       @JsonKey(name: 'form_names')
       required final List<NetworkName> formNames}) = _$NetworkPokemonFormImpl;
+
+  factory _NetworkPokemonForm.fromJson(Map<String, dynamic> json) =
+      _$NetworkPokemonFormImpl.fromJson;
 
   @override
   @JsonKey(name: 'id')

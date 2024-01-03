@@ -6,8 +6,9 @@ part of 'network_flavor_text.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NetworkFlavorText _$NetworkFlavorTextFromJson(Map<String, dynamic> json) =>
-    NetworkFlavorText(
+_$NetworkFlavorTextImpl _$$NetworkFlavorTextImplFromJson(
+        Map<String, dynamic> json) =>
+    _$NetworkFlavorTextImpl(
       flavorText: json['flavor_text'] as String,
       language: NetworkNamedAPIResource.fromJson(
           json['language'] as Map<String, dynamic>),
@@ -15,7 +16,8 @@ NetworkFlavorText _$NetworkFlavorTextFromJson(Map<String, dynamic> json) =>
           json['version'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$NetworkFlavorTextToJson(NetworkFlavorText instance) =>
+Map<String, dynamic> _$$NetworkFlavorTextImplToJson(
+        _$NetworkFlavorTextImpl instance) =>
     <String, dynamic>{
       'flavor_text': instance.flavorText,
       'language': instance.language,

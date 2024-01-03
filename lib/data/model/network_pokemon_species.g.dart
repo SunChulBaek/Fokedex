@@ -6,9 +6,9 @@ part of 'network_pokemon_species.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NetworkPokemonSpecies _$NetworkPokemonSpeciesFromJson(
+_$NetworkPokemonSpeciesImpl _$$NetworkPokemonSpeciesImplFromJson(
         Map<String, dynamic> json) =>
-    NetworkPokemonSpecies(
+    _$NetworkPokemonSpeciesImpl(
       id: json['id'] as int,
       names: (json['names'] as List<dynamic>)
           .map((e) => NetworkName.fromJson(e as Map<String, dynamic>))
@@ -24,8 +24,8 @@ NetworkPokemonSpecies _$NetworkPokemonSpeciesFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$NetworkPokemonSpeciesToJson(
-        NetworkPokemonSpecies instance) =>
+Map<String, dynamic> _$$NetworkPokemonSpeciesImplToJson(
+        _$NetworkPokemonSpeciesImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'names': instance.names,

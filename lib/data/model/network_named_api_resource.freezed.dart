@@ -14,6 +14,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+NetworkNamedAPIResource _$NetworkNamedAPIResourceFromJson(
+    Map<String, dynamic> json) {
+  return _NetworkNamedAPIResource.fromJson(json);
+}
+
 /// @nodoc
 mixin _$NetworkNamedAPIResource {
   @JsonKey(name: 'name')
@@ -21,6 +26,7 @@ mixin _$NetworkNamedAPIResource {
   @JsonKey(name: 'url')
   String get url => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NetworkNamedAPIResourceCopyWith<NetworkNamedAPIResource> get copyWith =>
       throw _privateConstructorUsedError;
@@ -109,11 +115,14 @@ class __$$NetworkNamedAPIResourceImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$NetworkNamedAPIResourceImpl implements _NetworkNamedAPIResource {
   _$NetworkNamedAPIResourceImpl(
       {@JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'url') required this.url});
+
+  factory _$NetworkNamedAPIResourceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NetworkNamedAPIResourceImplFromJson(json);
 
   @override
   @JsonKey(name: 'name')
@@ -136,6 +145,7 @@ class _$NetworkNamedAPIResourceImpl implements _NetworkNamedAPIResource {
             (identical(other.url, url) || other.url == url));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, url);
 
@@ -145,6 +155,13 @@ class _$NetworkNamedAPIResourceImpl implements _NetworkNamedAPIResource {
   _$$NetworkNamedAPIResourceImplCopyWith<_$NetworkNamedAPIResourceImpl>
       get copyWith => __$$NetworkNamedAPIResourceImplCopyWithImpl<
           _$NetworkNamedAPIResourceImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NetworkNamedAPIResourceImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _NetworkNamedAPIResource implements NetworkNamedAPIResource {
@@ -152,6 +169,9 @@ abstract class _NetworkNamedAPIResource implements NetworkNamedAPIResource {
           {@JsonKey(name: 'name') required final String name,
           @JsonKey(name: 'url') required final String url}) =
       _$NetworkNamedAPIResourceImpl;
+
+  factory _NetworkNamedAPIResource.fromJson(Map<String, dynamic> json) =
+      _$NetworkNamedAPIResourceImpl.fromJson;
 
   @override
   @JsonKey(name: 'name')

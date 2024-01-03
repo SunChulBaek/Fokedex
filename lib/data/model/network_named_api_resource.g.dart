@@ -6,15 +6,15 @@ part of 'network_named_api_resource.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NetworkNamedAPIResource _$NetworkNamedAPIResourceFromJson(
+_$NetworkNamedAPIResourceImpl _$$NetworkNamedAPIResourceImplFromJson(
         Map<String, dynamic> json) =>
-    NetworkNamedAPIResource(
+    _$NetworkNamedAPIResourceImpl(
       name: json['name'] as String,
       url: json['url'] as String,
     );
 
-Map<String, dynamic> _$NetworkNamedAPIResourceToJson(
-        NetworkNamedAPIResource instance) =>
+Map<String, dynamic> _$$NetworkNamedAPIResourceImplToJson(
+        _$NetworkNamedAPIResourceImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'url': instance.url,

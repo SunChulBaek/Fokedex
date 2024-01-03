@@ -14,6 +14,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+NetworkEvolutionChain _$NetworkEvolutionChainFromJson(
+    Map<String, dynamic> json) {
+  return _NetworkEvolutionChain.fromJson(json);
+}
+
 /// @nodoc
 mixin _$NetworkEvolutionChain {
   @JsonKey(name: 'id')
@@ -21,6 +26,7 @@ mixin _$NetworkEvolutionChain {
   @JsonKey(name: 'chain')
   NetworkChainLink get chain => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NetworkEvolutionChainCopyWith<NetworkEvolutionChain> get copyWith =>
       throw _privateConstructorUsedError;
@@ -123,11 +129,14 @@ class __$$NetworkEvolutionChainImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$NetworkEvolutionChainImpl implements _NetworkEvolutionChain {
   _$NetworkEvolutionChainImpl(
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'chain') required this.chain});
+
+  factory _$NetworkEvolutionChainImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NetworkEvolutionChainImplFromJson(json);
 
   @override
   @JsonKey(name: 'id')
@@ -150,6 +159,7 @@ class _$NetworkEvolutionChainImpl implements _NetworkEvolutionChain {
             (identical(other.chain, chain) || other.chain == chain));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, chain);
 
@@ -159,6 +169,13 @@ class _$NetworkEvolutionChainImpl implements _NetworkEvolutionChain {
   _$$NetworkEvolutionChainImplCopyWith<_$NetworkEvolutionChainImpl>
       get copyWith => __$$NetworkEvolutionChainImplCopyWithImpl<
           _$NetworkEvolutionChainImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NetworkEvolutionChainImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _NetworkEvolutionChain implements NetworkEvolutionChain {
@@ -166,6 +183,9 @@ abstract class _NetworkEvolutionChain implements NetworkEvolutionChain {
           {@JsonKey(name: 'id') required final int id,
           @JsonKey(name: 'chain') required final NetworkChainLink chain}) =
       _$NetworkEvolutionChainImpl;
+
+  factory _NetworkEvolutionChain.fromJson(Map<String, dynamic> json) =
+      _$NetworkEvolutionChainImpl.fromJson;
 
   @override
   @JsonKey(name: 'id')

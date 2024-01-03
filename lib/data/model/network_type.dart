@@ -1,13 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../util/timber.dart';
 import 'network_name.dart';
 
 part 'network_type.freezed.dart';
 part 'network_type.g.dart';
 
 @freezed
-@JsonSerializable()
 class NetworkType with _$NetworkType {
   factory NetworkType({
     @JsonKey(name: 'id') required int id,
@@ -15,12 +13,6 @@ class NetworkType with _$NetworkType {
     @JsonKey(name: 'names') required List<NetworkName> names,
   }) = _NetworkType;
 
-  factory NetworkType.fromJson(Map<String, dynamic> json) {
-    try {
-      return _$NetworkTypeFromJson(json);
-    } catch (e) {
-      Timber.e(e);
-    }
-    throw Exception('NetworkType.fromJSon()');
-  }
+  factory NetworkType.fromJson(Map<String, dynamic> json)
+    => _$NetworkTypeFromJson(json);
 }

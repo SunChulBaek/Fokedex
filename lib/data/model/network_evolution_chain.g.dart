@@ -6,15 +6,15 @@ part of 'network_evolution_chain.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NetworkEvolutionChain _$NetworkEvolutionChainFromJson(
+_$NetworkEvolutionChainImpl _$$NetworkEvolutionChainImplFromJson(
         Map<String, dynamic> json) =>
-    NetworkEvolutionChain(
+    _$NetworkEvolutionChainImpl(
       id: json['id'] as int,
       chain: NetworkChainLink.fromJson(json['chain'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$NetworkEvolutionChainToJson(
-        NetworkEvolutionChain instance) =>
+Map<String, dynamic> _$$NetworkEvolutionChainImplToJson(
+        _$NetworkEvolutionChainImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'chain': instance.chain,

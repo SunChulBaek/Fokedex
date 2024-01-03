@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+NetworkType _$NetworkTypeFromJson(Map<String, dynamic> json) {
+  return _NetworkType.fromJson(json);
+}
+
 /// @nodoc
 mixin _$NetworkType {
   @JsonKey(name: 'id')
@@ -23,6 +27,7 @@ mixin _$NetworkType {
   @JsonKey(name: 'names')
   List<NetworkName> get names => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NetworkTypeCopyWith<NetworkType> get copyWith =>
       throw _privateConstructorUsedError;
@@ -121,13 +126,16 @@ class __$$NetworkTypeImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$NetworkTypeImpl implements _NetworkType {
   _$NetworkTypeImpl(
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'names') required final List<NetworkName> names})
       : _names = names;
+
+  factory _$NetworkTypeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NetworkTypeImplFromJson(json);
 
   @override
   @JsonKey(name: 'id')
@@ -159,6 +167,7 @@ class _$NetworkTypeImpl implements _NetworkType {
             const DeepCollectionEquality().equals(other._names, _names));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, name, const DeepCollectionEquality().hash(_names));
@@ -168,6 +177,13 @@ class _$NetworkTypeImpl implements _NetworkType {
   @pragma('vm:prefer-inline')
   _$$NetworkTypeImplCopyWith<_$NetworkTypeImpl> get copyWith =>
       __$$NetworkTypeImplCopyWithImpl<_$NetworkTypeImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NetworkTypeImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _NetworkType implements NetworkType {
@@ -176,6 +192,9 @@ abstract class _NetworkType implements NetworkType {
           @JsonKey(name: 'name') required final String name,
           @JsonKey(name: 'names') required final List<NetworkName> names}) =
       _$NetworkTypeImpl;
+
+  factory _NetworkType.fromJson(Map<String, dynamic> json) =
+      _$NetworkTypeImpl.fromJson;
 
   @override
   @JsonKey(name: 'id')
