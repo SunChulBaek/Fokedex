@@ -3,8 +3,7 @@ import 'package:floor/floor.dart';
 import '../../util/timber.dart';
 
 class IdsConverter extends TypeConverter<List<int>, String> {
-  static const _delimiter = "@";
-  static const _subDelimiter = "=";
+  static const _delimiter = ":";
 
   @override
   List<int> decode(String databaseValue) {
@@ -23,9 +22,7 @@ class IdsConverter extends TypeConverter<List<int>, String> {
   String encode(List<int> value) {
     try {
       Timber.i("IdsConverter.encode()");
-      return value?.fold("", (acc, e) =>
-      "$acc$_delimiter$e"
-      ) ?? "";
+      return value.fold("", (acc, id) => "$acc${ acc.trim().isNotEmpty ? _delimiter : ""}$id");
     } on Error catch (e) {
       Timber.e(e.stackTrace);
       throw Exception("IdsConverter.encode()");
@@ -34,8 +31,7 @@ class IdsConverter extends TypeConverter<List<int>, String> {
 }
 
 class IdsConverter2 extends TypeConverter<List<int>?, String> {
-  static const _delimiter = "@";
-  static const _subDelimiter = "=";
+  static const _delimiter = ":";
 
   @override
   List<int>? decode(String databaseValue) {
@@ -54,9 +50,7 @@ class IdsConverter2 extends TypeConverter<List<int>?, String> {
   String encode(List<int>? value) {
     try {
       Timber.i("IdsConverter2.encode()");
-      return value?.fold("", (acc, e) =>
-      "$acc$_delimiter$e"
-      ) ?? "";
+      return value?.fold("", (acc, id) => "$acc${ acc!.trim().isNotEmpty ? _delimiter : ""}$id") ?? "";
     } on Error catch (e) {
       Timber.e(e.stackTrace);
       throw Exception("IdsConverter2.encode()");

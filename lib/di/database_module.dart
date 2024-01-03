@@ -36,7 +36,7 @@ abstract class DatabaseModule {
 
   @preResolve
   Future<FokedexDatabase> get database async {
-    const srcDbName = "fokedex-database-1280.db";
+    const srcDbName = "cokedex-database.db";
     final databasePath = await getDatabasesPath();
     final destPath = "$databasePath/fokedex-database.db";
     final exists = await databaseExists(destPath);
