@@ -6,12 +6,14 @@ part of 'lang_value.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-LangValue _$LangValueFromJson(Map<String, dynamic> json) => LangValue(
+_$LangValueImpl _$$LangValueImplFromJson(Map<String, dynamic> json) =>
+    _$LangValueImpl(
       lang: json['lang'] as String,
       value: json['value'] as String,
     );
 
-Map<String, dynamic> _$LangValueToJson(LangValue instance) => <String, dynamic>{
+Map<String, dynamic> _$$LangValueImplToJson(_$LangValueImpl instance) =>
+    <String, dynamic>{
       'lang': instance.lang,
       'value': instance.value,
     };

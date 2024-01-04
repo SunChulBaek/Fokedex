@@ -1,36 +1,17 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../util/timber.dart';
-
+part 'lang_value_version.freezed.dart';
 part 'lang_value_version.g.dart';
 
-@JsonSerializable()
-class LangValueVersion {
-  LangValueVersion({
-    required this.lang,
-    required this.value,
-    required this.version
-  });
+@freezed
+class LangValueVersion with _$LangValueVersion {
+  @JsonSerializable(explicitToJson: true)
+  factory LangValueVersion({
+    @JsonKey(name: "lang") required String lang,
+    @JsonKey(name: "value") required String value,
+    @JsonKey(name: "version") required String version
+  }) = _LangValueVersion;
 
-  @JsonKey(name: "lang") final String lang;
-  @JsonKey(name: "value") final String value;
-  @JsonKey(name: "version") final String version;
-
-  factory LangValueVersion.fromJson(Map<String, dynamic> json) {
-    try {
-      return _$LangValueVersionFromJson(json);
-    } catch (e) {
-      Timber.e(e);
-    }
-    throw Exception('NetworkName.fromJson()');
-  }
-
-  Map<String, dynamic> toJson() {
-    try {
-      return _$LangValueVersionToJson(this);
-    } catch (e) {
-      Timber.e(e);
-    }
-    throw Exception('NetworkName.toJson()');
-  }
+  factory LangValueVersion.fromJson(Map<String, dynamic> json)
+    => _$LangValueVersionFromJson(json);
 }

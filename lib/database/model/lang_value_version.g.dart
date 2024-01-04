@@ -6,14 +6,16 @@ part of 'lang_value_version.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-LangValueVersion _$LangValueVersionFromJson(Map<String, dynamic> json) =>
-    LangValueVersion(
+_$LangValueVersionImpl _$$LangValueVersionImplFromJson(
+        Map<String, dynamic> json) =>
+    _$LangValueVersionImpl(
       lang: json['lang'] as String,
       value: json['value'] as String,
       version: json['version'] as String,
     );
 
-Map<String, dynamic> _$LangValueVersionToJson(LangValueVersion instance) =>
+Map<String, dynamic> _$$LangValueVersionImplToJson(
+        _$LangValueVersionImpl instance) =>
     <String, dynamic>{
       'lang': instance.lang,
       'value': instance.value,
