@@ -21,7 +21,7 @@ class _RestClient implements RestClient {
   String? baseUrl;
 
   @override
-  Future<NetworkNamedAPIResourceList<dynamic>> getPokemonList({
+  Future<NetworkNamedAPIResourceList> getPokemonList({
     int limit = 60,
     int offset = 0,
   }) async {
@@ -33,7 +33,7 @@ class _RestClient implements RestClient {
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<NetworkNamedAPIResourceList<dynamic>>(Options(
+        _setStreamType<NetworkNamedAPIResourceList>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -49,10 +49,7 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = NetworkNamedAPIResourceList<dynamic>.fromJson(
-      _result.data!,
-      (json) => json as dynamic,
-    );
+    final value = NetworkNamedAPIResourceList.fromJson(_result.data!);
     return value;
   }
 

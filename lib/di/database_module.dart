@@ -36,28 +36,28 @@ abstract class DatabaseModule {
 
   @preResolve
   Future<FokedexDatabase> get database async {
-    const srcDbName = "cokedex-database.db";
-    final databasePath = await getDatabasesPath();
-    final destPath = "$databasePath/fokedex-database.db";
-    final exists = await databaseExists(destPath);
-
-    if (!exists) {
-      // Should happen only the first time you launch your application
-      Timber.i("Creating new copy from asset");
-      // Make sure the parent directory exists
-      try {
-        await Directory(destPath.substring(0, destPath.lastIndexOf("/"))).create(recursive: true);
-      } catch (_) { }
-
-      // Copy from asset
-      ByteData data = await rootBundle.load("assets/$srcDbName");
-      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-
-      // Write and flush the bytes written
-      await File(destPath).writeAsBytes(bytes, flush: true);
-    } else {
-      Timber.i("Opening existing database");
-    }
+    // const srcDbName = "cokedex-database.db";
+    // final databasePath = await getDatabasesPath();
+    // final destPath = "$databasePath/fokedex-database.db";
+    // final exists = await databaseExists(destPath);
+    //
+    // if (!exists) {
+    //   // Should happen only the first time you launch your application
+    //   Timber.i("Creating new copy from asset");
+    //   // Make sure the parent directory exists
+    //   try {
+    //     await Directory(destPath.substring(0, destPath.lastIndexOf("/"))).create(recursive: true);
+    //   } catch (_) { }
+    //
+    //   // Copy from asset
+    //   ByteData data = await rootBundle.load("assets/$srcDbName");
+    //   List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    //
+    //   // Write and flush the bytes written
+    //   await File(destPath).writeAsBytes(bytes, flush: true);
+    // } else {
+    //   Timber.i("Opening existing database");
+    // }
 
     return await $FloorFokedexDatabase
       .databaseBuilder("fokedex-database.db")
