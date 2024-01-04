@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 
 import 'injectable.dart';
 import 'ui/detail/pokemon_detail_screen.dart';
-import 'ui/detail/webview.dart';
 import 'ui/home/home_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -67,11 +66,6 @@ class MyApp extends StatelessWidget {
                 context.pop();
               },
             ),
-          ),
-          GoRoute(
-            path: '/webview',
-            name: WebViewScreen.routeName,
-            builder: (context, state) => WebViewScreen(param: state.extra as WebViewParam),
           ),
         ]
       ),
